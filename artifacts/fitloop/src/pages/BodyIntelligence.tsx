@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Brain, Camera, Upload, RefreshCw, CheckCircle2, AlertCircle,
-  Sparkles, ArrowRight, Ruler, Activity, Target, Shield,
-  ZoomIn, RotateCcw, Eye, Info, ChevronRight
+  Sparkles, Ruler, Info, Edit2, Check
 } from "lucide-react";
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts";
 
-const measurements = [
+type Measurement = { label: string; value: number; unit: string; status: "good" | "warn" };
+
+const defaultMeasurements: Measurement[] = [
   { label: "Chest", value: 38.5, unit: "in", status: "good" },
   { label: "Waist", value: 30.2, unit: "in", status: "good" },
   { label: "Hips", value: 40.0, unit: "in", status: "good" },
@@ -20,6 +21,55 @@ const measurements = [
   { label: "Rise", value: 10.5, unit: "in", status: "good" },
   { label: "Calf", value: 14.5, unit: "in", status: "good" },
 ];
+
+function EditableMeasurementCell({ m, onSave }: { m: Measurement; onSave: (val: number) => void }) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(String(m.value));
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => { if (editing) inputRef.current?.focus(); }, [editing]);
+  const commit = () => {
+    const n = parseFloat(draft);
+    if (!isNaN(n) && n > 0) onSave(n);
+    setEditing(false);
+  };
+  return (
+    <div
+      onClick={() => { if (!editing) { setDraft(String(m.value)); setEditing(true); } }}
+      className={`group relative p-2.5 rounded-lg border text-left w-full transition-all hover:shadow-sm cursor-pointer ${
+        m.status === "warn"
+          ? "border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 hover:border-amber-400"
+          : "border-border bg-muted/30 hover:border-blue-300 dark:hover:border-blue-700"
+      }`}
+    >
+      <div className="flex items-center justify-between mb-0.5">
+        <span className="text-[10px] text-muted-foreground">{m.label}</span>
+        <div className="flex items-center gap-1">
+          <Edit2 className="w-2.5 h-2.5 text-muted-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+          {m.status === "warn"
+            ? <AlertCircle className="w-3 h-3 text-amber-500" />
+            : <CheckCircle2 className="w-3 h-3 text-green-500" />}
+        </div>
+      </div>
+      {editing ? (
+        <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
+          <input
+            ref={inputRef}
+            value={draft}
+            onChange={e => setDraft(e.target.value)}
+            onKeyDown={e => { if (e.key === "Enter") commit(); if (e.key === "Escape") setEditing(false); }}
+            className="w-14 text-sm font-bold bg-background border border-primary rounded px-1 focus:outline-none"
+          />
+          <span className="text-[10px] text-muted-foreground">{m.unit}</span>
+          <div onClick={commit} className="w-4 h-4 rounded bg-green-500 flex items-center justify-center cursor-pointer">
+            <Check className="w-2.5 h-2.5 text-white" />
+          </div>
+        </div>
+      ) : (
+        <span className="text-sm font-bold text-foreground">{m.value} <span className="text-[10px] font-normal text-muted-foreground">{m.unit}</span></span>
+      )}
+    </div>
+  );
+}
 
 const radarData = [
   { metric: "Chest", value: 78 },
@@ -53,10 +103,15 @@ const mlFeedback = [
 ];
 
 export default function BodyIntelligence() {
+  const [measurements, setMeasurements] = useState<Measurement[]>(defaultMeasurements);
   const [scanning, setScanning] = useState(false);
   const [scanned, setScanned] = useState(true);
   const [scanStep, setScanStep] = useState(3);
   const [activeBodyType, setActiveBodyType] = useState("athletic");
+
+  const updateMeasurement = (label: string, value: number) => {
+    setMeasurements(prev => prev.map(m => m.label === label ? { ...m, value } : m));
+  };
 
   const startScan = () => {
     setScanning(true);
@@ -226,23 +281,21 @@ export default function BodyIntelligence() {
             </div>
           </div>
 
-          {/* Measurements grid */}
+          {/* Measurements grid — click any cell to edit */}
           <div className="bg-card border border-border rounded-xl p-4">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold text-foreground">Measurements</h3>
-              <button className="text-[11px] text-blue-600 dark:text-blue-400 font-medium hover:underline">Edit manually</button>
+              <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full flex items-center gap-1">
+                <Edit2 className="w-2.5 h-2.5" />Click any cell to edit
+              </span>
             </div>
             <div className="grid grid-cols-3 gap-2">
               {measurements.map(m => (
-                <div key={m.label} className={`p-2.5 rounded-lg border ${m.status === "warn" ? "border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20" : "border-border bg-muted/30"}`}>
-                  <div className="flex items-center justify-between mb-0.5">
-                    <span className="text-[10px] text-muted-foreground">{m.label}</span>
-                    {m.status === "warn"
-                      ? <AlertCircle className="w-3 h-3 text-amber-500" />
-                      : <CheckCircle2 className="w-3 h-3 text-green-500" />}
-                  </div>
-                  <span className="text-sm font-bold text-foreground">{m.value} <span className="text-[10px] font-normal text-muted-foreground">{m.unit}</span></span>
-                </div>
+                <EditableMeasurementCell
+                  key={m.label}
+                  m={m}
+                  onSave={val => updateMeasurement(m.label, val)}
+                />
               ))}
             </div>
           </div>
