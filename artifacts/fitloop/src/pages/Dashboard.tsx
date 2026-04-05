@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Link } from "wouter";
 import {
-  TrendingUp, TrendingDown, Users, Cpu, RefreshCw,
+  TrendingUp, Users, Cpu, RefreshCw,
   ShoppingBag, Sparkles, Zap, CheckCircle2, AlertCircle,
   Brain, Shirt, BookOpen, Wand2, ShoppingCart, ArrowRight,
-  Star, Package, BarChart3, Camera, MoreHorizontal
+  MoreHorizontal
 } from "lucide-react";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar
+  ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, Sector
 } from "recharts";
 
 const areaData = [
@@ -52,6 +52,25 @@ const statusLabels: Record<string, string> = {
   fit: "Perfect Fit", adjusted: "Adjusted", saved: "Return Saved", scan: "Body Scan", outfit: "Outfit Saved",
 };
 
+const renderActiveShape = (props: any) => {
+  const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent } = props;
+  return (
+    <g>
+      {/* Center text */}
+      <text x={cx} y={cy - 8} textAnchor="middle" fill={fill} fontSize={18} fontWeight={700}>
+        {(percent * 100).toFixed(0)}%
+      </text>
+      <text x={cx} y={cy + 10} textAnchor="middle" fill="hsl(var(--muted-foreground))" fontSize={9}>
+        {payload.name}
+      </text>
+      {/* Expanded active slice */}
+      <Sector cx={cx} cy={cy} innerRadius={innerRadius} outerRadius={outerRadius + 6} startAngle={startAngle} endAngle={endAngle} fill={fill} />
+      {/* Outer ring highlight */}
+      <Sector cx={cx} cy={cy} innerRadius={outerRadius + 9} outerRadius={outerRadius + 11} startAngle={startAngle} endAngle={endAngle} fill={fill} opacity={0.4} />
+    </g>
+  );
+};
+
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
@@ -85,6 +104,8 @@ const quickLinks = [
 
 export default function Dashboard() {
   const [period, setPeriod] = useState<"7d" | "30d" | "90d">("30d");
+  const [activePieIndex, setActivePieIndex] = useState(0);
+  const onPieEnter = useCallback((_: any, index: number) => setActivePieIndex(index), []);
 
   return (
     <div className="p-5 space-y-5 max-w-screen-2xl">
