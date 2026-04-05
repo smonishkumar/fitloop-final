@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "FITLOOP Dashboard"
+version = "1.0.0"
+id = "artifacts/fitloop"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23444
+
+[services.development]
+run = "pnpm --filter @workspace/fitloop run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/fitloop", "run", "build" ]
+publicDir = "artifacts/fitloop/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23444"
+BASE_PATH = "/"
