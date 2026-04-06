@@ -108,6 +108,9 @@ export default function BodyIntelligence() {
   const [scanned, setScanned] = useState(true);
   const [scanStep, setScanStep] = useState(3);
   const [activeBodyType, setActiveBodyType] = useState("athletic");
+  const [uploadedPhoto, setUploadedPhoto] = useState<string | null>(null);
+  const uploadFileRef = useRef<HTMLInputElement>(null);
+  const cameraRef = useRef<HTMLInputElement>(null);
 
   const updateMeasurement = (label: string, value: number) => {
     setMeasurements(prev => prev.map(m => m.label === label ? { ...m, value } : m));
@@ -126,8 +129,21 @@ export default function BodyIntelligence() {
     });
   };
 
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    setUploadedPhoto(url);
+    startScan();
+    e.target.value = "";
+  };
+
   return (
     <div className="p-5 max-w-screen-2xl">
+      {/* Hidden file inputs */}
+      <input ref={uploadFileRef} type="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
+      <input ref={cameraRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleFileSelect} />
+
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>
@@ -138,11 +154,11 @@ export default function BodyIntelligence() {
           <p className="text-xs text-muted-foreground">Real-time body analysis, measurements, and ML-powered fit predictions</p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-1.5 px-3 py-1.5 border border-border text-foreground rounded-lg text-xs font-medium hover:bg-muted transition-colors">
+          <button onClick={() => uploadFileRef.current?.click()} className="flex items-center gap-1.5 px-3 py-1.5 border border-border text-foreground rounded-lg text-xs font-medium hover:bg-muted transition-colors">
             <Upload className="w-3.5 h-3.5" /> Upload Photos
           </button>
           <button
-            onClick={startScan}
+            onClick={() => cameraRef.current?.click()}
             disabled={scanning}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors disabled:opacity-60"
           >
@@ -187,6 +203,15 @@ export default function BodyIntelligence() {
                     ))}
                   </div>
                 </div>
+              ) : uploadedPhoto ? (
+                <div className="relative flex flex-col items-center gap-2">
+                  <img src={uploadedPhoto} alt="Uploaded body scan" className="h-52 w-auto rounded-lg object-cover shadow ring-2 ring-blue-400/40" />
+                  {scanned && (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full">
+                      <CheckCircle2 className="w-2.5 h-2.5" />Scan Complete
+                    </span>
+                  )}
+                </div>
               ) : (
                 <div className="relative">
                   {/* Body SVG */}
@@ -225,10 +250,10 @@ export default function BodyIntelligence() {
             </div>
 
             <div className="p-3 flex gap-2">
-              <button onClick={startScan} disabled={scanning} className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 disabled:opacity-60 transition-colors">
+              <button onClick={() => cameraRef.current?.click()} disabled={scanning} className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 disabled:opacity-60 transition-colors">
                 <Camera className="w-3.5 h-3.5" />Camera Scan
               </button>
-              <button className="flex-1 flex items-center justify-center gap-1.5 py-2 border border-border text-muted-foreground rounded-lg text-xs font-medium hover:bg-muted transition-colors">
+              <button onClick={() => uploadFileRef.current?.click()} className="flex-1 flex items-center justify-center gap-1.5 py-2 border border-border text-muted-foreground rounded-lg text-xs font-medium hover:bg-muted transition-colors">
                 <Upload className="w-3.5 h-3.5" />Upload
               </button>
             </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   BookOpen, Upload, Camera, Search, Plus,
   CheckCircle2, Eye, Trash2, Grid3X3, List,
@@ -125,6 +125,18 @@ export default function WardrobeIntelligence() {
   const [showDuplicates, setShowDuplicates] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedItem, setSelectedItem] = useState<ClothingItem | null>(null);
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const uploadFileRef = useRef<HTMLInputElement>(null);
+  const cameraRef = useRef<HTMLInputElement>(null);
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    setUploadedImage(url);
+    runScan();
+    e.target.value = "";
+  };
 
   const runScan = () => {
     setScanning(true);
@@ -152,6 +164,10 @@ export default function WardrobeIntelligence() {
 
   return (
     <div className="p-5 max-w-screen-2xl">
+      {/* Hidden file inputs */}
+      <input ref={uploadFileRef} type="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
+      <input ref={cameraRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleFileSelect} />
+
       {selectedItem && (
         <ItemDetailPanel
           item={selectedItem}
@@ -170,10 +186,10 @@ export default function WardrobeIntelligence() {
           <p className="text-xs text-muted-foreground">AI-powered clothing detection, cataloging, and wardrobe analysis</p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-1.5 px-3 py-1.5 border border-border text-foreground rounded-lg text-xs font-medium hover:bg-muted transition-colors">
+          <button onClick={() => uploadFileRef.current?.click()} className="flex items-center gap-1.5 px-3 py-1.5 border border-border text-foreground rounded-lg text-xs font-medium hover:bg-muted transition-colors">
             <Upload className="w-3.5 h-3.5" />Upload Image
           </button>
-          <button onClick={runScan} disabled={scanning}
+          <button onClick={() => cameraRef.current?.click()} disabled={scanning}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-600 text-white rounded-lg text-xs font-medium hover:bg-amber-700 transition-colors disabled:opacity-60"
           >
             <Camera className="w-3.5 h-3.5" />
@@ -204,21 +220,25 @@ export default function WardrobeIntelligence() {
           <div className="bg-card border border-border rounded-xl p-4">
             <h3 className="text-sm font-semibold text-foreground mb-3">Wardrobe Scan</h3>
             <div className="h-32 rounded-lg bg-gradient-to-b from-amber-50/50 to-muted/30 dark:from-amber-900/10 border border-border flex items-center justify-center mb-3 relative overflow-hidden">
-              <div className="text-center">
-                <span className="text-3xl">👗👔👖</span>
-                <p className="text-xs text-muted-foreground mt-1.5">{items.length} items in wardrobe</p>
-                {scanned && (
-                  <span className="inline-flex items-center gap-1 text-[10px] font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full mt-1">
-                    <CheckCircle2 className="w-2.5 h-2.5" />Scan complete
-                  </span>
-                )}
-              </div>
+              {uploadedImage ? (
+                <img src={uploadedImage} alt="Uploaded clothing" className="h-full w-full object-cover rounded-lg" />
+              ) : (
+                <div className="text-center">
+                  <span className="text-3xl">👗👔👖</span>
+                  <p className="text-xs text-muted-foreground mt-1.5">{items.length} items in wardrobe</p>
+                </div>
+              )}
+              {scanned && (
+                <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 text-[10px] font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-2 py-0.5 rounded-full">
+                  <CheckCircle2 className="w-2.5 h-2.5" />Scan complete
+                </span>
+              )}
             </div>
             <div className="space-y-1.5">
-              <button onClick={runScan} disabled={scanning} className="w-full flex items-center justify-center gap-1.5 py-2 bg-amber-600 text-white rounded-lg text-xs font-medium hover:bg-amber-700 disabled:opacity-60 transition-colors">
+              <button onClick={() => cameraRef.current?.click()} disabled={scanning} className="w-full flex items-center justify-center gap-1.5 py-2 bg-amber-600 text-white rounded-lg text-xs font-medium hover:bg-amber-700 disabled:opacity-60 transition-colors">
                 <Camera className="w-3.5 h-3.5" />Scan via Camera
               </button>
-              <button className="w-full flex items-center justify-center gap-1.5 py-2 border border-border text-muted-foreground rounded-lg text-xs font-medium hover:bg-muted transition-colors">
+              <button onClick={() => uploadFileRef.current?.click()} className="w-full flex items-center justify-center gap-1.5 py-2 border border-border text-muted-foreground rounded-lg text-xs font-medium hover:bg-muted transition-colors">
                 <Upload className="w-3.5 h-3.5" />Upload Clothing Image
               </button>
             </div>
