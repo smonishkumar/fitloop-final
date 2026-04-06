@@ -237,24 +237,62 @@ export default function Dashboard() {
         {/* Fit distribution */}
         <div className="bg-card border border-border rounded-xl p-4">
           <h3 className="text-sm font-semibold text-foreground mb-1">Fit Distribution</h3>
-          <p className="text-xs text-muted-foreground mb-3">This month's sessions</p>
+          <p className="text-xs text-muted-foreground mb-3">Click a slice or legend to explore</p>
           <div className="flex justify-center">
-            <PieChart width={140} height={140}>
-              <Pie data={fitDist} cx={70} cy={70} innerRadius={40} outerRadius={65} paddingAngle={3} dataKey="value">
-                {fitDist.map((entry, i) => <Cell key={i} fill={entry.color} stroke="none" />)}
+            <PieChart width={180} height={180}>
+              <Pie
+                data={fitDist}
+                cx={90}
+                cy={90}
+                innerRadius={48}
+                outerRadius={72}
+                paddingAngle={3}
+                dataKey="value"
+                activeIndex={activePieIndex}
+                activeShape={renderActiveShape}
+                onMouseEnter={onPieEnter}
+                onClick={(_: any, index: number) => setActivePieIndex(index)}
+                style={{ cursor: "pointer", outline: "none" }}
+              >
+                {fitDist.map((entry, i) => (
+                  <Cell
+                    key={i}
+                    fill={entry.color}
+                    stroke="none"
+                    opacity={activePieIndex === i ? 1 : 0.55}
+                    style={{ transition: "opacity 0.2s" }}
+                  />
+                ))}
               </Pie>
             </PieChart>
           </div>
-          <div className="space-y-2 mt-2">
-            {fitDist.map(item => (
-              <div key={item.name} className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-sm" style={{ background: item.color }} />
-                  <span className="text-[11px] text-muted-foreground">{item.name}</span>
+          <div className="space-y-1.5 mt-1">
+            {fitDist.map((item, i) => {
+              const isActive = activePieIndex === i;
+              return (
+                <div
+                  key={item.name}
+                  onClick={() => setActivePieIndex(i)}
+                  className={`flex items-center justify-between px-2 py-1.5 rounded-lg cursor-pointer transition-all ${isActive ? "bg-accent" : "hover:bg-muted/50"}`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`w-2.5 h-2.5 rounded-sm transition-transform ${isActive ? "scale-125" : ""}`}
+                      style={{ background: item.color }}
+                    />
+                    <span className={`text-[11px] transition-colors ${isActive ? "font-semibold text-foreground" : "text-muted-foreground"}`}>
+                      {item.name}
+                    </span>
+                  </div>
+                  <span
+                    className={`text-[12px] font-bold transition-colors`}
+                    style={{ color: isActive ? item.color : undefined }}
+                  >
+                    {item.value}%
+                  </span>
                 </div>
-                <span className="text-[11px] font-semibold text-foreground">{item.value}%</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
