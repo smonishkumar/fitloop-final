@@ -172,7 +172,7 @@ export default function Dashboard() {
           { label: "Fit Accuracy", value: "96.2%", delta: "+2.1%", icon: Cpu, color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-50 dark:bg-violet-900/20" },
           { label: "Return Rate Reduction", value: "67%", delta: "+12%", icon: RefreshCw, color: "text-green-600 dark:text-green-400", bg: "bg-green-50 dark:bg-green-900/20" },
           { label: "Active Users", value: "48,291", delta: "+8.4%", icon: Users, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-900/20" },
-          { label: "Revenue Saved", value: "$2.4M", delta: "+$340K", icon: ShoppingBag, color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-900/20" },
+          { label: "Revenue Saved", value: "₹2.4Cr", delta: "+₹28L", icon: ShoppingBag, color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-900/20" },
         ].map(card => {
           const Icon = card.icon;
           return (

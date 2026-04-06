@@ -15,12 +15,12 @@ const brandSizeMap = [
 ];
 
 const productFeed = [
-  { id: 1, name: "Studio Slim Trousers", brand: "Zara", price: 69.99, fitScore: 96, match: "Perfect", category: "Bottoms", emoji: "👖", returnRisk: "low", size: "M", tags: ["New", "Trending"] },
-  { id: 2, name: "Oxford Linen Blend Shirt", brand: "Uniqlo", price: 39.99, fitScore: 94, match: "Excellent", category: "Tops", emoji: "👔", returnRisk: "low", size: "M", tags: ["Your Size"] },
-  { id: 3, name: "Oversized Blazer", brand: "& Other Stories", price: 149.99, fitScore: 82, match: "Good", category: "Outerwear", emoji: "🥼", returnRisk: "medium", size: "S/M", tags: ["Trending"] },
-  { id: 4, name: "Wide-Leg Trousers", brand: "Mango", price: 59.99, fitScore: 78, match: "Fair", category: "Bottoms", emoji: "👗", returnRisk: "high", size: "L", tags: ["Sale"] },
-  { id: 5, name: "Floral Wrap Dress", brand: "Zara", price: 79.99, fitScore: 97, match: "Perfect", category: "Dresses", emoji: "👗", returnRisk: "low", size: "M", tags: ["New", "Your Style"] },
-  { id: 6, name: "Classic Chino", brand: "H&M", price: 49.99, fitScore: 91, match: "Excellent", category: "Bottoms", emoji: "🩲", returnRisk: "low", size: "32W 30L", tags: [] },
+  { id: 1, name: "Studio Slim Trousers", brand: "Zara", price: 5799, fitScore: 96, match: "Perfect", category: "Bottoms", emoji: "👖", returnRisk: "low", size: "M", tags: ["New", "Trending"] },
+  { id: 2, name: "Oxford Linen Blend Shirt", brand: "Uniqlo", price: 3299, fitScore: 94, match: "Excellent", category: "Tops", emoji: "👔", returnRisk: "low", size: "M", tags: ["Your Size"] },
+  { id: 3, name: "Oversized Blazer", brand: "& Other Stories", price: 12499, fitScore: 82, match: "Good", category: "Outerwear", emoji: "🥼", returnRisk: "medium", size: "S/M", tags: ["Trending"] },
+  { id: 4, name: "Wide-Leg Trousers", brand: "Mango", price: 4999, fitScore: 78, match: "Fair", category: "Bottoms", emoji: "👗", returnRisk: "high", size: "L", tags: ["Sale"] },
+  { id: 5, name: "Floral Wrap Dress", brand: "Zara", price: 6699, fitScore: 97, match: "Perfect", category: "Dresses", emoji: "👗", returnRisk: "low", size: "M", tags: ["New", "Your Style"] },
+  { id: 6, name: "Classic Chino", brand: "H&M", price: 4199, fitScore: 91, match: "Excellent", category: "Bottoms", emoji: "🩲", returnRisk: "low", size: "32W 30L", tags: [] },
 ];
 
 const matchColors: Record<string, string> = {
@@ -247,7 +247,7 @@ export default function SmartShopping() {
                     <p className="text-[10px] text-muted-foreground mt-0.5">{p.brand} · Size {p.size}</p>
 
                     <div className="flex items-center justify-between mt-2">
-                      <span className="text-sm font-bold text-foreground">${p.price}</span>
+                      <span className="text-sm font-bold text-foreground">₹{p.price.toLocaleString('en-IN')}</span>
                       <span className={`text-[10px] font-medium ${riskColors[p.returnRisk]}`}>
                         {p.returnRisk === "low" ? "Low return risk" : p.returnRisk === "medium" ? "Med risk" : "High risk"}
                       </span>

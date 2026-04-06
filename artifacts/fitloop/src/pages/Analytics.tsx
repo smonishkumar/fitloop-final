@@ -113,7 +113,7 @@ export default function Analytics() {
         {[
           { label: "Total Try-On Sessions", value: "403K", change: "+22%", icon: Activity, up: true },
           { label: "Returns Prevented", value: "28.6K", change: "+31%", icon: RefreshCw, up: true },
-          { label: "Revenue Impact", value: "$2.4M", change: "+18%", icon: TrendingUp, up: true },
+          { label: "Revenue Impact", value: "₹2.4Cr", change: "+18%", icon: TrendingUp, up: true },
           { label: "Avg Return Rate", value: "9.8%", change: "-4.2%", icon: TrendingDown, up: false },
         ].map((kpi) => {
           const Icon = kpi.icon;

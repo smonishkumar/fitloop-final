@@ -50,7 +50,7 @@ export default function Settings() {
     webhooks: true,
     darkMode: false,
     language: "en",
-    currency: "USD",
+    currency: "INR",
   });
 
   const update = (key: string, value: any) => setSettings(s => ({ ...s, [key]: value }));
@@ -117,11 +117,11 @@ export default function Settings() {
                     </div>
                     <div>
                       <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Currency</label>
-                      <select className="h-9 px-3 w-full rounded-lg border border-border bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30">
+                      <select value={settings.currency} onChange={e => update("currency", e.target.value)} className="h-9 px-3 w-full rounded-lg border border-border bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30">
+                        <option value="INR">INR ₹</option>
                         <option value="USD">USD $</option>
                         <option value="EUR">EUR €</option>
                         <option value="GBP">GBP £</option>
-                        <option value="INR">INR ₹</option>
                       </select>
                     </div>
                   </div>
