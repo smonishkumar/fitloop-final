@@ -194,7 +194,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               )}
             </div>
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-400 to-purple-600 flex items-center justify-center cursor-pointer shadow-sm">
-              <span className="text-white text-[10px] font-bold">AD</span>
+              <span className="text-white text-[10px] font-bold">KK</span>
             </div>
           </div>
         </header>
