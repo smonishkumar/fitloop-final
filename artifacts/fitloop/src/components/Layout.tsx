@@ -125,7 +125,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
             {!collapsed && (
               <div className="flex-1 min-w-0">
-                <p className="text-[12px] font-semibold text-sidebar-foreground truncate">Admin User</p>
+                <p className="text-[12px] text-sidebar-foreground truncate font-extrabold">Kunal</p>
                 <p className="text-[10px] text-sidebar-foreground/35 truncate">admin@fitloop.ai</p>
               </div>
             )}
@@ -141,7 +141,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {collapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
         </button>
       </aside>
-
       {/* Main area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Topbar */}
