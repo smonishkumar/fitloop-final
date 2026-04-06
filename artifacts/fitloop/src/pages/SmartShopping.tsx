@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSettings } from "@/contexts/SettingsContext";
 import {
   ShoppingCart, Search, Star, CheckCircle2, AlertCircle,
   TrendingUp, ArrowRight, ExternalLink, Filter, Sparkles,
@@ -37,6 +38,7 @@ const riskColors: Record<string, string> = {
 };
 
 export default function SmartShopping() {
+  const { formatPrice } = useSettings();
   const [productUrl, setProductUrl] = useState("");
   const [checking, setChecking] = useState(false);
   const [fitResult, setFitResult] = useState<null | { score: number; size: string; risk: string; note: string }>(null);
@@ -247,7 +249,7 @@ export default function SmartShopping() {
                     <p className="text-[10px] text-muted-foreground mt-0.5">{p.brand} · Size {p.size}</p>
 
                     <div className="flex items-center justify-between mt-2">
-                      <span className="text-sm font-bold text-foreground">₹{p.price.toLocaleString('en-IN')}</span>
+                      <span className="text-sm font-bold text-foreground">{formatPrice(p.price)}</span>
                       <span className={`text-[10px] font-medium ${riskColors[p.returnRisk]}`}>
                         {p.returnRisk === "low" ? "Low return risk" : p.returnRisk === "medium" ? "Med risk" : "High risk"}
                       </span>

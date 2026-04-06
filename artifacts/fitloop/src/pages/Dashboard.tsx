@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useSettings } from "@/contexts/SettingsContext";
 import { Link } from "wouter";
 import {
   TrendingUp, Users, Cpu, RefreshCw,
@@ -106,6 +107,7 @@ export default function Dashboard() {
   const [period, setPeriod] = useState<"7d" | "30d" | "90d">("30d");
   const [activePieIndex, setActivePieIndex] = useState(0);
   const onPieEnter = useCallback((_: any, index: number) => setActivePieIndex(index), []);
+  const { formatLarge } = useSettings();
 
   return (
     <div className="p-5 space-y-5 max-w-screen-2xl">
@@ -172,7 +174,7 @@ export default function Dashboard() {
           { label: "Fit Accuracy", value: "96.2%", delta: "+2.1%", icon: Cpu, color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-50 dark:bg-violet-900/20" },
           { label: "Return Rate Reduction", value: "67%", delta: "+12%", icon: RefreshCw, color: "text-green-600 dark:text-green-400", bg: "bg-green-50 dark:bg-green-900/20" },
           { label: "Active Users", value: "48,291", delta: "+8.4%", icon: Users, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-900/20" },
-          { label: "Revenue Saved", value: "₹2.4Cr", delta: "+₹28L", icon: ShoppingBag, color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-900/20" },
+          { label: "Revenue Saved", value: formatLarge(2_40_00_000), delta: formatLarge(28_00_000, "+"), icon: ShoppingBag, color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-900/20" },
         ].map(card => {
           const Icon = card.icon;
           return (

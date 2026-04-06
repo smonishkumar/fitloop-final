@@ -1,9 +1,9 @@
 import { useState } from "react";
 import {
-  Settings as SettingsIcon, Bell, Shield, Cpu, Plug, Globe,
-  ChevronRight, Check, RefreshCw, Save, ToggleLeft, ToggleRight,
-  Sparkles, AlertCircle, Key, Webhook
+  Settings as SettingsIcon, Bell, Shield, Cpu, Plug,
+  RefreshCw, Save, Sparkles, AlertCircle, Key, CheckCircle2
 } from "lucide-react";
+import { useSettings } from "@/contexts/SettingsContext";
 
 const tabs = [
   { id: "general", label: "General", icon: SettingsIcon },
@@ -38,22 +38,14 @@ function Toggle({ on, onChange }: { on: boolean; onChange: (v: boolean) => void 
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState("general");
-  const [settings, setSettings] = useState({
-    fitThreshold: 85,
-    autoRecommend: true,
-    returnRiskAlerts: true,
-    lowStockAlerts: false,
-    mlAutoUpdate: true,
-    confidenceMin: 80,
-    bodyDataRetention: 30,
-    anonymizeData: true,
-    webhooks: true,
-    darkMode: false,
-    language: "en",
-    currency: "INR",
-  });
+  const [saved, setSaved] = useState(false);
+  const { settings, update, save, hasUnsaved } = useSettings();
 
-  const update = (key: string, value: any) => setSettings(s => ({ ...s, [key]: value }));
+  const handleSave = () => {
+    save();
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
+  };
 
   return (
     <div className="p-6 max-w-screen-2xl">
@@ -63,9 +55,18 @@ export default function Settings() {
           <h1 className="text-2xl font-bold text-foreground tracking-tight">Settings</h1>
           <p className="text-sm text-muted-foreground mt-0.5">Manage your FITLOOP workspace and ML engine</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm">
-          <Save className="w-3.5 h-3.5" />
-          Save Changes
+        <button
+          onClick={handleSave}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all shadow-sm ${
+            saved
+              ? "bg-green-600 text-white"
+              : hasUnsaved
+              ? "bg-primary text-primary-foreground hover:bg-primary/90 ring-2 ring-primary/30"
+              : "bg-primary text-primary-foreground hover:bg-primary/90"
+          }`}
+        >
+          {saved ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Save className="w-3.5 h-3.5" />}
+          {saved ? "Saved!" : hasUnsaved ? "Save Changes •" : "Save Changes"}
         </button>
       </div>
 

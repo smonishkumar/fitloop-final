@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSettings } from "@/contexts/SettingsContext";
 import {
   BarChart3, TrendingUp, TrendingDown, Users, Activity,
   Download, Calendar, RefreshCw, ArrowUpRight
@@ -71,6 +72,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 export default function Analytics() {
   const [period, setPeriod] = useState<"7d" | "30d" | "6m" | "1y">("6m");
   const [metric, setMetric] = useState<"users" | "tryOns" | "returns" | "saves">("tryOns");
+  const { formatLarge } = useSettings();
 
   const metricConfig = {
     users: { color: "#7c3aed", label: "Active Users" },
@@ -113,7 +115,7 @@ export default function Analytics() {
         {[
           { label: "Total Try-On Sessions", value: "403K", change: "+22%", icon: Activity, up: true },
           { label: "Returns Prevented", value: "28.6K", change: "+31%", icon: RefreshCw, up: true },
-          { label: "Revenue Impact", value: "₹2.4Cr", change: "+18%", icon: TrendingUp, up: true },
+          { label: "Revenue Impact", value: formatLarge(2_40_00_000), change: "+18%", icon: TrendingUp, up: true },
           { label: "Avg Return Rate", value: "9.8%", change: "-4.2%", icon: TrendingDown, up: false },
         ].map((kpi) => {
           const Icon = kpi.icon;
