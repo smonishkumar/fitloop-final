@@ -1,56 +1,101 @@
-const API_BASE_URL = 'http://localhost:8000';
+import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+const apiClient = axios.create({
+  baseURL: API_URL,
+  maxRedirects: 5,
+});
+
+// Add auth token request interceptor
+apiClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem('fitloop_auth_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export const authService = {
+  login: (credentials) => apiClient.post('/auth/login', credentials),
+  register: (data) => apiClient.post('/auth/register', data),
+  getMe: () => apiClient.get('/auth/me'),
+};
+
+export const productService = {
+  getProducts: (params) => apiClient.get('/products', { params }),
+  getProduct: (id) => apiClient.get(`/products/${id}`),
+};
+
+export const wardrobeService = {
+  getWardrobe: () => apiClient.get('/wardrobe'),
+  addToWardrobe: (item) => apiClient.post('/wardrobe', item),
+  removeFromWardrobe: (id) => apiClient.delete(`/wardrobe/${id}`),
+};
+
+export const measurementService = {
+  getLatest: (userId) => apiClient.get(`/measurements/${userId}`),
+  saveMeasurements: (data) => apiClient.post('/measurements', data),
+  scanBody: (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return apiClient.post('/measurements/scan', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+  }
+};
+
+export const fitScoreService = {
+  calculate: (itemId) => apiClient.post('/fitscore', { item_id: itemId }),
+};
+
+export const cartService = {
+  getCart: () => apiClient.get('/cart'),
+  addToCart: (item) => apiClient.post('/cart/add', item),
+  removeFromCart: (id) => apiClient.delete(`/cart/${id}`),
+};
+
+// Backward compatibility or generic export if needed
 const api = {
   fetchProducts: async () => {
-    const res = await fetch(`${API_BASE_URL}/products/`);
-    if (!res.ok) throw new Error('Failed to fetch products');
-    return res.json();
-  },
-
-  fetchOrders: async () => {
-    const res = await fetch(`${API_BASE_URL}/orders/`);
-    if (!res.ok) throw new Error('Failed to fetch orders');
-    return res.json();
-  },
-
-  fetchAnalyticsSummary: async () => {
-    const res = await fetch(`${API_BASE_URL}/analytics/summary`);
-    if (!res.ok) throw new Error('Failed to fetch analytics');
-    return res.json();
-  },
-
-  fetchWardrobe: async (user_id) => {
-    const res = await fetch(`${API_BASE_URL}/wardrobe/${user_id}`);
-    if (!res.ok) throw new Error('Failed to fetch wardrobe');
-    return res.json();
-  },
-
-  addToWardrobe: async (itemData) => {
-    const res = await fetch(`${API_BASE_URL}/wardrobe`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(itemData)
-    });
-    if (!res.ok) throw new Error('Failed to add wardrobe item');
-    return res.json();
-  },
-
-  fetchDashboardOverview: async () => {
-    const analytics = await api.fetchAnalyticsSummary();
-    return analytics;
-  },
-
-  generateRecommendations: async (user_id) => {
-    const res = await fetch(`${API_BASE_URL}/recommendations/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user_id })
-    });
-    if (!res.ok) {
-      const errorData = await res.json();
-      throw new Error(errorData.detail || 'Failed to generate recommendations');
+    try {
+      const res = await apiClient.get('/products');
+      return res.data || [];
+    } catch {
+      return [];
     }
-    return res.json();
+  },
+  fetchOrders: async () => {
+    try {
+      const res = await apiClient.get('/orders');
+      return res.data || [];
+    } catch {
+      return [];
+    }
+  },
+  fetchAnalyticsSummary: async () => {
+    try {
+      const res = await apiClient.get('/analytics/summary');
+      return res.data;
+    } catch {
+      return null;
+    }
+  },
+  fetchWardrobe: async () => {
+    try {
+      const res = await apiClient.get('/wardrobe');
+      return Array.isArray(res.data) ? res.data : [];
+    } catch {
+      return [];
+    }
+  },
+  fetchDashboardOverview: async () => {
+    try {
+      const res = await apiClient.get('/analytics/summary');
+      return res.data;
+    } catch {
+      return null;
+    }
   }
 };
 

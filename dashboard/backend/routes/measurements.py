@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from schemas.measurement import MeasurementCreate, MeasurementResponse
 from routes.auth import get_current_user
 from database import measurements_collection
+import uuid
 from datetime import datetime, timezone
 
 router = APIRouter(prefix="/measurements", tags=["Measurements"])
@@ -12,6 +13,31 @@ async def save_measurements(measurement: MeasurementCreate, current_user: dict =
     meas_dict["user_id"] = current_user["id"]
     meas_dict["confidence_score"] = 95.0  # Placeholder confidence
     meas_dict["timestamp"] = datetime.now(timezone.utc)
+    
+    result = await measurements_collection.insert_one(meas_dict)
+    meas_dict["id"] = str(result.inserted_id)
+    
+    return meas_dict
+
+@router.post("/scan", response_model=MeasurementResponse)
+async def scan_body(file: UploadFile = File(...), current_user: dict = Depends(get_current_user)):
+    # Mock AI Processing delay
+    # In a real app, this would process the image/video
+    
+    mock_id = str(uuid.uuid4())
+    
+    # Standard athletic build mock data
+    meas_dict = {
+        "user_id": current_user["id"],
+        "height": 182.0,
+        "weight": 75.0,
+        "chest": 102.0,
+        "waist": 82.0,
+        "hip": 98.0,
+        "shoulder": 46.0,
+        "confidence_score": 98.5,
+        "timestamp": datetime.now(timezone.utc)
+    }
     
     result = await measurements_collection.insert_one(meas_dict)
     meas_dict["id"] = str(result.inserted_id)

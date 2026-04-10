@@ -8,8 +8,6 @@ const Sidebar = () => {
     { name: 'My Wardrobe', icon: 'checkroom', path: '/wardrobe' },
     { name: 'Outfit Planner', icon: 'auto_fix_high', path: '/outfit-engine' },
     { name: 'Shop', icon: 'shopping_bag', path: '/smart-shopping' },
-    { name: 'Try-On', icon: 'accessibility_new', path: '/virtual-try-on' },
-    { name: 'Catalog', icon: 'inventory_2', path: '/products' },
     { name: 'Orders', icon: 'receipt_long', path: '/orders' },
     { name: 'Analytics', icon: 'leaderboard', path: '/analytics' },
   ];

@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const { logout, user } = useAuth();
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
   const [showNotifications, setShowNotifications] = useState(false);
   const notificationRef = useRef(null);
 
@@ -81,6 +83,16 @@ const Header = () => {
           
           <div className="relative" ref={notificationRef}>
             <button 
+              onClick={() => navigate('/cart')}
+              className="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant/60 hover:text-primary hover:bg-surface-container-high active:scale-95 transition-all group relative"
+              title="Shopping Cart"
+            >
+              <span className="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">shopping_cart</span>
+            </button>
+          </div>
+          
+          <div className="relative" ref={notificationRef}>
+            <button 
               onClick={() => setShowNotifications(!showNotifications)}
               className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all relative group active:scale-95 ${showNotifications ? 'text-primary bg-primary/10' : 'text-on-surface-variant/60 hover:text-primary hover:bg-surface-container-high'}`}
             >
@@ -125,7 +137,7 @@ const Header = () => {
         
         <div className="flex items-center gap-5 cursor-pointer group relative">
           <div className="text-right">
-            <p className="text-sm font-bold text-zinc-900 leading-none">{user?.name || 'Alex Rivera'}</p>
+            <p className="text-sm font-bold text-zinc-900 leading-none">{user?.name || 'XYZ'}</p>
             <p className="text-[10px] text-zinc-500 font-semibold uppercase tracking-widest mt-1">{user?.role || 'Pro Plan'}</p>
           </div>
           <div className="relative">

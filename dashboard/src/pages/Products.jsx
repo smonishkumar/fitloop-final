@@ -1,32 +1,57 @@
 import React, { useState, useEffect } from 'react';
+import { productService, cartService, wardrobeService } from '../services/api';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [addingToWardrobe, setAddingToWardrobe] = useState(null);
 
+  const [addingToCart, setAddingToCart] = useState(null);
+
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        // Fetching from local humanized catalog
-        const res = await fetch('/data/catalog.json');
-        const data = await res.json();
-        setProducts(data);
+        const res = await productService.getProducts();
+        setProducts(res.data || []);
       } catch (err) {
         console.error('Failed to load products:', err);
       } finally {
-        setTimeout(() => setLoading(false), 800); // Artificial delay for skeleton demo
+        setLoading(false);
       }
     };
     loadProducts();
   }, []);
 
-  const handleAddToWardrobe = (id) => {
-    setAddingToWardrobe(id);
-    setTimeout(() => {
+  const handleAddToWardrobe = async (product) => {
+    try {
+      setAddingToWardrobe(product.id);
+      await wardrobeService.addToWardrobe(product);
+      alert('Added to Wardrobe!');
+    } catch (err) {
+      console.error('Failed to add to wardrobe', err);
+    } finally {
       setAddingToWardrobe(null);
-      // Actual API call to backend could go here
-    }, 1000);
+    }
+  };
+
+  const handleAddToCart = async (product) => {
+    try {
+      setAddingToCart(product.id);
+      await cartService.addToCart({
+        product_id: product._id || product.id,
+        name: product.name,
+        price: product.price,
+        category: product.category,
+        image_url: product.image_url,
+        quantity: 1,
+        size: 'M'
+      });
+      alert('Added to Cart!');
+    } catch (err) {
+      console.error('Failed to add to cart', err);
+    } finally {
+      setAddingToCart(null);
+    }
   };
 
   if (loading) {
@@ -98,27 +123,50 @@ const Products = () => {
               </div>
               <p className="text-zinc-500 text-sm mb-6">{p.category}</p>
               
-              <button 
-                onClick={() => handleAddToWardrobe(p.id)}
-                disabled={addingToWardrobe === p.id}
-                className={`mt-auto w-full py-3 rounded-lg font-bold text-xs uppercase tracking-widest transition-all overflow-hidden relative flex items-center justify-center gap-2 ${
-                  addingToWardrobe === p.id 
-                    ? 'bg-secondary text-white' 
-                    : 'bg-zinc-900 text-white hover:bg-zinc-800'
-                }`}
-              >
-                {addingToWardrobe === p.id ? (
-                  <>
-                    <span className="material-symbols-outlined text-lg animate-spin">refresh</span>
-                    <span>Syncing...</span>
-                  </>
-                ) : (
-                  <>
-                    <span className="material-symbols-outlined text-lg">add_circle</span>
-                    <span>Add to Wardrobe</span>
-                  </>
-                )}
-              </button>
+              <div className="mt-auto grid grid-cols-2 gap-2 w-full">
+                <button 
+                  onClick={() => handleAddToWardrobe(p)}
+                  disabled={addingToWardrobe === p.id}
+                  className={`py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest transition-all overflow-hidden flex items-center justify-center gap-1 ${
+                    addingToWardrobe === p.id 
+                      ? 'bg-secondary text-white' 
+                      : 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200'
+                  }`}
+                >
+                  {addingToWardrobe === p.id ? (
+                    <>
+                      <span className="material-symbols-outlined text-sm animate-spin">refresh</span>
+                      <span>Syncing</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="material-symbols-outlined text-sm">favorite</span>
+                      <span>Wardrobe</span>
+                    </>
+                  )}
+                </button>
+                <button 
+                  onClick={() => handleAddToCart(p)}
+                  disabled={addingToCart === p.id}
+                  className={`py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest transition-all overflow-hidden flex items-center justify-center gap-1 ${
+                    addingToCart === p.id 
+                      ? 'bg-primary text-white' 
+                      : 'bg-zinc-900 text-white hover:bg-zinc-800'
+                  }`}
+                >
+                  {addingToCart === p.id ? (
+                    <>
+                      <span className="material-symbols-outlined text-sm animate-spin">refresh</span>
+                      <span>Adding</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="material-symbols-outlined text-sm">shopping_cart</span>
+                      <span>Cart</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         ))}

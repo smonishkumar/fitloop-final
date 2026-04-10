@@ -10,11 +10,10 @@ import BodyIntelligence from './pages/BodyIntelligence';
 import Wardrobe from './pages/Wardrobe';
 import OutfitEngine from './pages/OutfitEngine';
 import SmartShopping from './pages/SmartShopping';
-import VirtualTryOn from './pages/VirtualTryOn';
-import Products from './pages/Products';
 import Orders from './pages/Orders';
 import Settings from './pages/Settings';
 import Support from './pages/Support';
+import Cart from './pages/Cart';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -43,8 +42,7 @@ function App() {
               <Route path="wardrobe" element={<Wardrobe />} />
               <Route path="outfit-engine" element={<OutfitEngine />} />
               <Route path="smart-shopping" element={<SmartShopping />} />
-              <Route path="virtual-try-on" element={<VirtualTryOn />} />
-              <Route path="products" element={<Products />} />
+              <Route path="cart" element={<Cart />} />
               <Route path="orders" element={<Orders />} />
               <Route path="settings" element={<Settings />} />
               <Route path="support" element={<Support />} />
