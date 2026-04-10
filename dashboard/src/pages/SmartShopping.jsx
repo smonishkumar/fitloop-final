@@ -38,7 +38,7 @@ const SmartShopping = () => {
             
             <div className="flex flex-col sm:flex-row gap-3 p-1.5 bg-surface-container-highest/20 rounded-xl border border-outline-variant/10">
               <input 
-                className="flex-1 bg-transparent border-none rounded-lg px-5 py-4 text-xs font-bold focus:ring-0 outline-none text-on-surface placeholder:text-on-surface-variant/40 uppercase tracking-widest" 
+                className="flex-1 bg-transparent border-none rounded-lg px-5 py-4 text-[14px] font-bold focus:ring-0 outline-none text-on-surface placeholder:text-on-surface-variant/40 uppercase tracking-widest" 
                 placeholder="https://retailer.link/item/..." 
                 type="text"
                 value={productUrl}
@@ -56,7 +56,7 @@ const SmartShopping = () => {
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">Analyze Fit</span>
+                    <span className="text-[12px] font-black uppercase tracking-[0.2em]">Analyze Fit</span>
                     <span className="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">scan</span>
                   </span>
                 )}
@@ -73,7 +73,7 @@ const SmartShopping = () => {
                 )}
                 <span className="text-6xl font-headline font-black text-secondary tracking-tighter">{score || '--'}</span>
               </div>
-              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-on-surface-variant/80">{analyzing ? 'Scanning Dimensions' : score ? 'Synthesis Complete' : 'Awaiting Data'}</p>
+              <p className="text-[11px] font-black uppercase tracking-[0.2em] text-on-surface-variant/80">{analyzing ? 'Scanning Dimensions' : score ? 'Synthesis Complete' : 'Awaiting Data'}</p>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@ const SmartShopping = () => {
         ].map((stat, i) => (
           <div key={i} className="glass-card p-8 flex items-center justify-between group shadow-premium hover:shadow-premium-hover transition-all">
             <div className="space-y-1">
-              <p className="text-[9px] font-black text-on-surface-variant uppercase tracking-[0.2em]">{stat.label}</p>
+              <p className="text-[11px] font-black text-on-surface-variant uppercase tracking-[0.2em]">{stat.label}</p>
               <h3 className={`text-3xl font-headline font-bold text-${stat.color}`}>{stat.val}</h3>
             </div>
             <div className={`w-12 h-12 bg-${stat.color}/10 rounded-lg flex items-center justify-center border border-${stat.color}/20 group-hover:scale-110 transition-transform`}>
@@ -103,7 +103,7 @@ const SmartShopping = () => {
         <section className="lg:col-span-4 space-y-8">
           <div className="glass-card p-10 shadow-premium sticky top-28 border-primary/10">
             <div className="flex items-center justify-between mb-10">
-              <h3 className="text-[12px] font-black uppercase tracking-[0.25em] text-on-surface-variant">Retailer Mapping</h3>
+              <h3 className="text-[14px] font-black uppercase tracking-[0.25em] text-on-surface-variant">Retailer Mapping</h3>
               <span className="material-symbols-outlined text-primary text-xl">hub</span>
             </div>
             <div className="space-y-8">
@@ -121,14 +121,14 @@ const SmartShopping = () => {
                   <div className="h-1.5 bg-surface-container-highest/40 rounded-full overflow-hidden border border-white/5">
                     <div className={`h-full bg-gradient-to-r from-${b.color} to-${b.color}-dim shadow-[0_0_8px_rgba(255,255,255,0.1)]`} style={{ width: `${b.match}%` }}></div>
                   </div>
-                  <p className="text-[9px] font-bold text-on-surface-variant uppercase tracking-wider">
+                  <p className="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">
                     {b.color === 'error' ? 'Warning: ' : 'Rec: '}
                     <span className={`${b.color === 'error' ? 'text-error' : 'text-on-surface'}`}>{b.rec}</span>
                   </p>
                 </div>
               ))}
             </div>
-            <button className="btn-secondary w-full mt-10 !py-3.5 !text-[10px] uppercase tracking-[0.2em] font-black">
+            <button className="btn-secondary w-full mt-10 !py-3.5 !text-[12px] uppercase tracking-[0.2em] font-black">
               View All 42 Identifiers
             </button>
           </div>

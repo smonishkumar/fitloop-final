@@ -42,11 +42,11 @@ const Dashboard = () => {
               <p className="text-on-surface-variant mt-1.5 text-sm">Real-time fit synthesis and algorithmic performance metrics.</p>
             </div>
             <div className="bg-surface-container-highest/60 rounded-lg px-4 py-2 flex items-center gap-3 border border-outline-variant/10">
-              <span className="text-secondary flex items-center gap-1 font-bold text-sm">
-                <span className="material-symbols-outlined text-[16px]">trending_up</span>
+              <span className="text-secondary flex items-center gap-1 font-bold text-base">
+                <span className="material-symbols-outlined text-[18px]">trending_up</span>
                 +12.4%
               </span>
-              <span className="text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">vs last month</span>
+              <span className="text-on-surface-variant text-[12px] font-bold uppercase tracking-wider">vs last month</span>
             </div>
           </div>
           
@@ -55,11 +55,11 @@ const Dashboard = () => {
             <div className="glass-card p-8 flex flex-col justify-between relative group shadow-premium hover:shadow-premium-hover transition-all duration-300">
               <div className="absolute -right-6 -top-6 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all"></div>
               <div>
-                <p className="text-on-surface-variant text-[10px] font-bold uppercase tracking-[0.15em] mb-3">Dominant Size</p>
+                <p className="text-on-surface-variant text-[12px] font-bold uppercase tracking-[0.15em] mb-3">Dominant Size</p>
                 <h3 className="text-4xl font-headline font-bold text-primary">M-Reg</h3>
               </div>
               <div className="flex items-center gap-2 mt-6">
-                <span className="px-2.5 py-1 bg-primary/10 text-primary rounded-full text-[10px] font-bold uppercase tracking-wider">High Frequency</span>
+                <span className="px-2.5 py-1 bg-primary/10 text-primary rounded-full text-[12px] font-bold uppercase tracking-wider">High Frequency</span>
               </div>
             </div>
             
@@ -67,11 +67,11 @@ const Dashboard = () => {
             <div className="glass-card p-8 flex flex-col justify-between relative group shadow-premium hover:shadow-premium-hover transition-all duration-300">
               <div className="absolute -right-6 -top-6 w-24 h-24 bg-secondary/10 rounded-full blur-2xl group-hover:bg-secondary/20 transition-all"></div>
               <div>
-                <p className="text-on-surface-variant text-[10px] font-bold uppercase tracking-[0.15em] mb-3">Body Archetype</p>
+                <p className="text-on-surface-variant text-[12px] font-bold uppercase tracking-[0.15em] mb-3">Body Archetype</p>
                 <h3 className="text-4xl font-headline font-bold text-secondary">Athletic</h3>
               </div>
-              <div className="flex items-center gap-2 mt-6 text-[11px] font-semibold text-on-surface-variant">
-                <span className="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+              <div className="flex items-center gap-2 mt-6 text-[13px] font-semibold text-on-surface-variant">
+                <span className="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
                 Optimized for Taper
               </div>
             </div>
@@ -80,7 +80,7 @@ const Dashboard = () => {
             <div className="glass-card p-8 flex flex-col justify-between relative group shadow-premium hover:shadow-premium-hover transition-all duration-300">
               <div className="absolute -right-6 -top-6 w-24 h-24 bg-tertiary/10 rounded-full blur-2xl group-hover:bg-tertiary/20 transition-all"></div>
               <div>
-                <p className="text-on-surface-variant text-[10px] font-bold uppercase tracking-[0.15em] mb-3">Confidence</p>
+                <p className="text-on-surface-variant text-[12px] font-bold uppercase tracking-[0.15em] mb-3">Confidence</p>
                 <h3 className="text-4xl font-headline font-bold text-tertiary">95%</h3>
               </div>
               <div className="w-full bg-surface-container-highest/50 h-1.5 rounded-full mt-8 overflow-hidden">
@@ -107,11 +107,11 @@ const Dashboard = () => {
                   <span className="material-symbols-outlined text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>{link.icon}</span>
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold">{link.label}</h4>
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant mt-0.5">{link.sub}</p>
+                  <h4 className="text-base font-bold">{link.label}</h4>
+                  <p className="text-[12px] font-bold uppercase tracking-wider text-on-surface-variant mt-0.5">{link.sub}</p>
                 </div>
               </div>
-              <span className="material-symbols-outlined text-sm text-on-surface-variant group-hover:text-on-surface group-hover:translate-x-1 transition-all">chevron_right</span>
+              <span className="material-symbols-outlined text-base text-on-surface-variant group-hover:text-on-surface group-hover:translate-x-1 transition-all">chevron_right</span>
             </div>
           ))}
         </div>
@@ -129,11 +129,11 @@ const Dashboard = () => {
           ]).map((metric) => (
             <div key={metric.label} className="glass-card !bg-surface-container-highest/20 p-6 flex flex-col justify-between border-none shadow-premium transition-all hover:scale-[1.02]">
               <div>
-                <p className="text-[10px] text-on-surface-variant font-bold uppercase tracking-[0.2em] mb-2">{metric.label}</p>
+                <p className="text-[12px] text-on-surface-variant font-bold uppercase tracking-[0.2em] mb-2">{metric.label}</p>
                 <p className="text-3xl font-headline font-bold text-on-surface">{metric.value}</p>
               </div>
-              <p className={`text-${metric.color} text-[10px] font-bold mt-4 flex items-center gap-1.5 uppercase tracking-wider`}>
-                <span className="material-symbols-outlined text-sm">{metric.icon}</span>
+              <p className={`text-${metric.color} text-[12px] font-bold mt-4 flex items-center gap-1.5 uppercase tracking-wider`}>
+                <span className="material-symbols-outlined text-base">{metric.icon}</span>
                 {metric.change}
               </p>
             </div>
@@ -143,9 +143,9 @@ const Dashboard = () => {
         {/* Middle: Performance Trends Line Chart */}
         <div className="lg:col-span-5 glass-card p-8 shadow-premium">
           <div className="flex items-center justify-between mb-8">
-            <h3 className="text-sm font-bold uppercase tracking-[0.1em] text-on-surface-variant">Performance Trends</h3>
+            <h3 className="text-base font-bold uppercase tracking-[0.1em] text-on-surface-variant">Performance Trends</h3>
             <select 
-              className="bg-surface-container-highest/40 border-none text-[10px] font-bold uppercase tracking-wider rounded-lg px-3 py-1.5 focus:ring-0 cursor-pointer text-on-surface-variant hover:text-on-surface transition-colors"
+              className="bg-surface-container-highest/40 border-none text-[12px] font-bold uppercase tracking-wider rounded-lg px-3 py-1.5 focus:ring-0 cursor-pointer text-on-surface-variant hover:text-on-surface transition-colors"
               value={trendRange}
               onChange={(e) => setTrendRange(e.target.value)}
             >
@@ -170,14 +170,14 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-          <div className="flex justify-between mt-4 text-[10px] text-on-surface-variant font-bold uppercase tracking-widest px-1">
+          <div className="flex justify-between mt-4 text-[12px] text-on-surface-variant font-bold uppercase tracking-widest px-1">
             {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => <span key={day}>{day}</span>)}
           </div>
         </div>
 
         {/* Right: Body Type Distribution Donut */}
         <div className="lg:col-span-3 glass-card p-8 flex flex-col items-center shadow-premium">
-          <h3 className="text-sm font-bold uppercase tracking-[0.1em] text-on-surface-variant self-start mb-8">Distribution</h3>
+          <h3 className="text-base font-bold uppercase tracking-[0.1em] text-on-surface-variant self-start mb-8">Distribution</h3>
           <div className="relative w-32 h-32">
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
               <circle cx="18" cy="18" fill="transparent" r="15.915" stroke="rgba(255,255,255,0.03)" strokeWidth="3.5"></circle>
@@ -187,7 +187,7 @@ const Dashboard = () => {
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-2xl font-bold font-headline text-on-surface">AI</span>
-              <span className="text-[8px] uppercase font-bold text-on-surface-variant tracking-widest">Index</span>
+              <span className="text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Index</span>
             </div>
           </div>
           <div className="grid grid-cols-1 gap-3 mt-8 w-full px-2">
@@ -196,7 +196,7 @@ const Dashboard = () => {
               { label: 'Slim', value: '30%', color: 'primary' },
               { label: 'Husky', value: '25%', color: 'tertiary' },
             ].map(item => (
-              <div key={item.label} className="flex items-center justify-between text-[11px]">
+              <div key={item.label} className="flex items-center justify-between text-[13px]">
                 <div className="flex items-center gap-2.5">
                   <div className={`w-2 h-2 rounded-full bg-${item.color} shadow-[0_0_8px_rgba(0,0,0,0.5)]`}></div>
                   <span className="font-bold text-on-surface-variant uppercase tracking-wider">{item.label}</span>
@@ -213,7 +213,7 @@ const Dashboard = () => {
         <div className="lg:col-span-7 glass-card p-10 shadow-premium">
           <div className="flex items-center justify-between mb-10">
             <h3 className="text-xl font-bold font-headline">Recent Processing</h3>
-            <button className="text-primary text-xs font-bold uppercase tracking-widest hover:underline px-2 py-1" onClick={() => navigate('/analytics')}>View Records</button>
+            <button className="text-primary text-[14px] font-bold uppercase tracking-widest hover:underline px-2 py-1" onClick={() => navigate('/analytics')}>View Records</button>
           </div>
           <div className="space-y-4">
             {[
@@ -250,12 +250,12 @@ const Dashboard = () => {
                   <img className="w-full h-full object-cover" src={activity.img} alt={activity.name} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-bold text-on-surface truncate">{activity.action}: {activity.name}</p>
-                  <p className="text-[11px] text-on-surface-variant truncate mt-0.5">{activity.details}</p>
+                  <p className="text-[15px] font-bold text-on-surface truncate">{activity.action}: {activity.name}</p>
+                  <p className="text-[13px] text-on-surface-variant truncate mt-0.5">{activity.details}</p>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className={`text-[11px] font-bold text-${activity.color === 'primary' ? 'secondary' : 'tertiary'} uppercase tracking-wider`}>{activity.match}</p>
-                  <p className="text-[9px] text-on-surface-variant uppercase font-bold mt-1 tracking-widest">{activity.time}</p>
+                  <p className={`text-[13px] font-bold text-${activity.color === 'primary' ? 'secondary' : 'tertiary'} uppercase tracking-wider`}>{activity.match}</p>
+                  <p className="text-[11px] text-on-surface-variant uppercase font-bold mt-1 tracking-widest">{activity.time}</p>
                 </div>
               </div>
             ))}
@@ -266,9 +266,9 @@ const Dashboard = () => {
         <div className="lg:col-span-5 glass-card bg-gradient-to-br from-primary-container/10 via-surface-container-highest/40 to-surface-container-highest p-10 flex flex-col justify-between group overflow-hidden relative shadow-premium border-primary/10">
           <div className="absolute -right-16 -bottom-16 w-80 h-80 bg-primary/10 rounded-full blur-[100px] group-hover:bg-primary/20 transition-all"></div>
           <div>
-            <span className="bg-primary/20 text-primary text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-[0.2em] mb-8 inline-block shadow-inner">Intelligence Pro</span>
+            <span className="bg-primary/20 text-primary text-[12px] font-bold px-3 py-1.5 rounded-full uppercase tracking-[0.2em] mb-8 inline-block shadow-inner">Intelligence Pro</span>
             <h3 className="text-4xl font-headline font-bold mb-4 leading-tight tracking-tight text-on-surface">Master the <br/>Virtual Runway.</h3>
-            <p className="text-on-surface-variant text-sm max-w-xs leading-relaxed">Unlock real-time fabric physics simulation for a 100% accurate virtual try-on experience with biometric precision.</p>
+            <p className="text-on-surface-variant text-base max-w-xs leading-relaxed">Unlock real-time fabric physics simulation for a 100% accurate virtual try-on experience with biometric precision.</p>
           </div>
           <div className="mt-12">
             <button 

@@ -60,14 +60,14 @@ const OutfitEngine = () => {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
           <h1 className="text-3xl font-bold font-headline tracking-tight text-on-surface">Outfit Engine</h1>
-          <p className="text-on-surface-variant mt-2 text-sm leading-relaxed">AI-powered composition based on your Body Intelligence profile.</p>
+          <p className="text-on-surface-variant mt-2 text-base leading-relaxed">AI-powered composition based on your Body Intelligence profile.</p>
         </div>
         <div className="flex gap-3 shrink-0">
-          <button className="btn-secondary !py-2.5 !px-5 !text-[11px] uppercase tracking-widest">
+          <button className="btn-secondary !py-2.5 !px-5 !text-[13px] uppercase tracking-widest">
             <span className="material-symbols-outlined text-lg">tune</span> Filters
           </button>
           <button 
-            className="btn-primary !py-2.5 !px-6 !text-[11px] uppercase tracking-widest"
+            className="btn-primary !py-2.5 !px-6 !text-[13px] uppercase tracking-widest"
             onClick={handleGenerate}
           >
             <span className="material-symbols-outlined text-lg">magic_button</span> Generate Compositions
@@ -93,14 +93,14 @@ const OutfitEngine = () => {
                 <button 
                   key={occasion.name}
                   onClick={() => setActiveOccasion(occasion.name)}
-                  className={`w-full flex items-center justify-between px-5 py-3.5 rounded-lg text-[11px] transition-all uppercase tracking-widest font-black ${
+                  className={`w-full flex items-center justify-between px-5 py-3.5 rounded-lg text-[13px] transition-all uppercase tracking-widest font-black ${
                     activeOccasion === occasion.name 
                       ? 'bg-primary/20 text-primary border border-primary/20 shadow-inner' 
                       : 'text-on-surface-variant hover:bg-surface-container-highest/30 border border-transparent'
                   }`}
                 >
                   <span>{occasion.name}</span>
-                  <span className="text-[9px] opacity-60 font-black">{occasion.count}</span>
+                  <span className="text-[11px] opacity-60 font-black">{occasion.count}</span>
                 </button>
               ))}
             </div>
@@ -139,8 +139,8 @@ const OutfitEngine = () => {
                     <span className="material-symbols-outlined text-lg text-tertiary">trending_up</span>
                   </div>
                   <div>
-                    <p className="text-[9px] text-on-surface-variant uppercase font-black tracking-[0.2em] mb-1">Projected Score</p>
-                    <p className="text-sm font-black text-on-surface">92.4 <span className="text-[10px] text-tertiary opacity-80">/ 100</span></p>
+                    <p className="text-[11px] text-on-surface-variant uppercase font-black tracking-[0.2em] mb-1">Projected Score</p>
+                    <p className="text-base font-black text-on-surface">92.4 <span className="text-[12px] text-tertiary opacity-80">/ 100</span></p>
                   </div>
                 </div>
               </div>
@@ -169,7 +169,7 @@ const OutfitEngine = () => {
                 </div>
                 <div className="text-center">
                   <h4 className="font-headline font-bold text-lg text-on-surface underline decoration-primary/30 decoration-2 underline-offset-8">AI Persona Alignment</h4>
-                  <p className="text-[13px] text-on-surface-variant px-6 mt-6 leading-relaxed">Synthesized using 32 biometric anchors and your <span className="text-primary font-bold">Inverted Triangle</span> profile.</p>
+                  <p className="text-base text-on-surface-variant px-6 mt-6 leading-relaxed">Synthesized using 32 biometric anchors and your <span className="text-primary font-bold">Inverted Triangle</span> profile.</p>
                 </div>
               </div>
               
@@ -238,10 +238,10 @@ const OutfitEngine = () => {
                   <div className="mt-8 flex items-center justify-between border-t border-outline-variant/10 pt-6">
                     <div className="flex -space-x-3">
                       {[1, 2, 3].map(v => (
-                        <div key={v} className="w-9 h-9 rounded-full border-2 border-surface-container-highest bg-surface-container-highest/60 backdrop-blur-md flex items-center justify-center text-[9px] font-black text-on-surface-variant">+ {v}</div>
+                        <div key={v} className="w-9 h-9 rounded-full border-2 border-surface-container-highest bg-surface-container-highest/60 backdrop-blur-md flex items-center justify-center text-[11px] font-black text-on-surface-variant">+ {v}</div>
                       ))}
                     </div>
-                    <button className="text-primary font-black text-[10px] uppercase tracking-widest flex items-center gap-1.5 hover:underline transition-all group/btn">
+                    <button className="text-primary font-black text-[12px] uppercase tracking-widest flex items-center gap-1.5 hover:underline transition-all group/btn">
                       View Full Analysis <span className="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
                     </button>
                   </div>

@@ -5,7 +5,7 @@ import Header from './Header';
 
 const Layout = () => {
   return (
-    <div className="flex h-screen bg-[#060c1d] selection:bg-primary/20 overflow-hidden">
+    <div className="flex h-screen bg-background selection:bg-primary/20 overflow-hidden text-on-background">
       <Sidebar />
       <div className="flex-1 lg:ml-72 flex flex-col min-w-0 relative">
         <Header />

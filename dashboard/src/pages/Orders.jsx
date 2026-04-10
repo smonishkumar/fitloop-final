@@ -39,10 +39,10 @@ const Orders = () => {
           <p className="text-on-surface-variant text-sm font-bold uppercase tracking-[0.2em] mt-6 leading-relaxed">Synthesis of fulfillment nodes, biometric fit indexes, and return logistics.</p>
         </div>
         <div className="flex gap-3">
-          <button className="btn-secondary !py-3 !px-6 !text-[10px] uppercase tracking-[0.2em] font-black group">
+          <button className="btn-secondary !py-3 !px-6 !text-[12px] uppercase tracking-[0.2em] font-black group">
             <span className="material-symbols-outlined text-base transition-transform group-hover:rotate-180">filter_list</span> Filters
           </button>
-          <button className="btn-primary !py-3 !px-6 !text-[10px] uppercase tracking-[0.2em] font-black shadow-premium group">
+          <button className="btn-primary !py-3 !px-6 !text-[12px] uppercase tracking-[0.2em] font-black shadow-premium group">
             <span className="material-symbols-outlined text-base group-hover:translate-y-1 transition-transform">download</span> Export Data
           </button>
         </div>
@@ -61,10 +61,10 @@ const Orders = () => {
               <div className={`w-12 h-12 bg-${stat.color}/10 rounded-lg flex items-center justify-center border border-${stat.color}/20 group-hover:scale-110 transition-transform`}>
                 <span className={`material-symbols-outlined text-xl text-${stat.color}`} style={{ fontVariationSettings: "'FILL' 1" }}>{stat.icon}</span>
               </div>
-              {stat.trend && <span className={`text-[9px] font-black ${stat.trendColor || 'text-secondary'} uppercase tracking-[0.25em] bg-surface-container-highest/10 px-2 py-1 rounded`}>{stat.trend}</span>}
+              {stat.trend && <span className={`text-[11px] font-black ${stat.trendColor || 'text-secondary'} uppercase tracking-[0.25em] bg-surface-container-highest/10 px-2 py-1 rounded`}>{stat.trend}</span>}
             </div>
             <div className="space-y-1 mt-6">
-              <p className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em]">{stat.label}</p>
+              <p className="text-[12px] font-black text-on-surface-variant uppercase tracking-[0.2em]">{stat.label}</p>
               <h3 className="text-3xl font-headline font-black text-on-surface">{stat.val}</h3>
             </div>
           </div>
@@ -77,27 +77,27 @@ const Orders = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-surface-container-highest/10 border-b border-outline-variant/10">
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Order Identifier</th>
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Entity</th>
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Product Asset</th>
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Operational State</th>
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Biometric Accuracy</th>
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant text-right">Valuation</th>
-                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant text-right">Protocol</th>
+                <th className="px-8 py-5 text-[12px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Order Identifier</th>
+                <th className="px-8 py-5 text-[12px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Entity</th>
+                <th className="px-8 py-5 text-[12px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Product Asset</th>
+                <th className="px-8 py-5 text-[12px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Operational State</th>
+                <th className="px-8 py-5 text-[12px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Biometric Accuracy</th>
+                <th className="px-8 py-5 text-[12px] font-black uppercase tracking-[0.2em] text-on-surface-variant text-right">Valuation</th>
+                <th className="px-8 py-5 text-[12px] font-black uppercase tracking-[0.2em] text-on-surface-variant text-right">Protocol</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant/10">
               {orders.map((o) => (
                 <tr key={o.id} className="hover:bg-surface-container-highest/10 transition-all group">
-                  <td className="px-8 py-6 font-headline font-black text-primary text-[13px] tracking-widest">{o.id}</td>
+                  <td className="px-8 py-6 font-headline font-black text-primary text-[15px] tracking-widest">{o.id}</td>
                   <td className="px-8 py-6">
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-lg bg-surface-container-highest/20 border border-outline-variant/10 flex items-center justify-center text-[11px] font-black text-primary shadow-premium">
                         {o.customer.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div className="space-y-0.5">
-                        <p className="text-[13px] font-black text-on-surface uppercase tracking-tight">{o.customer}</p>
-                        <p className="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">{o.email}</p>
+                        <p className="text-[15px] font-black text-on-surface uppercase tracking-tight">{o.customer}</p>
+                        <p className="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">{o.email}</p>
                       </div>
                     </div>
                   </td>
@@ -110,7 +110,7 @@ const Orders = () => {
                     </div>
                   </td>
                   <td className="px-8 py-6">
-                    <span className={`px-3 py-1.5 rounded text-[9px] font-black uppercase tracking-[0.2em] border ${
+                    <span className={`px-3 py-1.5 rounded text-[11px] font-black uppercase tracking-[0.2em] border ${
                       o.status === 'Delivered' ? 'bg-secondary/10 text-secondary border-secondary/20' : 
                       o.status === 'Returned' ? 'bg-error/10 text-error border-error/20' : 'bg-surface-container-highest/10 text-on-surface-variant border-outline-variant/10'
                     }`}>
@@ -120,8 +120,8 @@ const Orders = () => {
                   <td className="px-8 py-6 text-center">
                     <div className="flex flex-col items-center gap-2">
                        <div className="flex items-center gap-3">
-                          <span className="text-[11px] font-black text-on-surface tracking-widest">{o.fitScore}%</span>
-                          <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded ${
+                          <span className="text-[13px] font-black text-on-surface tracking-widest">{o.fitScore}%</span>
+                          <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded ${
                             o.risk === 'Low' ? 'bg-secondary/10 text-secondary' : 
                             o.risk === 'High' ? 'bg-error/10 text-error' : 'bg-tertiary/10 text-tertiary'
                           }`}>Risk: {o.risk}</span>
@@ -148,14 +148,14 @@ const Orders = () => {
           </table>
         </div>
         <div className="p-8 border-t border-outline-variant/10 bg-surface-container/10 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <p className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.15em]">Showing <span className="font-black text-on-surface">1-4</span> of <span className="font-black text-on-surface">8</span> identifiers</p>
+          <p className="text-[12px] font-black text-on-surface-variant uppercase tracking-[0.15em]">Showing <span className="font-black text-on-surface">1-4</span> of <span className="font-black text-on-surface">8</span> identifiers</p>
           <div className="flex items-center gap-3">
             <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-highest/10 text-on-surface-variant hover:text-primary transition-all disabled:opacity-20 border border-outline-variant/10">
               <span className="material-symbols-outlined text-lg">chevron_left</span>
             </button>
             <div className="flex items-center gap-1.5">
-              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-black text-[10px] shadow-premium shadow-primary/20">1</button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-highest/10 font-black text-[10px] transition-all border border-transparent hover:border-outline-variant/10">2</button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-black text-[12px] shadow-premium shadow-primary/20">1</button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-highest/10 font-black text-[12px] transition-all border border-transparent hover:border-outline-variant/10">2</button>
             </div>
             <button className="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-highest/10 text-on-surface-variant hover:text-primary transition-all border border-outline-variant/10">
               <span className="material-symbols-outlined text-lg">chevron_right</span>
@@ -173,14 +173,14 @@ const Orders = () => {
             </div>
             <div className="space-y-1">
               <h4 className="text-base font-black uppercase tracking-tight text-on-surface">Predictive Precision Delta</h4>
-              <p className="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Comparative analysis of AI fit prediction vs. biometric outcome.</p>
+              <p className="text-[12px] font-bold text-on-surface-variant uppercase tracking-widest">Comparative analysis of AI fit prediction vs. biometric outcome.</p>
             </div>
           </div>
           <div className="flex-1 flex items-end gap-5 h-40">
             {[60, 85, 45, 92, 98].map((h, i) => (
               <div key={i} className="flex-1 bg-surface-container-highest/20 rounded border border-white/5 relative group min-w-[40px]">
                 <div className={`absolute bottom-0 left-0 right-0 ${i === 4 ? 'bg-gradient-to-t from-secondary shadow-[0_0_15px_rgba(63,255,139,0.3)]' : 'bg-primary/40 group-hover:bg-primary/60'} rounded transition-all duration-1000`} style={{ height: `${h}%` }}>
-                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[9px] font-black text-on-surface opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">{h}% ACC</div>
+                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[11px] font-black text-on-surface opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">{h}% ACC</div>
                 </div>
               </div>
             ))}
@@ -208,8 +208,8 @@ const Orders = () => {
                     <span className={`material-symbols-outlined text-lg text-${act.color}`}>{act.icon}</span>
                   </div>
                   <div>
-                    <span className="text-[11px] font-black uppercase tracking-widest text-on-surface block mb-0.5">{act.label}</span>
-                    <span className="text-[9px] font-bold text-on-surface-variant uppercase tracking-tighter">{act.desc}</span>
+                    <span className="text-[13px] font-black uppercase tracking-widest text-on-surface block mb-0.5">{act.label}</span>
+                    <span className="text-[11px] font-bold text-on-surface-variant uppercase tracking-tighter">{act.desc}</span>
                   </div>
                 </button>
               ))}

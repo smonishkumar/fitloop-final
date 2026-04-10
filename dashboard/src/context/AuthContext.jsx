@@ -7,22 +7,16 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check local storage for existing session
-    const savedUser = localStorage.getItem('fitloop_user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
+    // Session persistence disabled as per requirement: login at every attempt
     setLoading(false);
   }, []);
 
   const login = (userData) => {
     setUser(userData);
-    localStorage.setItem('fitloop_user', JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('fitloop_user');
   };
 
   return (

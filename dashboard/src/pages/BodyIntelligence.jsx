@@ -29,7 +29,7 @@ const BodyIntelligence = () => {
                     <button 
                       key={g}
                       onClick={() => setGender(g)}
-                      className={`py-2 px-1 rounded-lg text-[11px] font-bold transition-all border ${
+                      className={`py-2 px-1 rounded-lg text-[13px] font-bold transition-all border ${
                         gender === g 
                           ? 'bg-primary/20 text-primary border-primary/30 shadow-inner' 
                           : 'bg-surface-container-highest/20 hover:bg-surface-container-highest/40 text-on-surface-variant border-transparent'
@@ -41,9 +41,9 @@ const BodyIntelligence = () => {
                 </div>
               </div>
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.15em] ml-1">Body Type</label>
+                <label className="text-[12px] font-bold text-on-surface-variant uppercase tracking-[0.15em] ml-1">Body Type</label>
                 <select 
-                  className="input-standard !py-2 !px-3 !text-[11px] font-bold"
+                  className="input-standard !py-2 !px-3 !text-[13px] font-bold"
                   value={bodyType}
                   onChange={(e) => setBodyType(e.target.value)}
                 >
@@ -58,24 +58,24 @@ const BodyIntelligence = () => {
                   <label className="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.15em] ml-1">Height</label>
                   <div className="relative">
                     <input 
-                      className="input-standard !py-2 !pl-3 !pr-10 !text-[12px] font-bold" 
+                      className="input-standard !py-2 !pl-3 !pr-10 !text-[14px] font-bold" 
                       type="number" 
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                     />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] text-on-surface-variant font-bold">CM</span>
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-on-surface-variant font-bold">CM</span>
                   </div>
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.15em] ml-1">Weight</label>
                   <div className="relative">
                     <input 
-                      className="input-standard !py-2 !pl-3 !pr-10 !text-[12px] font-bold" 
+                      className="input-standard !py-2 !pl-3 !pr-10 !text-[14px] font-bold" 
                       type="number" 
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
                     />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] text-on-surface-variant font-bold">KG</span>
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] text-on-surface-variant font-bold">KG</span>
                   </div>
                 </div>
               </div>
@@ -103,12 +103,12 @@ const BodyIntelligence = () => {
                 { label: 'Inseam', value: '32.1"' },
               ].map(m => (
                 <div key={m.label} className={`flex justify-between items-center p-3 rounded-lg bg-surface-container-highest/10 hover:bg-surface-container-highest/30 transition-all border-l-2 ${m.active ? 'border-primary' : 'border-transparent'}`}>
-                  <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">{m.label}</span>
-                  <span className="font-headline font-bold text-sm text-on-surface">{m.value}</span>
+                  <span className="text-[14px] font-bold text-on-surface-variant uppercase tracking-wider">{m.label}</span>
+                  <span className="font-headline font-bold text-base text-on-surface">{m.value}</span>
                 </div>
               ))}
             </div>
-            <button className="btn-secondary w-full !py-2 !text-[10px] uppercase tracking-widest mt-6">Manual Calibration</button>
+            <button className="btn-secondary w-full !py-2 !text-[12px] uppercase tracking-widest mt-6">Manual Calibration</button>
           </section>
         </div>
 
@@ -126,7 +126,7 @@ const BodyIntelligence = () => {
             <div className="absolute top-[20%] left-[20%] group transition-all duration-300">
               <div className="w-3 h-3 bg-primary rounded-full animate-pulse shadow-[0_0_15px_#ba9eff]"></div>
               <div className="absolute left-6 top-1/2 -translate-y-1/2 glass-card px-4 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-premium">
-                <span className="text-[10px] font-bold text-primary uppercase tracking-widest">Shoulder Width: 18.4"</span>
+                <span className="text-[12px] font-bold text-primary uppercase tracking-widest">Shoulder Width: 18.4"</span>
               </div>
             </div>
             <div className="absolute top-[45%] right-[25%] group transition-all duration-300">
@@ -152,7 +152,7 @@ const BodyIntelligence = () => {
             </div>
             <div className="text-right">
               <div className="text-secondary font-headline text-4xl font-black">1.28</div>
-              <div className="text-[9px] text-secondary font-bold uppercase tracking-[0.25em] mt-1">Ratio Index</div>
+              <div className="text-[11px] text-secondary font-bold uppercase tracking-[0.25em] mt-1">Ratio Index</div>
             </div>
           </div>
         </div>

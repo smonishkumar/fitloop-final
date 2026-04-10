@@ -28,19 +28,19 @@ const Wardrobe = () => {
             <div className="space-y-4">
               <div className="aspect-square rounded-lg bg-surface-container-highest/20 border-2 border-dashed border-outline-variant/20 flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:border-primary/40 hover:bg-surface-container-highest/30 transition-all duration-300">
                 <span className="material-symbols-outlined text-3xl text-on-surface-variant group-hover:text-primary mb-3 transition-colors">cloud_upload</span>
-                <p className="text-[11px] font-black uppercase tracking-widest text-on-surface">Upload Clothing</p>
-                <p className="text-[9px] text-on-surface-variant mt-1.5 uppercase font-bold">PNG, JPG &lt; 10MB</p>
+                <p className="text-[13px] font-black uppercase tracking-widest text-on-surface">Upload Clothing</p>
+                <p className="text-[11px] text-on-surface-variant mt-1.5 uppercase font-bold">PNG, JPG &lt; 10MB</p>
               </div>
               <button className="btn-secondary w-full group !py-3.5 mt-2">
                 <span className="material-symbols-outlined text-lg text-secondary transition-transform group-hover:scale-110">photo_camera</span>
-                <span className="text-[10px] uppercase tracking-widest font-black">Scan via Camera</span>
+                <span className="text-[12px] uppercase tracking-widest font-black">Scan via Camera</span>
               </button>
             </div>
             <div className="mt-8 p-4 bg-primary/5 rounded-lg border border-primary/10">
-              <p className="text-[9px] font-bold text-primary uppercase tracking-[0.2em] mb-2.5">AI Perception Status</p>
+              <p className="text-[11px] font-bold text-primary uppercase tracking-[0.2em] mb-2.5">AI Perception Status</p>
               <div className="flex items-center gap-2.5">
                 <span className="w-2 h-2 rounded-full bg-secondary animate-pulse shadow-[0_0_8px_rgba(63,255,139,0.5)]"></span>
-                <span className="text-[10px] font-black text-on-surface uppercase tracking-wider">Vision Engine Online</span>
+                <span className="text-[12px] font-black text-on-surface uppercase tracking-wider">Vision Engine Online</span>
               </div>
             </div>
           </div>
@@ -55,15 +55,15 @@ const Wardrobe = () => {
                 { label: 'Shoes', val: 12, color: 'on-surface' },
               ].map(stat => (
                 <div key={stat.label} className="bg-surface-container-highest/20 p-4 rounded-lg border border-outline-variant/5">
-                  <p className="text-[9px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">{stat.label}</p>
+                  <p className="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider mb-2">{stat.label}</p>
                   <p className={`text-2xl font-headline font-bold text-${stat.color}`}>{stat.val}</p>
                 </div>
               ))}
             </div>
             <div className="mt-8 pt-8 border-t border-outline-variant/10">
               <div className="flex justify-between items-center mb-3">
-                <span className="text-[9px] font-bold text-on-surface-variant uppercase tracking-[0.15em]">Digital Sync</span>
-                <span className="text-[10px] font-black text-secondary">84%</span>
+                <span className="text-[11px] font-bold text-on-surface-variant uppercase tracking-[0.15em]">Digital Sync</span>
+                <span className="text-[12px] font-black text-secondary">84%</span>
               </div>
               <div className="h-1.5 w-full bg-surface-container-highest/40 rounded-full overflow-hidden">
                 <div className="h-full bg-gradient-to-r from-primary to-secondary shadow-[0_0_8px_rgba(63,255,139,0.3)]" style={{ width: '84%' }}></div>
@@ -80,7 +80,7 @@ const Wardrobe = () => {
                 <button 
                   key={cat}
                   onClick={() => setFilter(cat)}
-                  className={`px-5 py-2.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
+                  className={`px-5 py-2.5 rounded-lg text-[12px] font-black uppercase tracking-widest transition-all ${
                     filter === cat ? 'bg-primary text-on-primary shadow-lg shadow-primary/20' : 'bg-surface-container-highest/20 text-on-surface-variant border border-outline-variant/10 hover:bg-surface-container-highest/40'
                   }`}
                 >
@@ -105,7 +105,7 @@ const Wardrobe = () => {
                   <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src={item.img} alt={item.name} />
                   <div className="absolute inset-0 bg-gradient-to-t from-surface-container/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <div className="absolute top-4 left-4">
-                    <span className="px-2.5 py-1 rounded bg-surface-container/60 backdrop-blur-md text-[8px] font-black text-primary border border-primary/20 uppercase tracking-[0.2em]">Premium Fit</span>
+                    <span className="px-2.5 py-1 rounded bg-surface-container/60 backdrop-blur-md text-[10px] font-black text-primary border border-primary/20 uppercase tracking-[0.2em]">Premium Fit</span>
                   </div>
                   <button className="absolute top-4 right-4 w-9 h-9 rounded-full bg-surface-container/60 backdrop-blur-md flex items-center justify-center text-on-surface-variant hover:text-error transition-colors shadow-premium">
                     <span className="material-symbols-outlined text-lg">favorite</span>
@@ -114,17 +114,17 @@ const Wardrobe = () => {
                 <div className="p-8 flex-1 flex flex-col">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="font-headline font-bold text-lg text-on-surface leading-tight underline decoration-primary/20 decoration-2 underline-offset-4">{item.name}</h4>
-                    <span className="text-secondary font-black text-[9px] uppercase tracking-widest mt-1 bg-secondary/10 px-2 py-0.5 rounded">{item.score}</span>
+                    <span className="text-secondary font-black text-[11px] uppercase tracking-widest mt-1 bg-secondary/10 px-2 py-0.5 rounded">{item.score}</span>
                   </div>
                   <div className="flex items-center gap-5 mb-6">
-                    <span className="text-[10px] font-bold text-on-surface-variant flex items-center gap-1.5 uppercase tracking-wider">
+                    <span className="text-[12px] font-bold text-on-surface-variant flex items-center gap-1.5 uppercase tracking-wider">
                       <span className="w-2.5 h-2.5 rounded-full border border-white/10 shadow-inner" style={{ backgroundColor: item.colorCode }}></span> {item.color}
                     </span>
-                    <span className="text-[10px] font-black text-tertiary uppercase tracking-widest">{item.brand}</span>
+                    <span className="text-[12px] font-black text-tertiary uppercase tracking-widest">{item.brand}</span>
                   </div>
                   <div className="flex gap-2.5 mt-auto">
                     {item.tags.map(tag => (
-                      <span key={tag} className="px-2.5 py-1 rounded bg-surface-container-highest/30 text-[8px] font-black uppercase tracking-[0.15em] text-on-surface-variant border border-outline-variant/10">{tag}</span>
+                      <span key={tag} className="px-2.5 py-1 rounded bg-surface-container-highest/30 text-[10px] font-black uppercase tracking-[0.15em] text-on-surface-variant border border-outline-variant/10">{tag}</span>
                     ))}
                   </div>
                 </div>
