@@ -6,7 +6,7 @@ from collections import Counter
 # Add current directory to path
 sys.path.append(os.getcwd())
 
-from lib.wardrobe_intelligence import WardrobeIntelligence
+from wardrobe_intelligence.main import WardrobeIntelligence
 
 def main():
     if len(sys.argv) < 2:
