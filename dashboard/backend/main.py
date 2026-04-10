@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi.responses import JSONResponse
-from routes import auth, measurements, wardrobe, cart, fitscore, recommendations, products, orders, analytics
+from routes import auth, measurements, wardrobe, fitscore, recommendations, products, orders, analytics
 
 app = FastAPI(
     title="FitLoop Backend API",
@@ -31,7 +31,6 @@ async def global_exception_handler(request, exc):
 app.include_router(auth.router)
 app.include_router(measurements.router)
 app.include_router(wardrobe.router)
-app.include_router(cart.router)
 app.include_router(fitscore.router)
 app.include_router(recommendations.router)
 app.include_router(products.router)
