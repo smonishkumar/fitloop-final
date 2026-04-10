@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "background": "#ffffff",
+                        "surface": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f8fafc",
+                        "surface-container": "#f1f5f9",
+                        "surface-container-high": "#e2e8f0",
+                        "surface-container-highest": "#cbd5e1",
+                        "on-surface": "#0f172a",
+                        "on-surface-variant": "#475569",
+                        "outline-variant": "#e2e8f0",
+                        "primary": "#8b5cf6",
+                        "primary-dim": "#7c3aed",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#dbeafe",
+                        "on-tertiary-container": "#2563eb",
+                        "error-container": "#ffe4e6",
+                        "on-error-container": "#e11d48",
+                        "warning-container": "#ffedd5",
+                        "on-warning-container": "#ea580c"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
+        .no-line-rule { border: none !important; }
+        .background-shift { backdrop-filter: blur(20px); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0px 4px 24px rgba(43, 52, 55, 0.06);
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); } 
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none no-line-rule background-shift">
+    <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+        <div class="text-xl font-bold tracking-tighter text-on-surface dark:text-white cursor-pointer" onclick="window.scrollTo(0,0)">FitLoop</div>
+        <div class="hidden md:flex items-center space-x-8 font-['Inter'] tracking-tight font-medium text-sm">
+            <a class="text-on-surface-variant dark:text-slate-400 hover:text-emerald-700 transition-colors duration-300" href="#how-it-works">How it works</a>
+            <a class="text-on-surface-variant dark:text-slate-400 hover:text-emerald-700 transition-colors duration-300" href="#trending">Trending</a>
+            <a class="text-on-surface-variant dark:text-slate-400 hover:text-emerald-700 transition-colors duration-300" href="#partners">Partners</a>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="bg-primary text-on-primary px-6 py-2 rounded-full font-semibold text-sm hover:opacity-90 active:scale-[0.99] transition-all">
+                Get Started
+            </button>
+        </div>
+    </div>
+</nav>
+
+<main class="pt-20">
+    <!-- Full-Video Hero Section -->
+    <section class="relative min-h-[95vh] flex items-center justify-center overflow-hidden">
+        <!-- Background Video -->
+        <video class="absolute inset-0 w-full h-full object-cover z-0" autoplay loop muted playsinline>
+            <source src="./videos/Virtual_try-on_app_202604080139.mp4" type="video/mp4">
+        </video>
+        
+        <!-- Extraordinary Cinematic Overlay Over Video -->
+        <div class="absolute inset-0 bg-primary/30 mix-blend-multiply z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/60 to-surface z-10"></div>
+        
+        <!-- Interactive Foreground Content -->
+        <div class="relative z-20 w-full max-w-lg p-6 mt-12">
+            <div class="w-full p-10 sm:p-12 rounded-[2rem] space-y-8 border border-white/20 shadow-[0_8px_40px_rgb(0,0,0,0.4)] backdrop-blur-xl bg-white/10">
+                <div class="space-y-3 text-center">
+                    <h1 class="text-4xl lg:text-5xl font-black tracking-tighter text-white leading-tight drop-shadow-md">
+                        Find Your Perfect Fit
+                    </h1>
+                    <p class="text-white/90 text-base leading-relaxed font-medium drop-shadow">
+                        Try outfits virtually and shop with confidence.
+                    </p>
+                </div>
+                <form class="space-y-6" onsubmit="event.preventDefault();">
+                    <div class="space-y-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-white/80">Email</label>
+                        <input class="w-full px-4 py-3 bg-slate-900/40 border border-white/20 text-white rounded-xl focus:ring-2 focus:ring-primary/60 focus:bg-slate-900/60 transition-all placeholder:text-white/40 shadow-inner" placeholder="name@company.com" type="email">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-white/80">Password</label>
+                        <input class="w-full px-4 py-3 bg-slate-900/40 border border-white/20 text-white rounded-xl focus:ring-2 focus:ring-primary/60 focus:bg-slate-900/60 transition-all placeholder:text-white/40 shadow-inner" placeholder="••••••••" type="password">
+                    </div>
+                    <div class="pt-2 flex flex-col sm:flex-row gap-4">
+                        <button class="w-full sm:w-1/2 bg-gradient-to-br from-primary to-primary-dim text-white font-bold py-3 text-sm rounded-xl shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] transition-all active:scale-[0.98] border border-white/10">
+                            Log In
+                        </button>
+                        <button class="w-full sm:w-1/2 bg-white/5 border border-white/20 text-white font-semibold py-3 text-sm rounded-xl hover:bg-white/10 transition-all" type="button">
+                            Sign Up
+                        </button>
+                    </div>
+                </form>
+                <div class="flex items-center justify-center space-x-2 text-sm text-white/70 pt-2">
+                    <span>Forgot your password?</span>
+                    <a class="text-primary-dim font-bold hover:text-white transition-colors" href="#">Reset it</a>
+                </div>
+            </div>
+        </div>
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center animate-bounce text-white/50 hover:text-white transition-colors cursor-pointer" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">
+            <span class="text-[10px] uppercase font-bold tracking-widest mb-1">Scroll</span>
+            <span class="material-symbols-outlined">expand_more</span>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-32 px-8 bg-surface-container-low/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-24">
+                <h2 class="text-sm font-bold uppercase tracking-[0.2em] text-primary mb-4">Seamless Experience</h2>
+                <h3 class="text-5xl font-extrabold tracking-tighter text-on-surface">How FitLoop Works</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center text-center space-y-6">
+                    <div class="w-16 h-16 rounded-2xl bg-tertiary-container flex items-center justify-center text-on-tertiary-container shadow-[0_0_30px_rgba(37,99,235,0.15)] ring-1 ring-on-tertiary-container/10">
+                        <span class="material-symbols-outlined text-3xl">photo_camera</span>
+                    </div>
+                    <div class="space-y-3">
+                        <h4 class="text-xl font-bold text-on-surface">1. Capture Your Fit</h4>
+                        <p class="text-on-surface-variant leading-relaxed max-w-xs">
+                            Scan your body metrics using our AI-powered camera tool for a perfect digital silhouette.
+                        </p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center text-center space-y-6">
+                    <div class="w-16 h-16 rounded-2xl bg-tertiary-container flex items-center justify-center text-on-tertiary-container shadow-[0_0_30px_rgba(37,99,235,0.15)] ring-1 ring-on-tertiary-container/10">
+                        <span class="material-symbols-outlined text-3xl">view_in_ar</span>
+                    </div>
+                    <div class="space-y-3">
+                        <h4 class="text-xl font-bold text-on-surface">2. Virtual Try-On</h4>
+                        <p class="text-on-surface-variant leading-relaxed max-w-xs">
+                            Browse any item and see exactly how it drapes and fits on your unique body shape.
+                        </p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center text-center space-y-6">
+                    <div class="w-16 h-16 rounded-2xl bg-tertiary-container flex items-center justify-center text-on-tertiary-container shadow-[0_0_30px_rgba(37,99,235,0.15)] ring-1 ring-on-tertiary-container/10">
+                        <span class="material-symbols-outlined text-3xl">shopping_bag</span>
+                    </div>
+                    <div class="space-y-3">
+                        <h4 class="text-xl font-bold text-on-surface">3. Shop with Confidence</h4>
+                        <p class="text-on-surface-variant leading-relaxed max-w-xs">
+                            Buy with the certainty that it will fit perfectly the first time, every time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-20 flex justify-center">
+                <button class="bg-primary text-on-primary px-10 py-4 rounded-full font-bold text-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-lg">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Styles Section -->
+    <section id="trending" class="py-24 px-8 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div class="max-w-2xl">
+                <h2 class="text-sm font-bold uppercase tracking-[0.2em] text-primary mb-4">Curated Collection</h2>
+                <h3 class="text-5xl font-extrabold tracking-tighter text-on-surface leading-none">Trending Styles</h3>
+                <p class="mt-6 text-on-surface-variant text-lg leading-relaxed">
+                    Explore this week's most tried-on looks. Each piece is optimized for our virtual fitting engine.
+                </p>
+            </div>
+            <a class="text-primary font-bold inline-flex items-center gap-2 group" href="#">
+                View full gallery
+                <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+            </a>
+        </div>
+        <!-- Bento/Grid for Styles -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Card 1 -->
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[3/4] rounded-xl overflow-hidden mb-6 bg-surface-container-low transition-transform duration-500 hover:-translate-y-2">
+                    <img alt="Luxury Coat" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA61IM5JDyBXr0I5lk5aBoP87hQ7BHUCbzcUo8OjXTcNM6a20fPEu2k8LAllBagNM-gc7oo8A9xGE8e_fqzkkBOGv_NoKRamxmr_OSclIeBKZPj6XbufFy1Rs1-kTUbxxF7yNYQ88vHVyciwH0RhG0ZFVoy9xgtYGYpS-BKq90-gIpOlttvq5eSGX6Bfrh1ayEDMaOy-zA6mI8MFiNAMtHQrYwYvQJ_w9DUW3NrPXq88MtrzhD0qYPEcrq_DGvIM5AFqxEBmMSfKFD9">
+                    <div class="absolute top-4 right-4 h-10 w-10 glass-card rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
+                        <span class="material-symbols-outlined text-on-surface group-hover:text-on-primary">view_in_ar</span>
+                    </div>
+                </div>
+                <div class="space-y-1 px-2">
+                    <h4 class="text-lg font-bold">Sculpted Wool Overcoat</h4>
+                    <p class="text-on-surface-variant text-sm">Essentials • ₹1999</p>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="group cursor-pointer lg:mt-12">
+                <div class="relative aspect-[3/4] rounded-xl overflow-hidden mb-6 bg-surface-container-low transition-transform duration-500 hover:-translate-y-2">
+                    <img alt="Minimalist Jacket" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-fkxJ8OnLnX5UjwZGwFvhmYDlh_ZbuCtQoMsCqoxIbuu8lV07DJCLZETGIXthnoR9LyVS0d-8xxJKwbCbAD8crquJSghvdID-ikf3x8s22eE5XY76AERHIPoNTkqw3byeJiu2kjOQSBpvSRyYODLcHNmHo0XmO0IrS3navVADNXqba4afYwde9HF1_i5w4QC4e-scZZao1hWl-1w1A62LTEP5vTHawzsYDMlOox0hT260Iqia_-fj2ersZRcd6IMzpu2kbj3MaTTD">
+                    <div class="absolute top-4 right-4 h-10 w-10 glass-card rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
+                        <span class="material-symbols-outlined text-on-surface group-hover:text-on-primary">view_in_ar</span>
+                    </div>
+                </div>
+                <div class="space-y-1 px-2">
+                    <h4 class="text-lg font-bold">Linen Utility Jacket</h4>
+                    <p class="text-on-surface-variant text-sm">Summer Series • ₹980</p>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[3/4] rounded-xl overflow-hidden mb-6 bg-surface-container-low transition-transform duration-500 hover:-translate-y-2">
+                    <img alt="Knitwear" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzYh_mK_Q9N5LYWThXYHwby9hijc-kfinHkXH99FSz6htsAWsWTYGM4ghrPAyPOkESUcZUK4dTKa0QGtbZC63KQDowpWiWwLEI4b6tK1bxTo7IBzA-zMOX5lPzzUIW0hU6ty66j_HVXPGH-zxocGpqj6dCyizwligGbLj2jfwtUncN6isCgspZrGNrsmZdCyIVKaiAE0BHF0_i3HV9q1uxpvohpFuQNB8xmWGTWMqPDxXlhB4Sb_A3uHJLDqRaJSp_nBbmRxexv14s">
+                    <div class="absolute top-4 right-4 h-10 w-10 glass-card rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
+                        <span class="material-symbols-outlined text-on-surface group-hover:text-on-primary">view_in_ar</span>
+                    </div>
+                </div>
+                <div class="space-y-1 px-2">
+                    <h4 class="text-lg font-bold">Sage Merino Knit</h4>
+                    <p class="text-on-surface-variant text-sm">Seasonal • ₹489</p>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="group cursor-pointer lg:mt-12">
+                <div class="relative aspect-[3/4] rounded-xl overflow-hidden mb-6 bg-surface-container-low transition-transform duration-500 hover:-translate-y-2">
+                    <img alt="Luxury Pants" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQTMhkbiFPsHyk-CRLqHmvjldvwt0JUU3VHpcS5k29y33I3_3SY1CrZO-85e_PVdSzNuZ6jCDQvHzLIDVHwSk2FTvPsv8UDZo2bNAVubc-_J497j0-ZyZwDGbTe-sC82JdkMoBmyuYqnLFp-3cnFaX2zYPzGgaEow3uC4yqAeXnbQ7gHVmUVw2644lJcFevhj-UotfLo1ocUg2QsEAoQYgPHAbdflNXF_1oTZXj4eLFEAWN9C2tRu_mmaVYy15HbPvHSGXB3MwSDKV">
+                    <div class="absolute top-4 right-4 h-10 w-10 glass-card rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
+                        <span class="material-symbols-outlined text-on-surface group-hover:text-on-primary">view_in_ar</span>
+                    </div>
+                </div>
+                <div class="space-y-1 px-2">
+                    <h4 class="text-lg font-bold">Tailored Pleat Trousers</h4>
+                    <p class="text-on-surface-variant text-sm">Formal • ₹999</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Partners & Integrations Marquee -->
+    <section id="partners" class="py-24 bg-surface-container-lowest overflow-hidden border-y border-outline-variant/10">
+        <div class="max-w-7xl mx-auto px-8 mb-12 text-center">
+            <h2 class="text-sm font-bold uppercase tracking-[0.2em] text-primary mb-4">Ecosystem Integrations</h2>
+            <h3 class="text-4xl text-on-surface font-extrabold tracking-tighter">Compatible with Top Retailers</h3>
+        </div>
+        
+        <!-- Marquee Container -->
+        <div class="relative flex overflow-hidden group">
+            <!-- Fading Edges -->
+            <div class="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-surface-container-lowest to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-surface-container-lowest to-transparent z-10 pointer-events-none"></div>
+            
+            <div class="flex items-center gap-16 md:gap-24 animate-marquee whitespace-nowrap px-8">
+                <!-- Set 1 -->
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">storefront</span>
+                    <span class="text-2xl font-black tracking-tight text-on-surface uppercase">Zara</span>
+                </div>
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">sell</span>
+                    <span class="text-2xl font-black tracking-tight text-on-surface uppercase">H&M</span>
+                </div>
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">shopping_cart_checkout</span>
+                    <span class="text-2xl font-black tracking-widest text-on-surface">SHOPIFY</span>
+                </div>
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">diamond</span>
+                    <span class="text-2xl font-black tracking-tight text-on-surface uppercase">Nordstrom</span>
+                </div>
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">loyalty</span>
+                    <span class="text-2xl font-black tracking-tighter text-on-surface uppercase">ASOS</span>
+                </div>
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">local_mall</span>
+                    <span class="text-2xl font-black tracking-widest text-on-surface uppercase">Myntra</span>
+                </div>
+                
+                <!-- Duplicate Set for infinite scroll -->
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">storefront</span>
+                    <span class="text-2xl font-black tracking-tight text-on-surface uppercase">Zara</span>
+                </div>
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">sell</span>
+                    <span class="text-2xl font-black tracking-tight text-on-surface uppercase">H&M</span>
+                </div>
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">shopping_cart_checkout</span>
+                    <span class="text-2xl font-black tracking-widest text-on-surface">SHOPIFY</span>
+                </div>
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">diamond</span>
+                    <span class="text-2xl font-black tracking-tight text-on-surface uppercase">Nordstrom</span>
+                </div>
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">loyalty</span>
+                    <span class="text-2xl font-black tracking-tighter text-on-surface uppercase">ASOS</span>
+                </div>
+                <div class="flex items-center gap-4 filter grayscale hover:grayscale-0 transition duration-300 opacity-60 hover:opacity-100 cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-primary" data-weight="fill">local_mall</span>
+                    <span class="text-2xl font-black tracking-widest text-on-surface uppercase">Myntra</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Highlight Section (Asymmetric) -->
+    <section class="py-32 px-8 bg-surface-container-low">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2 relative">
+                <div class="absolute inset-0 bg-primary/5 -rotate-3 rounded-2xl"></div>
+                <img alt="Fit Analysis" class="relative rounded-2xl shadow-2xl z-10 w-full object-cover" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTJW9k4y9-UYrKQ5nK0sqr16pQn2mt1cwLhDtDCI2BPFW-jg6-djgnLluE9hF_E2EO4lOEz6djJcvo6euK_wcFiEPrLHEglUUEwGufD5-cMkz-8q6X1rBPLFiv9GQRgsh69IpGHyxW3vVmyJUBTUdTBG_Chux5meQZYkjNWg2VMTZ2lwNY9NbBoclCP-QkbO9pJsF2n7rtwSKnU8z7-DtOgw6sBfSvqV41STV32j-oYk_GxTmoUw4W20_JYwuQk005bcSbreMo76Qe">
+            </div>
+            <div class="w-full md:w-1/2 space-y-8">
+                <div class="h-1 w-20 bg-primary rounded-full"></div>
+                <h2 class="text-5xl font-extrabold tracking-tighter leading-tight">Virtual Tailoring. Real Precision.</h2>
+                <p class="text-on-surface-variant text-xl leading-relaxed">
+                    Our LoopEngine™ analyzes your body metrics in real-time to simulate fabric drape, stretch, and tension. Never guess your size again.
+                </p>
+                <div class="grid grid-cols-2 gap-8 pt-4">
+                    <div class="space-y-2">
+                        <p class="text-3xl font-bold text-primary">99.2%</p>
+                        <p class="text-sm font-semibold text-on-surface-variant uppercase tracking-widest">Fit Accuracy</p>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-3xl font-bold text-primary">40k+</p>
+                        <p class="text-sm font-semibold text-on-surface-variant uppercase tracking-widest">Global Brands</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="w-full rounded-t-none bg-surface-container-low dark:bg-slate-950 no-line-rule tonal-depth background-shift">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-16 max-w-7xl mx-auto font-['Inter'] text-sm leading-relaxed">
+        <div class="space-y-4">
+            <div class="text-lg font-bold tracking-tighter text-on-surface dark:text-white">FitLoop</div>
+            <p class="text-on-surface-variant dark:text-slate-500">
+                Redefining the digital shopping experience through precision AI and virtual try-on technology.
+            </p>
+        </div>
+        <div class="space-y-4">
+            <p class="font-bold text-on-surface dark:text-white uppercase tracking-widest text-xs">Company</p>
+            <div class="flex flex-col space-y-2">
+                <a class="text-on-surface-variant dark:text-slate-500 hover:text-emerald-800 transition-colors" href="#">About Us</a>
+                <a class="text-on-surface-variant dark:text-slate-500 hover:text-emerald-800 transition-colors" href="#">Careers</a>
+                <a class="text-on-surface-variant dark:text-slate-500 hover:text-emerald-800 transition-colors" href="#">Press</a>
+            </div>
+        </div>
+        <div class="space-y-4">
+            <p class="font-bold text-on-surface dark:text-white uppercase tracking-widest text-xs">Community</p>
+            <div class="flex flex-col space-y-2">
+                <a class="text-on-surface-variant dark:text-slate-500 hover:text-emerald-800 transition-colors" href="#">Instagram</a>
+                <a class="text-on-surface-variant dark:text-slate-500 hover:text-emerald-800 transition-colors" href="#">TikTok</a>
+                <a class="text-on-surface-variant dark:text-slate-500 hover:text-emerald-800 transition-colors" href="#">Partnerships</a>
+            </div>
+        </div>
+        <div class="space-y-4">
+            <p class="font-bold text-on-surface dark:text-white uppercase tracking-widest text-xs">Legal</p>
+            <div class="flex flex-col space-y-2">
+                <a class="text-on-surface-variant dark:text-slate-500 hover:text-emerald-800 transition-colors" href="#">Privacy Policy</a>
+                <a class="text-on-surface-variant dark:text-slate-500 hover:text-emerald-800 transition-colors" href="#">Terms of Service</a>
+                <a class="text-on-surface-variant dark:text-slate-500 hover:text-emerald-800 transition-colors" href="#">Cookies</a>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        if (typeof gsap !== 'undefined') {
+            // Smooth entrance animations
+            gsap.from(".glass-card, h1, p, form", {
+                y: 35,
+                opacity: 0,
+                duration: 1.2,
+                stagger: 0.1,
+                ease: "power4.out"
+            });
+            // Nav bar drop-in
+            gsap.from("nav", {
+                y: -50,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+            // Video breath effect
+            gsap.to("#hero-video", {
+                scale: 1.05,
+                duration: 12,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+        }
+    });
+</script>
+</body>
+</html>
