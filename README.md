@@ -1,30 +1,20 @@
-# FitForge 👕📏
+# FitForge: Consolidated Workspace
 
-## Problem
+This repository has been restructured to keep the root directory clean. 
+All project source code, including the Wardrobe Intelligence models, Frontend dashboard, and configurations, is now located in the `model1` directory.
 
-High return rate in online clothing due to poor size fitting.
+## Getting Started
 
-## Solution
+To run the Wardrobe Intelligence model:
+```bash
+./venv/bin/python3 model1/run_model.py <path_to_image>
+```
 
-FitForge uses Machine Learning to predict the best clothing size for users based on body measurements and past data.
+To explore the frontend or other components:
+```bash
+cd model1
+# All dashboard and frontend code is located here
+```
 
-## Features
-
-* Animated login UI
-* User dashboard
-* Size prediction (ML-based)
-* Backend integration (in progress)
-
-## Tech Stack
-
-* Frontend: HTML, CSS, React
-* Backend: (To be added)
-* ML: (To be added)
-
-## Team
-
-* Your team members' names
-
-## Status
-
-🚧 Work in progress (Hackathon build)
+---
+*Maintained by FantomCode-2026*

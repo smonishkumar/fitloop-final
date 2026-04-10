@@ -3,8 +3,8 @@ import os
 import json
 from collections import Counter
 
-# Add current directory to path
-sys.path.append(os.getcwd())
+# Add model1 directory to path
+sys.path.append(os.path.join(os.getcwd(), 'model1'))
 
 from wardrobe_intelligence.main import WardrobeIntelligence
 
