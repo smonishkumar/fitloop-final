@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -49,14 +51,21 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; overflow-x: hidden; }
         .no-line-rule { border: none !important; }
         .background-shift { backdrop-filter: blur(20px); }
         .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(16px);
-            border-top: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0px 4px 24px rgba(43, 52, 55, 0.06);
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+        .outer-glow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            box-shadow: inset 0 0 150px rgba(139, 92, 246, 0.1);
+            z-index: 40;
         }
         @keyframes marquee {
             0% { transform: translateX(0%); }
@@ -68,77 +77,93 @@
         .animate-marquee:hover {
             animation-play-state: paused;
         }
+        html.lenis {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="text-on-surface">
+<div class="outer-glow"></div>
 <!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none no-line-rule background-shift">
+<nav class="fixed top-0 w-full z-50 bg-white shadow-md border-b border-slate-200 transition-all">
     <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
-        <div class="text-xl font-bold tracking-tighter text-on-surface dark:text-white cursor-pointer" onclick="window.scrollTo(0,0)">FitLoop</div>
-        <div class="hidden md:flex items-center space-x-8 font-['Inter'] tracking-tight font-medium text-sm">
-            <a class="text-on-surface-variant dark:text-slate-400 hover:text-emerald-700 transition-colors duration-300" href="#how-it-works">How it works</a>
-            <a class="text-on-surface-variant dark:text-slate-400 hover:text-emerald-700 transition-colors duration-300" href="#trending">Trending</a>
-            <a class="text-on-surface-variant dark:text-slate-400 hover:text-emerald-700 transition-colors duration-300" href="#partners">Partners</a>
+        <div class="text-2xl font-bold tracking-tighter text-on-surface cursor-pointer" onclick="window.scrollTo(0,0)">FitLoop</div>
+        <div class="hidden md:flex items-center space-x-10 font-['Inter'] tracking-tight font-medium text-base">
+            <a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#how-it-works">How it works</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#trending">Trending</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#partners">Partners</a>
         </div>
         <div class="flex items-center gap-4">
-            <button class="bg-primary text-on-primary px-6 py-2 rounded-full font-semibold text-sm hover:opacity-90 active:scale-[0.99] transition-all">
+            <button class="bg-primary text-on-primary px-8 py-3 rounded-full font-bold text-base hover:opacity-90 active:scale-[0.99] transition-all">
                 Get Started
             </button>
         </div>
     </div>
 </nav>
 
-<main class="pt-20">
+<main>
     <!-- Full-Video Hero Section -->
-    <section class="relative min-h-[95vh] flex items-center justify-center overflow-hidden">
-        <!-- Background Video -->
-        <video class="absolute inset-0 w-full h-full object-cover z-0" autoplay loop muted playsinline>
-            <source src="./videos/Virtual_try-on_app_202604080139.mp4" type="video/mp4">
-        </video>
+    <section class="relative min-h-screen flex items-center justify-start overflow-hidden px-12">
+        <!-- Background Video (Scaled to crop out Veo watermark) -->
+        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
+            <video id="hero-video" class="absolute w-[115%] h-[115%] max-w-none -top-[7.5%] -left-[7.5%] object-cover" autoplay loop muted playsinline>
+                <source src="./videos/Virtual_try-on_app_202604080139.mp4" type="video/mp4">
+            </video>
+        </div>
         
         <!-- Extraordinary Cinematic Overlay Over Video -->
-        <div class="absolute inset-0 bg-primary/30 mix-blend-multiply z-10"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/60 to-surface z-10"></div>
+        <div class="absolute inset-0 bg-slate-900/10 z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900/40 via-transparent to-transparent z-10"></div>
         
         <!-- Interactive Foreground Content -->
-        <div class="relative z-20 w-full max-w-lg p-6 mt-12">
-            <div class="w-full p-10 sm:p-12 rounded-[2rem] space-y-8 border border-white/20 shadow-[0_8px_40px_rgb(0,0,0,0.4)] backdrop-blur-xl bg-white/10">
-                <div class="space-y-3 text-center">
-                    <h1 class="text-4xl lg:text-5xl font-black tracking-tighter text-white leading-tight drop-shadow-md">
-                        Find Your Perfect Fit
+        <div class="relative z-20 w-full max-w-[440px] ml-4 md:ml-12 lg:ml-16">
+            <div class="w-full p-8 rounded-[1.5rem] space-y-6 border border-white/30 shadow-[0_8px_30px_rgb(0,0,0,0.12)] backdrop-blur-2xl bg-white/20 glass-card">
+                <div class="space-y-2">
+                    <h1 class="text-4xl lg:text-5xl font-extrabold tracking-tighter text-slate-900 leading-tight drop-shadow-sm">
+                        Find Your<br>Perfect Fit
                     </h1>
-                    <p class="text-white/90 text-base leading-relaxed font-medium drop-shadow">
+                    <p class="text-slate-800 text-base leading-relaxed font-medium">
                         Try outfits virtually and shop with confidence.
                     </p>
                 </div>
-                <form class="space-y-6" onsubmit="event.preventDefault();">
-                    <div class="space-y-2">
-                        <label class="text-xs font-semibold uppercase tracking-wider text-white/80">Email</label>
-                        <input class="w-full px-4 py-3 bg-slate-900/40 border border-white/20 text-white rounded-xl focus:ring-2 focus:ring-primary/60 focus:bg-slate-900/60 transition-all placeholder:text-white/40 shadow-inner" placeholder="name@company.com" type="email">
+                <form class="space-y-5" onsubmit="event.preventDefault();">
+                    <div class="space-y-1.5">
+                        <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">Account Email</label>
+                        <input class="w-full px-4 py-3 bg-white/40 border border-white/40 text-slate-900 rounded-xl focus:ring-2 focus:ring-primary/40 focus:bg-white/60 transition-all placeholder:text-slate-500 shadow-sm text-sm" placeholder="name@company.com" type="email">
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-semibold uppercase tracking-wider text-white/80">Password</label>
-                        <input class="w-full px-4 py-3 bg-slate-900/40 border border-white/20 text-white rounded-xl focus:ring-2 focus:ring-primary/60 focus:bg-slate-900/60 transition-all placeholder:text-white/40 shadow-inner" placeholder="••••••••" type="password">
+                    <div class="space-y-1.5">
+                        <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700">Secure Password</label>
+                        <input class="w-full px-4 py-3 bg-white/40 border border-white/40 text-slate-900 rounded-xl focus:ring-2 focus:ring-primary/40 focus:bg-white/60 transition-all placeholder:text-slate-500 shadow-sm text-sm" placeholder="••••••••" type="password">
                     </div>
-                    <div class="pt-2 flex flex-col sm:flex-row gap-4">
-                        <button class="w-full sm:w-1/2 bg-gradient-to-br from-primary to-primary-dim text-white font-bold py-3 text-sm rounded-xl shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] transition-all active:scale-[0.98] border border-white/10">
-                            Log In
+                    <div class="pt-2 flex flex-row gap-3">
+                        <button class="w-1/2 bg-primary text-white font-bold py-3 text-sm rounded-xl shadow-lg hover:shadow-primary/40 transition-all active:scale-[0.98]">
+                            JOIN NOW
                         </button>
-                        <button class="w-full sm:w-1/2 bg-white/5 border border-white/20 text-white font-semibold py-3 text-sm rounded-xl hover:bg-white/10 transition-all" type="button">
-                            Sign Up
+                        <button class="w-1/2 bg-white/60 border border-white/40 text-slate-900 font-bold py-3 text-sm rounded-xl hover:bg-white/80 transition-all" type="button">
+                            LOGIN
                         </button>
                     </div>
                 </form>
-                <div class="flex items-center justify-center space-x-2 text-sm text-white/70 pt-2">
+                <div class="flex items-center space-x-2 text-xs text-slate-600 pt-1">
+                    <span class="material-symbols-outlined text-[14px]">lock_reset</span>
                     <span>Forgot your password?</span>
-                    <a class="text-primary-dim font-bold hover:text-white transition-colors" href="#">Reset it</a>
+                    <a class="text-primary font-bold hover:underline transition-all" href="#">Reset it</a>
                 </div>
             </div>
         </div>
         <!-- Scroll Down Indicator -->
         <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center animate-bounce text-white/50 hover:text-white transition-colors cursor-pointer" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">
-            <span class="text-[10px] uppercase font-bold tracking-widest mb-1">Scroll</span>
-            <span class="material-symbols-outlined">expand_more</span>
+            <span class="text-xs uppercase font-extrabold tracking-widest mb-2">Scroll</span>
+            <span class="material-symbols-outlined text-4xl">expand_more</span>
         </div>
     </section>
 
@@ -214,54 +239,54 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <!-- Card 1 -->
             <div class="group cursor-pointer">
-                <div class="relative aspect-[3/4] rounded-xl overflow-hidden mb-6 bg-surface-container-low transition-transform duration-500 hover:-translate-y-2">
-                    <img alt="Luxury Coat" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA61IM5JDyBXr0I5lk5aBoP87hQ7BHUCbzcUo8OjXTcNM6a20fPEu2k8LAllBagNM-gc7oo8A9xGE8e_fqzkkBOGv_NoKRamxmr_OSclIeBKZPj6XbufFy1Rs1-kTUbxxF7yNYQ88vHVyciwH0RhG0ZFVoy9xgtYGYpS-BKq90-gIpOlttvq5eSGX6Bfrh1ayEDMaOy-zA6mI8MFiNAMtHQrYwYvQJ_w9DUW3NrPXq88MtrzhD0qYPEcrq_DGvIM5AFqxEBmMSfKFD9">
-                    <div class="absolute top-4 right-4 h-10 w-10 glass-card rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
-                        <span class="material-symbols-outlined text-on-surface group-hover:text-on-primary">view_in_ar</span>
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-6 bg-surface-container-low transition-all duration-700 ease-out hover:-translate-y-3 hover:scale-[1.02] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)]">
+                    <img alt="Luxury Coat" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA61IM5JDyBXr0I5lk5aBoP87hQ7BHUCbzcUo8OjXTcNM6a20fPEu2k8LAllBagNM-gc7oo8A9xGE8e_fqzkkBOGv_NoKRamxmr_OSclIeBKZPj6XbufFy1Rs1-kTUbxxF7yNYQ88vHVyciwH0RhG0ZFVoy9xgtYGYpS-BKq90-gIpOlttvq5eSGX6Bfrh1ayEDMaOy-zA6mI8MFiNAMtHQrYwYvQJ_w9DUW3NrPXq88MtrzhD0qYPEcrq_DGvIM5AFqxEBmMSfKFD9">
+                    <div class="absolute top-4 right-4 h-11 w-11 glass-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 group-hover:bg-primary transition-all duration-500 delay-75 shadow-lg">
+                        <span class="material-symbols-outlined text-slate-800 group-hover:text-white text-xl">view_in_ar</span>
                     </div>
                 </div>
                 <div class="space-y-1 px-2">
-                    <h4 class="text-lg font-bold">Sculpted Wool Overcoat</h4>
-                    <p class="text-on-surface-variant text-sm">Essentials • ₹1999</p>
+                    <h4 class="text-xl font-bold tracking-tight">Sculpted Wool Overcoat</h4>
+                    <p class="text-on-surface-variant text-sm font-medium">Essentials • ₹1999</p>
                 </div>
             </div>
             <!-- Card 2 -->
             <div class="group cursor-pointer lg:mt-12">
-                <div class="relative aspect-[3/4] rounded-xl overflow-hidden mb-6 bg-surface-container-low transition-transform duration-500 hover:-translate-y-2">
-                    <img alt="Minimalist Jacket" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-fkxJ8OnLnX5UjwZGwFvhmYDlh_ZbuCtQoMsCqoxIbuu8lV07DJCLZETGIXthnoR9LyVS0d-8xxJKwbCbAD8crquJSghvdID-ikf3x8s22eE5XY76AERHIPoNTkqw3byeJiu2kjOQSBpvSRyYODLcHNmHo0XmO0IrS3navVADNXqba4afYwde9HF1_i5w4QC4e-scZZao1hWl-1w1A62LTEP5vTHawzsYDMlOox0hT260Iqia_-fj2ersZRcd6IMzpu2kbj3MaTTD">
-                    <div class="absolute top-4 right-4 h-10 w-10 glass-card rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
-                        <span class="material-symbols-outlined text-on-surface group-hover:text-on-primary">view_in_ar</span>
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-6 bg-surface-container-low transition-all duration-700 ease-out hover:-translate-y-3 hover:scale-[1.02] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)]">
+                    <img alt="Minimalist Jacket" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-fkxJ8OnLnX5UjwZGwFvhmYDlh_ZbuCtQoMsCqoxIbuu8lV07DJCLZETGIXthnoR9LyVS0d-8xxJKwbCbAD8crquJSghvdID-ikf3x8s22eE5XY76AERHIPoNTkqw3byeJiu2kjOQSBpvSRyYODLcHNmHo0XmO0IrS3navVADNXqba4afYwde9HF1_i5w4QC4e-scZZao1hWl-1w1A62LTEP5vTHawzsYDMlOox0hT260Iqia_-fj2ersZRcd6IMzpu2kbj3MaTTD">
+                    <div class="absolute top-4 right-4 h-11 w-11 glass-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 group-hover:bg-primary transition-all duration-500 delay-75 shadow-lg">
+                        <span class="material-symbols-outlined text-slate-800 group-hover:text-white text-xl">view_in_ar</span>
                     </div>
                 </div>
                 <div class="space-y-1 px-2">
-                    <h4 class="text-lg font-bold">Linen Utility Jacket</h4>
-                    <p class="text-on-surface-variant text-sm">Summer Series • ₹980</p>
+                    <h4 class="text-xl font-bold tracking-tight">Linen Utility Jacket</h4>
+                    <p class="text-on-surface-variant text-sm font-medium">Summer Series • ₹980</p>
                 </div>
             </div>
             <!-- Card 3 -->
             <div class="group cursor-pointer">
-                <div class="relative aspect-[3/4] rounded-xl overflow-hidden mb-6 bg-surface-container-low transition-transform duration-500 hover:-translate-y-2">
-                    <img alt="Knitwear" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzYh_mK_Q9N5LYWThXYHwby9hijc-kfinHkXH99FSz6htsAWsWTYGM4ghrPAyPOkESUcZUK4dTKa0QGtbZC63KQDowpWiWwLEI4b6tK1bxTo7IBzA-zMOX5lPzzUIW0hU6ty66j_HVXPGH-zxocGpqj6dCyizwligGbLj2jfwtUncN6isCgspZrGNrsmZdCyIVKaiAE0BHF0_i3HV9q1uxpvohpFuQNB8xmWGTWMqPDxXlhB4Sb_A3uHJLDqRaJSp_nBbmRxexv14s">
-                    <div class="absolute top-4 right-4 h-10 w-10 glass-card rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
-                        <span class="material-symbols-outlined text-on-surface group-hover:text-on-primary">view_in_ar</span>
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-6 bg-surface-container-low transition-all duration-700 ease-out hover:-translate-y-3 hover:scale-[1.02] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)]">
+                    <img alt="Knitwear" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzYh_mK_Q9N5LYWThXYHwby9hijc-kfinHkXH99FSz6htsAWsWTYGM4ghrPAyPOkESUcZUK4dTKa0QGtbZC63KQDowpWiWwLEI4b6tK1bxTo7IBzA-zMOX5lPzzUIW0hU6ty66j_HVXPGH-zxocGpqj6dCyizwligGbLj2jfwtUncN6isCgspZrGNrsmZdCyIVKaiAE0BHF0_i3HV9q1uxpvohpFuQNB8xmWGTWMqPDxXlhB4Sb_A3uHJLDqRaJSp_nBbmRxexv14s">
+                    <div class="absolute top-4 right-4 h-11 w-11 glass-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 group-hover:bg-primary transition-all duration-500 delay-75 shadow-lg">
+                        <span class="material-symbols-outlined text-slate-800 group-hover:text-white text-xl">view_in_ar</span>
                     </div>
                 </div>
                 <div class="space-y-1 px-2">
-                    <h4 class="text-lg font-bold">Sage Merino Knit</h4>
-                    <p class="text-on-surface-variant text-sm">Seasonal • ₹489</p>
+                    <h4 class="text-xl font-bold tracking-tight">Sage Merino Knit</h4>
+                    <p class="text-on-surface-variant text-sm font-medium">Seasonal • ₹489</p>
                 </div>
             </div>
             <!-- Card 4 -->
             <div class="group cursor-pointer lg:mt-12">
-                <div class="relative aspect-[3/4] rounded-xl overflow-hidden mb-6 bg-surface-container-low transition-transform duration-500 hover:-translate-y-2">
-                    <img alt="Luxury Pants" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQTMhkbiFPsHyk-CRLqHmvjldvwt0JUU3VHpcS5k29y33I3_3SY1CrZO-85e_PVdSzNuZ6jCDQvHzLIDVHwSk2FTvPsv8UDZo2bNAVubc-_J497j0-ZyZwDGbTe-sC82JdkMoBmyuYqnLFp-3cnFaX2zYPzGgaEow3uC4yqAeXnbQ7gHVmUVw2644lJcFevhj-UotfLo1ocUg2QsEAoQYgPHAbdflNXF_1oTZXj4eLFEAWN9C2tRu_mmaVYy15HbPvHSGXB3MwSDKV">
-                    <div class="absolute top-4 right-4 h-10 w-10 glass-card rounded-full flex items-center justify-center group-hover:bg-primary transition-colors">
-                        <span class="material-symbols-outlined text-on-surface group-hover:text-on-primary">view_in_ar</span>
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden mb-6 bg-surface-container-low transition-all duration-700 ease-out hover:-translate-y-3 hover:scale-[1.02] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)]">
+                    <img alt="Luxury Pants" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQTMhkbiFPsHyk-CRLqHmvjldvwt0JUU3VHpcS5k29y33I3_3SY1CrZO-85e_PVdSzNuZ6jCDQvHzLIDVHwSk2FTvPsv8UDZo2bNAVubc-_J497j0-ZyZwDGbTe-sC82JdkMoBmyuYqnLFp-3cnFaX2zYPzGgaEow3uC4yqAeXnbQ7gHVmUVw2644lJcFevhj-UotfLo1ocUg2QsEAoQYgPHAbdflNXF_1oTZXj4eLFEAWN9C2tRu_mmaVYy15HbPvHSGXB3MwSDKV">
+                    <div class="absolute top-4 right-4 h-11 w-11 glass-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:scale-110 group-hover:bg-primary transition-all duration-500 delay-75 shadow-lg">
+                        <span class="material-symbols-outlined text-slate-800 group-hover:text-white text-xl">view_in_ar</span>
                     </div>
                 </div>
                 <div class="space-y-1 px-2">
-                    <h4 class="text-lg font-bold">Tailored Pleat Trousers</h4>
-                    <p class="text-on-surface-variant text-sm">Formal • ₹999</p>
+                    <h4 class="text-xl font-bold tracking-tight">Tailored Pleat Trousers</h4>
+                    <p class="text-on-surface-variant text-sm font-medium">Formal • ₹999</p>
                 </div>
             </div>
         </div>
@@ -404,25 +429,86 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         if (typeof gsap !== 'undefined') {
+            // Register ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Lenis Smooth Scroll
+            const lenis = new Lenis()
+            function raf(time) {
+                lenis.raf(time)
+                requestAnimationFrame(raf)
+            }
+            requestAnimationFrame(raf)
+
             // Smooth entrance animations
-            gsap.from(".glass-card, h1, p, form", {
-                y: 35,
+            gsap.from(".glass-card", {
+                x: -100,
                 opacity: 0,
-                duration: 1.2,
-                stagger: 0.1,
+                duration: 1.5,
                 ease: "power4.out"
             });
+
+            gsap.from("h1, p, form > div, .pt-4 button", {
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.1,
+                ease: "power3.out",
+                delay: 0.5
+            });
+
             // Nav bar drop-in
             gsap.from("nav", {
-                y: -50,
+                y: -100,
                 opacity: 0,
-                duration: 0.8,
-                ease: "power2.out"
+                duration: 1,
+                ease: "power3.out"
             });
+
             // Video breath effect
             gsap.to("#hero-video", {
-                scale: 1.05,
-                duration: 12,
+                scale: 1.1,
+                duration: 20,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+
+            // Scroll Reveals for sections
+            gsap.utils.toArray('section').forEach((section, i) => {
+                if (i === 0) return; // Skip hero
+                gsap.from(section, {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 100,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: "power3.out"
+                });
+            });
+
+            // Image Reveal Animations
+            gsap.utils.toArray('img').forEach((img) => {
+                gsap.from(img, {
+                    scrollTrigger: {
+                        trigger: img,
+                        start: "top 90%",
+                        toggleActions: "play none none reverse"
+                    },
+                    scale: 0.8,
+                    opacity: 0,
+                    duration: 1.5,
+                    ease: "power4.out"
+                });
+            });
+
+            // Floating effect for hero card
+            gsap.to(".glass-card", {
+                y: 15,
+                duration: 4,
                 repeat: -1,
                 yoyo: true,
                 ease: "sine.inOut"
