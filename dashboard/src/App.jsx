@@ -13,6 +13,8 @@ import SmartShopping from './pages/SmartShopping';
 import VirtualTryOn from './pages/VirtualTryOn';
 import Products from './pages/Products';
 import Orders from './pages/Orders';
+import Settings from './pages/Settings';
+import Support from './pages/Support';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -44,6 +46,8 @@ function App() {
               <Route path="virtual-try-on" element={<VirtualTryOn />} />
               <Route path="products" element={<Products />} />
               <Route path="orders" element={<Orders />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="support" element={<Support />} />
             </Route>
           </Routes>
         </Router>

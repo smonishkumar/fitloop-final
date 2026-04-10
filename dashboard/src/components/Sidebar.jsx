@@ -3,41 +3,41 @@ import { NavLink } from 'react-router-dom';
 
 const Sidebar = () => {
   const navItems = [
-    { name: 'Dashboard', icon: 'dashboard', path: '/' },
-    { name: 'Body Intelligence', icon: 'psychology', path: '/body-intelligence' },
-    { name: 'Wardrobe', icon: 'checkroom', path: '/wardrobe' },
-    { name: 'Outfit Engine', icon: 'auto_fix_high', path: '/outfit-engine' },
-    { name: 'Smart Shopping', icon: 'shopping_bag', path: '/smart-shopping' },
-    { name: 'Virtual Try-On', icon: 'accessibility_new', path: '/virtual-try-on' },
-    { name: 'Products', icon: 'inventory_2', path: '/products' },
+    { name: 'Dashboard', icon: 'grid_view', path: '/' },
+    { name: 'Measurements', icon: 'straighten', path: '/body-intelligence' },
+    { name: 'My Wardrobe', icon: 'checkroom', path: '/wardrobe' },
+    { name: 'Outfit Planner', icon: 'auto_fix_high', path: '/outfit-engine' },
+    { name: 'Shop', icon: 'shopping_bag', path: '/smart-shopping' },
+    { name: 'Try-On', icon: 'accessibility_new', path: '/virtual-try-on' },
+    { name: 'Catalog', icon: 'inventory_2', path: '/products' },
     { name: 'Orders', icon: 'receipt_long', path: '/orders' },
     { name: 'Analytics', icon: 'leaderboard', path: '/analytics' },
   ];
 
   return (
     <aside className="h-screen w-72 fixed left-0 top-0 bg-surface-container flex flex-col py-10 z-50 shadow-[40px_0_100px_-20px_rgba(0,0,0,0.5)] border-r border-outline-variant/10 uppercase tracking-tight">
-      <div className="px-10 mb-14">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-dim flex items-center justify-center shadow-premium shadow-primary/20 border border-outline-variant/20 group">
-            <span className="material-symbols-outlined text-white text-2xl group-hover:rotate-12 transition-transform" style={{ fontVariationSettings: "'FILL' 1" }}>dataset</span>
+      <div className="px-8 mb-10">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shadow-sm">
+            <span className="material-symbols-outlined text-white text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>dataset</span>
           </div>
-          <div className="space-y-0.5">
-            <h1 className="text-2xl font-black bg-gradient-to-br from-on-surface to-on-surface/70 bg-clip-text text-transparent font-headline tracking-tighter">FITLOOP</h1>
-            <p className="text-[11px] font-black tracking-[0.3em] text-primary/80">AI SYNTHESIS</p>
+          <div>
+            <h1 className="text-xl font-bold font-headline tracking-tight text-on-surface">FitLoop</h1>
+            <p className="text-[10px] font-semibold tracking-widest text-zinc-400 uppercase">Premium Hub</p>
           </div>
         </div>
       </div>
       
-      <nav className="flex-1 space-y-2 px-6">
+      <nav className="flex-1 space-y-1 px-4">
         {navItems.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             className={({ isActive }) => 
-              `flex items-center gap-4 py-3.5 px-6 transition-all duration-500 rounded-xl border border-transparent group ${
+              `flex items-center gap-3 py-2.5 px-4 transition-all rounded-lg border border-transparent group ${
                 isActive 
-                  ? 'bg-primary/20 text-primary border-primary/30 shadow-premium shadow-primary/10' 
-                  : 'text-on-surface-variant/90 hover:text-on-surface hover:bg-surface-container-high active:scale-95'
+                  ? 'bg-primary/10 text-primary font-medium' 
+                  : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100'
               }`
             }
           >
@@ -47,21 +47,30 @@ const Sidebar = () => {
         ))}
       </nav>
 
-      <div className="px-10 mt-auto pt-10 space-y-8">
-        <button className="btn-primary w-full !py-4 !text-[12px] font-black tracking-[0.2em] shadow-premium shadow-primary/20 group overflow-hidden relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+      <div className="px-6 mt-auto pt-8 space-y-6">
+        <button className="btn-primary w-full !py-3 !text-[11px] font-bold tracking-widest uppercase shadow-sm">
           <span className="material-symbols-outlined text-lg">add_circle</span>
-          NODE ANALYSIS
+          New Scan
         </button>
-        <div className="space-y-4 pb-4">
-          <a className="flex items-center gap-4 text-on-surface-variant/70 hover:text-on-surface transition-all group" href="#">
-            <span className="material-symbols-outlined text-xl group-hover:rotate-45 transition-transform">settings</span>
-            <span className="text-[12px] font-black tracking-[0.2em] uppercase">Settings</span>
-          </a>
-          <a className="flex items-center gap-4 text-on-surface-variant/70 hover:text-on-surface transition-all group" href="#">
-            <span className="material-symbols-outlined text-xl group-hover:scale-125 transition-transform">help</span>
-            <span className="text-[12px] font-black tracking-[0.2em] uppercase">Protocol</span>
-          </a>
+        <div className="space-y-3 pb-6 border-t border-outline-variant/10 pt-6">
+          <NavLink 
+            className={({ isActive }) => 
+              `flex items-center gap-3 transition-all text-xs font-bold uppercase tracking-widest ${isActive ? 'text-primary' : 'text-zinc-500 hover:text-on-surface'}`
+            } 
+            to="/settings"
+          >
+            <span className="material-symbols-outlined text-xl">settings</span>
+            Settings
+          </NavLink>
+          <NavLink 
+            className={({ isActive }) => 
+              `flex items-center gap-3 transition-all text-xs font-bold uppercase tracking-widest ${isActive ? 'text-primary' : 'text-zinc-500 hover:text-on-surface'}`
+            } 
+            to="/support"
+          >
+            <span className="material-symbols-outlined text-xl">help</span>
+            Support
+          </NavLink>
         </div>
       </div>
     </aside>

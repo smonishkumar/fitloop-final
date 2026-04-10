@@ -58,28 +58,28 @@ const LoginPage = () => {
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-tertiary flex items-center justify-center mb-4 shadow-lg shadow-primary/30">
                 <span className="material-symbols-outlined text-on-primary text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>dataset</span>
               </div>
-              <h1 className="text-3xl font-headline font-bold bg-gradient-to-br from-[#ba9eff] to-[#57bcff] bg-clip-text text-transparent tracking-tight">FitLoop</h1>
-              <p className="text-[12px] uppercase tracking-[0.2em] text-white/50 font-bold mt-1">Intelligence Division</p>
+              <h1 className="text-3xl font-headline font-bold text-white tracking-tight">FitLoop</h1>
+              <p className="text-[12px] uppercase tracking-[0.2em] text-white/50 font-bold mt-1">Premium Fitness Lab</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-1.5">
-                <label className="text-[12px] font-bold text-white/60 uppercase tracking-wider block ml-1">Access Identity</label>
+                <label className="text-[12px] font-bold text-white/60 uppercase tracking-wider block ml-1">Email Address</label>
                 <div className="relative group">
                   <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40 group-focus-within:text-primary transition-colors text-lg">alternate_email</span>
                   <input 
                     type="email" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="name@intelligence.hub" 
-                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 pl-12 text-[14px] text-white placeholder:text-white/20 focus:ring-2 focus:ring-primary/20 focus:border-primary/40 outline-none transition-all"
+                    placeholder="hello@fitloop.app" 
+                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 pl-12 text-[14px] text-white placeholder:text-white/20 outline-none transition-all focus:border-primary/50"
                     required 
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[12px] font-bold text-white/60 uppercase tracking-wider block ml-1">Security Key</label>
+                <label className="text-[12px] font-bold text-white/60 uppercase tracking-wider block ml-1">Password</label>
                 <div className="relative group">
                   <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40 group-focus-within:text-primary transition-colors text-lg">lock</span>
                   <input 
@@ -87,7 +87,7 @@ const LoginPage = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••••••" 
-                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 pl-12 text-[14px] text-white placeholder:text-white/20 focus:ring-2 focus:ring-primary/20 focus:border-primary/40 outline-none transition-all"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 pl-12 text-[14px] text-white placeholder:text-white/20 outline-none transition-all focus:border-primary/50"
                     required 
                   />
                 </div>
@@ -95,8 +95,8 @@ const LoginPage = () => {
 
               <div className="flex items-center justify-between px-1">
                 <label className="flex items-center gap-2 cursor-pointer group">
-                  <input type="checkbox" className="w-4 h-4 rounded border-none bg-white/5 text-primary focus:ring-primary/20" />
-                  <span className="text-[11px] text-white/40 group-hover:text-white/70 transition-colors">Maintain Session</span>
+                  <input type="checkbox" className="w-4 h-4 rounded border-none bg-white/5 text-primary focus:ring-primary" />
+                  <span className="text-[11px] text-white/40 group-hover:text-white/70 transition-colors">Remember Me</span>
                 </label>
                 <a href="#" className="text-[11px] text-primary font-bold hover:underline">Reset Access</a>
               </div>

@@ -58,7 +58,7 @@ const BodyIntelligence = () => {
                   <label className="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.15em] ml-1">Height</label>
                   <div className="relative">
                     <input 
-                      className="input-standard !py-2 !pl-3 !pr-10 !text-[14px] font-bold" 
+                      className="input-standard !py-2 !pl-3 !pr-12 !text-[14px] font-bold" 
                       type="number" 
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
@@ -70,7 +70,7 @@ const BodyIntelligence = () => {
                   <label className="text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.15em] ml-1">Weight</label>
                   <div className="relative">
                     <input 
-                      className="input-standard !py-2 !pl-3 !pr-10 !text-[14px] font-bold" 
+                      className="input-standard !py-2 !pl-3 !pr-12 !text-[14px] font-bold" 
                       type="number" 
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
@@ -80,10 +80,10 @@ const BodyIntelligence = () => {
                 </div>
               </div>
               <button 
-                className="btn-primary w-full !py-2.5 mt-2"
+                className="btn-primary w-full !py-2.5 mt-2 active:scale-95 transition-all shadow-md active:shadow-inner"
                 onClick={handleUpdateModel}
               >
-                <span className="text-xs uppercase tracking-widest">Update Model</span>
+                <span className="text-xs uppercase tracking-widest font-black">Update Model</span>
               </button>
             </div>
           </section>
@@ -108,7 +108,7 @@ const BodyIntelligence = () => {
                 </div>
               ))}
             </div>
-            <button className="btn-secondary w-full !py-2 !text-[12px] uppercase tracking-widest mt-6">Manual Calibration</button>
+            <button className="btn-secondary w-full !py-2 !text-[12px] uppercase tracking-widest mt-6 active:scale-95 transition-all">Manual Calibration</button>
           </section>
         </div>
 
