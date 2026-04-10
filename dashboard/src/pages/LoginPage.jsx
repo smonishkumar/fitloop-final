@@ -11,7 +11,7 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Simple mock login
-    login({ name: 'Alex Rivera', role: 'Lead Data Scientist', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDysVj_9v_RR3uqelJ60d91icVlkBHnWNT0A_cTQWd_0Xv6boyx6dccR_9QaH97I5P8sifzyiMv8B8eJRz-vuayOwjXi5DCF2JxqrgAu0vu0hUW5J0bvQ-ZM-b4s3_ImNMNoxrQZTOf4Cx0Sq-2xEA3qSEffzFcVvrX71lIIS_MjUQdTTMFeuxnSoS6oH46BHGwpCOhXDPjYvqFIeLl8mB3WJ3JRGtg6374wo4j45JihpnSv09okvEZjXxszYvBjsepXMQe_aV9sA' });
+    login({ id: 'user123', name: 'Alex Rivera', role: 'Lead Data Scientist', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDysVj_9v_RR3uqelJ60d91icVlkBHnWNT0A_cTQWd_0Xv6boyx6dccR_9QaH97I5P8sifzyiMv8B8eJRz-vuayOwjXi5DCF2JxqrgAu0vu0hUW5J0bvQ-ZM-b4s3_ImNMNoxrQZTOf4Cx0Sq-2xEA3qSEffzFcVvrX71lIIS_MjUQdTTMFeuxnSoS6oH46BHGwpCOhXDPjYvqFIeLl8mB3WJ3JRGtg6374wo4j45JihpnSv09okvEZjXxszYvBjsepXMQe_aV9sA' });
     navigate('/');
   };
 

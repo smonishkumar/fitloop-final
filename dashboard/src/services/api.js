@@ -19,16 +19,38 @@ const api = {
     return res.json();
   },
 
-  fetchWardrobe: async () => {
-    const res = await fetch(`${API_BASE_URL}/wardrobe/`);
+  fetchWardrobe: async (user_id) => {
+    const res = await fetch(`${API_BASE_URL}/wardrobe/${user_id}`);
     if (!res.ok) throw new Error('Failed to fetch wardrobe');
     return res.json();
   },
 
+  addToWardrobe: async (itemData) => {
+    const res = await fetch(`${API_BASE_URL}/wardrobe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(itemData)
+    });
+    if (!res.ok) throw new Error('Failed to add wardrobe item');
+    return res.json();
+  },
+
   fetchDashboardOverview: async () => {
-    // This could be a specialized endpoint or a combination of others
     const analytics = await api.fetchAnalyticsSummary();
     return analytics;
+  },
+
+  generateRecommendations: async (user_id) => {
+    const res = await fetch(`${API_BASE_URL}/recommendations/generate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id })
+    });
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.detail || 'Failed to generate recommendations');
+    }
+    return res.json();
   }
 };
 

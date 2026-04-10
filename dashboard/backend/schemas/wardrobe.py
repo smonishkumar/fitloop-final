@@ -3,6 +3,7 @@ from typing import Optional
 from datetime import datetime
 
 class WardrobeItemCreate(BaseModel):
+    user_id: str
     item_type: str
     color: str
     brand: str
