@@ -1,0 +1,402 @@
+[
+  {
+    "id": "item-1",
+    "name": "Classic Oxford Shirt",
+    "price": 89.0,
+    "category": "Shirts",
+    "image_url": "https://images.unsplash.com/photo-1598033129183-c4f50c7176c8?auto=format&fit=crop&q=80&w=800",
+    "description": "Premium cotton oxford shirt with a tailored fit."
+  },
+  {
+    "id": "item-2",
+    "name": "Slim Fit Selvedge Jeans",
+    "price": 125.0,
+    "category": "Bottoms",
+    "image_url": "https://images.unsplash.com/photo-1542272604-787c38ad5551?auto=format&fit=crop&q=80&w=800",
+    "description": "Japanese selvedge denim with a modern slim silhouette."
+  },
+  {
+    "id": "item-3",
+    "name": "Merino Wool Sweater",
+    "price": 110.0,
+    "category": "Knitwear",
+    "image_url": "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=800",
+    "description": "Ultra-soft merino wool for temperature regulation."
+  },
+  {
+    "id": "item-4",
+    "name": "TRENCH Coat",
+    "price": 295.0,
+    "category": "Outerwear",
+    "image_url": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=800",
+    "description": "Water-resistant classic trench with modern detailing."
+  },
+  {
+    "id": "item-5",
+    "name": "Leather Chelsea Boots",
+    "price": 210.0,
+    "category": "Footwear",
+    "image_url": "https://images.unsplash.com/photo-1638247025967-b4e38f787b76?auto=format&fit=crop&q=80&w=800",
+    "description": "Hand-stitched Italian leather with durable elastic side panels."
+  },
+  {
+    "id": "item-6",
+    "name": "Linen Summer Dress",
+    "price": 145.0,
+    "category": "Dresses",
+    "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&q=80&w=800",
+    "description": "Breathable linen blend for warm weather elegance."
+  },
+  {
+    "id": "item-7",
+    "name": "Structured Blazer",
+    "price": 245.0,
+    "category": "Outerwear",
+    "image_url": "https://images.unsplash.com/photo-1594932224010-756641c8889b?auto=format&fit=crop&q=80&w=800",
+    "description": "Sharp tailoring for formal and casual settings."
+  },
+  {
+    "id": "item-8",
+    "name": "Ribbed Halter Top",
+    "price": 45.0,
+    "category": "Tops",
+    "image_url": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800",
+    "description": "Contour-fitting ribbed knit with a chic halter neck."
+  },
+  {
+    "id": "item-9",
+    "name": "Pleated Trousers",
+    "price": 115.0,
+    "category": "Bottoms",
+    "image_url": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&q=80&w=800",
+    "description": "Relaxed fit with sharp front pleats."
+  },
+  {
+    "id": "item-10",
+    "name": "Silk Scarf Print Shirt",
+    "price": 165.0,
+    "category": "Shirts",
+    "image_url": "https://images.unsplash.com/photo-1596755094514-f87034a2612d?auto=format&fit=crop&q=80&w=800",
+    "description": "Luxury silk with hand-drawn botanical prints."
+  },
+  {
+    "id": "item-11",
+    "name": "Quilted Bomber Jacket",
+    "price": 185.0,
+    "category": "Outerwear",
+    "image_url": "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=800",
+    "description": "Lightweight insulation with a sleek satin finish."
+  },
+  {
+    "id": "item-12",
+    "name": "Minimalist White Sneakers",
+    "price": 130.0,
+    "category": "Footwear",
+    "image_url": "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&q=80&w=800",
+    "description": "Clean lines and premium calfskin leather."
+  },
+  {
+    "id": "item-13",
+    "name": "A-Line Denim Skirt",
+    "price": 75.0,
+    "category": "Bottoms",
+    "image_url": "https://images.unsplash.com/photo-1582142407894-ec85a1268a4e?auto=format&fit=crop&q=80&w=800",
+    "description": "Vintage wash with a flattering high-waist fit."
+  },
+  {
+    "id": "item-14",
+    "name": "Mock Neck Bodysuit",
+    "price": 55.0,
+    "category": "Tops",
+    "image_url": "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&q=80&w=800",
+    "description": "Seamless stretch fabric for a perfect silhouette."
+  },
+  {
+    "id": "item-15",
+    "name": "Oversized Cashmere Scarf",
+    "price": 95.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1520635360276-79f3dbd809f6?auto=format&fit=crop&q=80&w=800",
+    "description": "Pure Mongolian cashmere for ultimate warmth."
+  },
+  {
+    "id": "item-16",
+    "name": "Technical Windbreaker",
+    "price": 140.0,
+    "category": "Outerwear",
+    "image_url": "https://images.unsplash.com/photo-1504191467541-2511d7bb4a33?auto=format&fit=crop&q=80&w=800",
+    "description": "Ripstop nylon with moisture-wicking technology."
+  },
+  {
+    "id": "item-17",
+    "name": "Graphic Streetwear Tee",
+    "price": 40.0,
+    "category": "Tops",
+    "image_url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800",
+    "description": "Heavyweight cotton with screen-printed art."
+  },
+  {
+    "id": "item-18",
+    "name": "Chino Shorts",
+    "price": 65.0,
+    "category": "Bottoms",
+    "image_url": "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&q=80&w=800",
+    "description": "Classic cut with a hint of stretch."
+  },
+  {
+    "id": "item-19",
+    "name": "Double-Breasted Overcoat",
+    "price": 320.0,
+    "category": "Outerwear",
+    "image_url": "https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&q=80&w=800",
+    "description": "Wool blend with a professional military-inspired look."
+  },
+  {
+    "id": "item-20",
+    "name": "Canvas Tote Bag",
+    "price": 35.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1544816153-12ad5d713247?auto=format&fit=crop&q=80&w=800",
+    "description": "Durable heavy canvas for daily essentials."
+  },
+  {
+    "id": "item-21",
+    "name": "Fitted Turtle Neck",
+    "price": 70.0,
+    "category": "Tops",
+    "image_url": "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?auto=format&fit=crop&q=80&w=800",
+    "description": "Fine gauge knit perfect for layering."
+  },
+  {
+    "id": "item-22",
+    "name": "Cargo Joggers",
+    "price": 90.0,
+    "category": "Bottoms",
+    "image_url": "https://images.unsplash.com/photo-1517441551139-7756f709325f?auto=format&fit=crop&q=80&w=800",
+    "description": "Utilitarian design with a comfortable athletic fit."
+  },
+  {
+    "id": "item-23",
+    "name": "Shearling Aviator Jacket",
+    "price": 450.0,
+    "category": "Outerwear",
+    "image_url": "https://images.unsplash.com/photo-1548883354-94bcfe3211bb?auto=format&fit=crop&q=80&w=800",
+    "description": "Premium sheepskin with a rugged vintage finish."
+  },
+  {
+    "id": "item-24",
+    "name": "Corduroy Button Down",
+    "price": 85.0,
+    "category": "Shirts",
+    "image_url": "https://images.unsplash.com/photo-1617114919297-3c8ddb01f599?auto=format&fit=crop&q=80&w=800",
+    "description": "Fine wale corduroy for a classic heritage feel."
+  },
+  {
+    "id": "item-25",
+    "name": "Wrap Style Blouse",
+    "price": 95.0,
+    "category": "Tops",
+    "image_url": "https://images.unsplash.com/photo-1564252234530-6834d9434861?auto=format&fit=crop&q=80&w=800",
+    "description": "Elegant wrap front with delicate side tie."
+  },
+  {
+    "id": "item-26",
+    "name": "Wide Leg Culottes",
+    "price": 105.0,
+    "category": "Bottoms",
+    "image_url": "https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&q=80&w=800",
+    "description": "Flowy silhouette with a comfortable elasticated back."
+  },
+  {
+    "id": "item-27",
+    "name": "Velvet Evening Gown",
+    "price": 380.0,
+    "category": "Dresses",
+    "image_url": "https://images.unsplash.com/photo-1621335829175-95f437384d7c?auto=format&fit=crop&q=80&w=800",
+    "description": "Luxe midnight velvet for formal occasions."
+  },
+  {
+    "id": "item-28",
+    "name": "Fair Isle Scandi Sweater",
+    "price": 135.0,
+    "category": "Knitwear",
+    "image_url": "https://images.unsplash.com/photo-1582260492815-381dc37d6e4b?auto=format&fit=crop&q=80&w=800",
+    "description": "Traditional pattern using heritage wool yarns."
+  },
+  {
+    "id": "item-29",
+    "name": "Polarized Sunglasses",
+    "price": 160.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1511499767350-a1590fdb2863?auto=format&fit=crop&q=80&w=800",
+    "description": "UV protected lenses with a lightweight titanium frame."
+  },
+  {
+    "id": "item-30",
+    "name": "Puffer Vest",
+    "price": 120.0,
+    "category": "Outerwear",
+    "image_url": "https://images.unsplash.com/photo-1580193134372-e6e665d95bad?auto=format&fit=crop&q=80&w=800",
+    "description": "Sustainable down fill for versatile layering."
+  },
+  {
+    "id": "item-31",
+    "name": "Knit Maxi Skirt",
+    "price": 110.0,
+    "category": "Bottoms",
+    "image_url": "https://images.unsplash.com/photo-1624373407949-0d1fc0d18080?auto=format&fit=crop&q=80&w=800",
+    "description": "Stretchy knit with a high-side slit."
+  },
+  {
+    "id": "item-32",
+    "name": "Denim Trucker Jacket",
+    "price": 155.0,
+    "category": "Outerwear",
+    "image_url": "https://images.unsplash.com/photo-1527010154944-f2241763d806?auto=format&fit=crop&q=80&w=800",
+    "description": "Classic indigo wash with bronze hardware."
+  },
+  {
+    "id": "item-33",
+    "name": "Ribbed Beanie Hat",
+    "price": 30.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1576871333020-0430154238e8?auto=format&fit=crop&q=80&w=800",
+    "description": "Soft acrylic blend for cold weather comfort."
+  },
+  {
+    "id": "item-34",
+    "name": "Cotton Polo Shirt",
+    "price": 75.0,
+    "category": "Shirts",
+    "image_url": "https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&q=80&w=800",
+    "description": "Breathable piqué cotton with a classic three-button placket."
+  },
+  {
+    "id": "item-35",
+    "name": "Leather Biker Jacket",
+    "price": 490.0,
+    "category": "Outerwear",
+    "image_url": "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=800",
+    "description": "Top-grain cowhide with heavy-duty zipper details."
+  },
+  {
+    "id": "item-36",
+    "name": "V-Neck T-Shirt",
+    "price": 35.0,
+    "category": "Tops",
+    "image_url": "https://images.unsplash.com/photo-1549045337-967ec7599017?auto=format&fit=crop&q=80&w=800",
+    "description": "Pima cotton for a super soft hand feel."
+  },
+  {
+    "id": "item-37",
+    "name": "Wool Blend Scarf",
+    "price": 60.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1601002224794-d2e7377f0f62?auto=format&fit=crop&q=80&w=800",
+    "description": "Herringbone pattern with fringed edges."
+  },
+  {
+    "id": "item-38",
+    "name": "High Top Trainers",
+    "price": 145.0,
+    "category": "Footwear",
+    "image_url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800",
+    "description": "Vintage basketball aesthetic with modern cushioning."
+  },
+  {
+    "id": "item-39",
+    "name": "Slip Dress",
+    "price": 130.0,
+    "category": "Dresses",
+    "image_url": "https://images.unsplash.com/photo-1520635360276-79f3dbd809f6?auto=format&fit=crop&q=80&w=800",
+    "description": "Seamless satin with adjustable spaghetti straps."
+  },
+  {
+    "id": "item-40",
+    "name": "Hardshell Suitcase",
+    "price": 280.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?auto=format&fit=crop&q=80&w=800",
+    "description": "Polycarbonate shell with multi-directional wheels."
+  },
+  {
+    "id": "item-41",
+    "name": "Linen Handkerchief",
+    "price": 15.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1621335829175-95f437384d7c?auto=format&fit=crop&q=80&w=800",
+    "description": "Pure white linen for a crisp formal touch."
+  },
+  {
+    "id": "item-42",
+    "name": "Wool Beanie",
+    "price": 45.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1576871333020-0430154238e8?auto=format&fit=crop&q=80&w=800",
+    "description": "Recycled wool for warmth and conscious style."
+  },
+  {
+    "id": "item-43",
+    "name": "Suede Loafers",
+    "price": 175.0,
+    "category": "Footwear",
+    "image_url": "https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&q=80&w=800",
+    "description": "Casual elegance with a soft suede upper."
+  },
+  {
+    "id": "item-44",
+    "name": "Striped Tee",
+    "price": 30.0,
+    "category": "Tops",
+    "image_url": "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800",
+    "description": "Breton stripes in durable organic cotton."
+  },
+  {
+    "id": "item-45",
+    "name": "Knit Tie",
+    "price": 55.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1594932224010-756641c8889b?auto=format&fit=crop&q=80&w=800",
+    "description": "Textured silk knit for a modern formal look."
+  },
+  {
+    "id": "item-46",
+    "name": "Canvas Belt",
+    "price": 25.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1554992257-236f018d3615?auto=format&fit=crop&q=80&w=800",
+    "description": "Durable webbing with an antiqued brass buckle."
+  },
+  {
+    "id": "item-47",
+    "name": "Pocket Square",
+    "price": 20.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1594932224010-756641c8889b?auto=format&fit=crop&q=80&w=800",
+    "description": "Hand-rolled edges with a unique geometric print."
+  },
+  {
+    "id": "item-48",
+    "name": "Silk Tie",
+    "price": 75.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1598033129183-c4f50c7176c8?auto=format&fit=crop&q=80&w=800",
+    "description": "Luxe jacquard silk for a refined business look."
+  },
+  {
+    "id": "item-49",
+    "name": "Leather Gloves",
+    "price": 85.0,
+    "category": "Accessories",
+    "image_url": "https://images.unsplash.com/photo-1549439602-43ebca2327af?auto=format&fit=crop&q=80&w=800",
+    "description": "Supple deerskin with a warm cashmere lining."
+  },
+  {
+    "id": "item-50",
+    "name": "Wool Overcoat",
+    "price": 350.0,
+    "category": "Outerwear",
+    "image_url": "https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&q=80&w=800",
+    "description": "Heavyweight wool for maximum winter protection."
+  }
+]

@@ -8,30 +8,43 @@ export default {
   theme: {
     extend: {
       "colors": {
-          "primary": "var(--primary)",
-          "primary-dim": "var(--primary-dim)",
-          "on-primary": "var(--on-primary)",
-          "secondary": "var(--secondary)",
-          "background": "var(--background)",
-          "on-background": "var(--on-background)",
-          "surface": "var(--surface)",
-          "on-surface": "var(--on-surface)",
-          "on-surface-variant": "var(--on-surface-variant)",
-          "surface-container": "var(--surface-container)",
-          "surface-container-high": "var(--surface-container-high)",
-          "surface-container-highest": "var(--surface-container-highest)",
-          "outline-variant": "var(--outline-variant)",
-          "primary-container": "#ae8dff",
-          "secondary-container": "#006d35",
-          "tertiary": "#57bcff",
-          "tertiary-dim": "#00a7f2",
-          "error": "#ff6e84",
+          "primary": "#6366f1", // Refined Indigo
+          "primary-dim": "#4f46e5",
+          "on-primary": "#ffffff",
+          "secondary": "#10b981", // Emerald
+          "background": "#fafafa", // Zinc 50
+          "on-background": "#09090b", // Zinc 950
+          "surface": "#ffffff",
+          "on-surface": "#18181b", // Zinc 900
+          "on-surface-variant": "#71717a", // Zinc 500
+          "surface-container": "#f4f4f5", // Zinc 100
+          "surface-container-high": "#e4e4e7", // Zinc 200
+          "surface-container-highest": "#d4d4d8", // Zinc 300
+          "outline-variant": "#e4e4e7", // Zinc 200
+          "zinc": {
+            "50": "#fafafa",
+            "100": "#f4f4f5",
+            "200": "#e4e4e7",
+            "300": "#d4d4d8",
+            "400": "#a1a1aa",
+            "500": "#71717a",
+            "600": "#52525b",
+            "700": "#3f3f46",
+            "800": "#27272a",
+            "900": "#18181b",
+            "950": "#09090b"
+          },
+          "primary-container": "#e0e7ff",
+          "secondary-container": "#dcfce7",
+          "tertiary": "#0ea5e9", // Sky
+          "tertiary-dim": "#0284c7",
+          "error": "#ef4444",
       },
       "borderRadius": {
-          "sm": "0.5rem",
-          "DEFAULT": "0.75rem",
-          "lg": "1rem",
-          "xl": "1.25rem",
+          "sm": "0.375rem",
+          "DEFAULT": "0.5rem",
+          "lg": "0.75rem",
+          "xl": "1rem",
           "2xl": "1.5rem",
           "full": "9999px"
       },
@@ -42,6 +55,7 @@ export default {
         "1": "0.25rem",
         "1.5": "0.375rem",
         "2": "0.5rem",
+        "2.5": "0.625rem",
         "3": "0.75rem",
         "4": "1rem",
         "5": "1.25rem",
