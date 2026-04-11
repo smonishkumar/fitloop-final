@@ -25,6 +25,9 @@ h11
 httplib2
 idna
 motor
+mediapipe==0.10.14
+numpy
+opencv-python-headless
 passlib
 proto-plus
 protobuf>=4.25.8

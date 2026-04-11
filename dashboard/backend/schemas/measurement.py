@@ -17,7 +17,11 @@ class MeasurementCreate(BaseModel):
     wrist: float
     forearm: float
     bicep: float
+    height: Optional[float] = None
+    weight: Optional[float] = None
     body_type: Optional[str] = None
+    model_confidence: Optional[float] = None
+    calibration_mode: Optional[str] = None
 
 class MeasurementResponse(MeasurementCreate):
     id: str
