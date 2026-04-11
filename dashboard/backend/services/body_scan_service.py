@@ -3,8 +3,15 @@ from __future__ import annotations
 import math
 from typing import Any, Dict, Optional
 
-import cv2
-import numpy as np
+try:
+    import cv2
+except Exception:  # pragma: no cover - optional dependency at runtime
+    cv2 = None
+
+try:
+    import numpy as np
+except Exception:  # pragma: no cover - optional dependency at runtime
+    np = None
 
 try:
     import mediapipe as mp
@@ -28,9 +35,12 @@ def _to_float(value: Any, default: float) -> float:
         return float(default)
 
 
-def _decode_image(image_bytes: bytes) -> np.ndarray:
+def _decode_image(image_bytes: bytes) -> Optional[np.ndarray]:
     if not image_bytes:
         raise ValueError("Uploaded image is empty")
+
+    if cv2 is None or np is None:
+        return None
 
     frame = cv2.imdecode(np.frombuffer(image_bytes, np.uint8), cv2.IMREAD_COLOR)
     if frame is None:
@@ -142,7 +152,7 @@ def _build_base_measurements(
 
 
 def _extract_pose_features(frame_bgr: np.ndarray, height_cm: float) -> Optional[Dict[str, float]]:
-    if mp is None:
+    if mp is None or frame_bgr is None or cv2 is None:
         return None
 
     image_h, image_w = frame_bgr.shape[:2]
