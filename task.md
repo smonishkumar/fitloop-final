@@ -1,0 +1,12 @@
+- `[x]` Python ML Service
+  - `[x]` requirements.txt setup
+  - `[x]` FastAPI main and pipeline scripts
+- `[x]` Node JS Backend
+  - `[x]` package.json & server setup
+  - `[x]` Prisma schema
+  - `[x]` API Routes
+- `[x]` React Frontend
+  - `[x]` Vite setup
+  - `[x]` Pages and components
+  - `[x]` Redux + RTK Query setup
+- `[x]` Verification & Walkthrough

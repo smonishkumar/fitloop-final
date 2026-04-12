@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pydantic
+mediapipe==0.10.14
+opencv-python-headless
+numpy
+pillow
+python-multipart
+torch
+torchvision
+transformers
