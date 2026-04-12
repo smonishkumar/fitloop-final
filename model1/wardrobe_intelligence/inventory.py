@@ -57,15 +57,19 @@ class InventoryManager:
             "id": item_id,
             "type": item_data["type"],
             "color": item_data["color"],
+            "pattern": item_data.get("pattern", "unknown"),
+            "material": item_data.get("material", "unknown"),
+            "gemini_label": item_data.get("gemini_label", ""),
+            "classified_by": item_data.get("classified_by", "clip"),
             "confidence": round(item_data["confidence"], 2),
-            "image_features": item_data.get("image_features", []),  # Hidden deeply for internal math matching
-            "image_hash": item_data.get("image_hash", "0x000")       # UI display hash
+            "image_features": item_data.get("image_features", []),  # Internal cosine-sim only
+            "image_hash": item_data.get("image_hash", "0x000"),
         }
         self.inventory.append(new_item)
         return new_item
 
     def get_inventory(self):
-        # We strip out the heavy raw math features when returning standard JSON so we don't crash standard UI's
+        """Return inventory without heavy embedding vectors (safe for JSON APIs)."""
         out = []
         for i in self.inventory:
             c = i.copy()

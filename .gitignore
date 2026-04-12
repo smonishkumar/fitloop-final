@@ -64,5 +64,6 @@ weights/
 
 # Antigravity/System
 .gemini/
-artifacts/
+# artifacts/ (Uncommented to allow dashboard inclusion)
+# artifacts/
 .DS_Store
