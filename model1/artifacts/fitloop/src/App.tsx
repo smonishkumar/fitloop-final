@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { SettingsProvider } from "@/contexts/SettingsContext";
+import { WardrobeProvider } from "@/contexts/WardrobeContext";
 import Layout from "@/components/Layout";
 import AIChatbot from "@/components/AIChatbot";
 import Dashboard from "@/pages/Dashboard";
@@ -46,11 +47,13 @@ function App() {
       <TooltipProvider>
         <ThemeProvider>
           <SettingsProvider>
-            <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-              <Router />
-              <AIChatbot />
-            </WouterRouter>
-            <Toaster />
+            <WardrobeProvider>
+              <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+                <Router />
+                <AIChatbot />
+              </WouterRouter>
+              <Toaster />
+            </WardrobeProvider>
           </SettingsProvider>
         </ThemeProvider>
       </TooltipProvider>

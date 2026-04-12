@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   Wand2, Star, RefreshCw, Bookmark, ShoppingBag,
   Sun, Briefcase, Music, Heart, Coffee, Plane, Plus, X,
-  CheckCircle2, Sparkles, ChevronRight, Share2, Download
+  CheckCircle2, Sparkles, ChevronRight, Share2, Download,
+  Shirt, AlertTriangle, Loader2
 } from "lucide-react";
+import { useWardrobe } from "@/contexts/WardrobeContext";
+import { getClothingImage } from "@/lib/clothingMap";
 
 type Occasion = { id: string; label: string; icon: React.ComponentType<any>; color: string };
 const occasions: Occasion[] = [
@@ -22,64 +25,7 @@ type Outfit = {
   colorStory: string; styleNote: string;
 };
 
-const allOutfits: Outfit[] = [
-  {
-    id: 1, name: "Smart Casual Friday", occasion: "casual", score: 94, bodyScore: 96,
-    colorStory: "Cool neutrals", styleNote: "Relaxed but polished. Great for casual office or brunch.",
-    items: [
-      { emoji: "👔", name: "White Oxford Shirt", brand: "Uniqlo" },
-      { emoji: "👖", name: "Navy Slim Trousers", brand: "Zara" },
-      { emoji: "👟", name: "White Sneakers", brand: "—" },
-    ],
-  },
-  {
-    id: 2, name: "Power Meeting Look", occasion: "work", score: 91, bodyScore: 93,
-    colorStory: "Charcoal & neutral", styleNote: "Authoritative and clean. The blazer elevates the whole look.",
-    items: [
-      { emoji: "🥼", name: "Blazer Charcoal", brand: "& Other Stories" },
-      { emoji: "👔", name: "White Oxford Shirt", brand: "Uniqlo" },
-      { emoji: "👖", name: "Beige Chinos", brand: "H&M" },
-    ],
-    missing: "Oxford shoes — shop now",
-  },
-  {
-    id: 3, name: "Summer Date Night", occasion: "date", score: 88, bodyScore: 90,
-    colorStory: "Floral & feminine", styleNote: "Soft and romantic. The floral print does all the work.",
-    items: [
-      { emoji: "👗", name: "Floral Midi Dress", brand: "Zara" },
-      { emoji: "👡", name: "Strappy Heels", brand: "—" },
-      { emoji: "👛", name: "Clutch", brand: "—" },
-    ],
-    missing: "Strappy heels — not in wardrobe",
-  },
-  {
-    id: 4, name: "Weekend Explorer", occasion: "outdoor", score: 96, bodyScore: 97,
-    colorStory: "Denim & earth tones", styleNote: "Effortless weekend energy. Comfortable and put-together.",
-    items: [
-      { emoji: "🧥", name: "Denim Jacket Classic", brand: "Levi's" },
-      { emoji: "👕", name: "White T-Shirt", brand: "H&M" },
-      { emoji: "🩲", name: "Beige Chinos", brand: "H&M" },
-    ],
-  },
-  {
-    id: 5, name: "Business Travel", occasion: "travel", score: 90, bodyScore: 91,
-    colorStory: "Charcoal & stripe", styleNote: "Smart enough for meetings, comfortable for long flights.",
-    items: [
-      { emoji: "🥼", name: "Blazer Charcoal", brand: "& Other Stories" },
-      { emoji: "🏖️", name: "Striped Linen Shirt", brand: "Mango" },
-      { emoji: "🦵", name: "Black Skinny Jeans", brand: "Topshop" },
-    ],
-  },
-  {
-    id: 6, name: "Evening Minimalist", occasion: "evening", score: 93, bodyScore: 94,
-    colorStory: "All-black with texture", styleNote: "Confident and striking. Let the fit speak for itself.",
-    items: [
-      { emoji: "🦵", name: "Black Skinny Jeans", brand: "Topshop" },
-      { emoji: "🥼", name: "Blazer Charcoal", brand: "& Other Stories" },
-      { emoji: "👔", name: "White Oxford Shirt", brand: "Uniqlo" },
-    ],
-  },
-];
+
 
 function scoreColor(s: number) {
   return s >= 92 ? "text-green-600 dark:text-green-400" : s >= 85 ? "text-amber-600" : "text-red-500";
@@ -101,9 +47,11 @@ function OutfitDetailPanel({ outfit, onClose, isSaved, onToggleSave }: {
         <div className="h-40 bg-gradient-to-br from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 flex items-center justify-center relative">
           <div className="flex gap-6">
             {outfit.items.map((item, i) => (
-              <div key={i} className="text-center">
-                <span className="text-4xl">{item.emoji}</span>
-                <p className="text-[9px] text-muted-foreground mt-1">{item.name.split(" ").slice(0, 2).join(" ")}</p>
+              <div key={i} className="flex flex-col items-center flex-shrink-0">
+                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/60 dark:border-white/10 shadow-lg mb-1.5 bg-card flex-shrink-0">
+                  <img src={getClothingImage(item.type)} className="w-full h-full object-cover" alt={item.type} />
+                </div>
+                <p className="text-[9px] font-medium text-foreground max-w-[60px] leading-tight text-center truncate">{item.name.split(" ").slice(0, 2).join(" ")}</p>
               </div>
             ))}
           </div>
@@ -154,9 +102,11 @@ function OutfitDetailPanel({ outfit, onClose, isSaved, onToggleSave }: {
             <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wide">Outfit Items</p>
             {outfit.items.map((item, i) => (
               <div key={i} className="flex items-center gap-3 p-2.5 bg-muted/40 rounded-lg">
-                <span className="text-xl">{item.emoji}</span>
-                <div className="flex-1">
-                  <p className="text-[12px] font-medium text-foreground">{item.name}</p>
+                <div className="w-10 h-10 rounded-lg overflow-hidden border border-border shadow-sm flex-shrink-0">
+                  <img src={getClothingImage(item.type)} className="w-full h-full object-cover" alt={item.type} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[12px] font-medium text-foreground truncate">{item.name}</p>
                   <p className="text-[10px] text-muted-foreground">{item.brand !== "—" ? item.brand : "Not in wardrobe"}</p>
                 </div>
                 {item.brand === "—" && <span className="text-[9px] px-1.5 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-full">Missing</span>}
@@ -196,19 +146,71 @@ function OutfitDetailPanel({ outfit, onClose, isSaved, onToggleSave }: {
 }
 
 export default function OutfitEngine() {
+  const { items } = useWardrobe();
+  
+  const [outfits, setOutfits] = useState<Outfit[]>([]);
   const [activeOccasion, setActiveOccasion] = useState("all");
   const [generating, setGenerating] = useState(false);
-  const [savedIds, setSavedIds] = useState<Set<number>>(new Set([1, 4]));
+  const [generateError, setGenerateError] = useState<string | null>(null);
+  const [savedIds, setSavedIds] = useState<Set<number>>(new Set());
   const [selectedOutfit, setSelectedOutfit] = useState<Outfit | null>(null);
 
   const displayed = activeOccasion === "all"
-    ? allOutfits
-    : allOutfits.filter(o => o.occasion === activeOccasion);
+    ? outfits
+    : outfits.filter(o => o.occasion === activeOccasion);
 
-  const generate = () => {
+  const generate = useCallback(async () => {
+    if (items.length === 0) {
+      alert("Please scan your wardrobe first to generate outfits.");
+      return;
+    }
+
     setGenerating(true);
-    setTimeout(() => setGenerating(false), 1600);
-  };
+    setGenerateError(null);
+
+    try {
+      const response = await fetch("/api/outfits", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          items: items.map(i => ({...i, brand: "Wardrobe Item"})), 
+          occasion: activeOccasion 
+        }),
+      });
+
+      if (!response.ok) {
+        const errData = await response.json();
+        throw new Error(errData.error || "Failed to generate outfits");
+      }
+
+      const data = await response.json();
+      
+      // Merge with existing outfits if appending, here we just replace
+      setOutfits(data.outfits.map((o: any) => ({
+        ...o,
+        // Ensure default bodyScore if missing
+        bodyScore: o.bodyScore || Math.min(100, o.score + Math.floor(Math.random() * 5)),
+        items: o.items.map((i: any) => ({
+          ...i,
+          brand: i.inWardrobe ? "Wardrobe Item" : "—"
+        }))
+      })));
+      
+    } catch (err: any) {
+      setGenerateError(err.message || "Failed to contact AI Engine");
+      alert(err.message || "Generation Failed");
+    } finally {
+      setGenerating(false);
+    }
+  }, [items, activeOccasion]);
+
+  // Initial load if we have items but no outfits
+  useEffect(() => {
+    if (items.length > 0 && outfits.length === 0 && !generating && !generateError) {
+      generate();
+    }
+  }, [items.length, generate]); // Only trigger on initial load or manual generation
+
 
   const toggleSave = (id: number) => setSavedIds(s => {
     const n = new Set(s);
@@ -242,11 +244,11 @@ export default function OutfitEngine() {
           </button>
           <button
             onClick={generate}
-            disabled={generating}
+            disabled={generating || items.length === 0}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg text-xs font-medium hover:opacity-90 disabled:opacity-60 transition-all shadow-sm"
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            {generating ? "Generating..." : "Generate New"}
+            {generating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
+            {generating ? "AI Generating..." : "Generate Outfits"}
           </button>
         </div>
       </div>
@@ -301,38 +303,63 @@ export default function OutfitEngine() {
           {/* Mix & Match engine */}
           <div className="bg-gradient-to-br from-pink-500 to-purple-700 rounded-xl p-4">
             <h3 className="text-white font-semibold text-sm mb-1 flex items-center gap-2">
-              <Sparkles className="w-3.5 h-3.5" />Mix & Match
+              <Sparkles className="w-3.5 h-3.5" />Outfit Engine AI
             </h3>
-            <p className="text-white/70 text-[11px] mb-3">AI analyzes color, pattern, fit, and occasion compatibility</p>
+            <p className="text-white/70 text-[11px] mb-3">Gemini analyzes color, pattern, fit, and occasion compatibility</p>
             <div className="space-y-1.5">
-              {[["Items Analyzed", "12"], ["Combos Tested", "864"], ["Top Outfits", `${displayed.length}`], ["Avg Match Score", "92%"]].map(([k, v]) => (
+              {[
+                ["Wardrobe Items", `${items.length}`], 
+                ["Unique Colors", `${new Set(items.map(i => i.color)).size}`], 
+                ["Top Outfits Generated", `${outfits.length}`], 
+                ["Avg Match Score", outfits.length > 0 ? `${Math.round(outfits.reduce((acc, o) => acc + o.score, 0) / outfits.length)}%` : "—"]
+              ].map(([k, v]) => (
                 <div key={k} className="flex justify-between">
                   <span className="text-white/70 text-[10px]">{k}</span>
                   <span className="text-white font-semibold text-[10px]">{v}</span>
                 </div>
               ))}
             </div>
-            <button onClick={generate} disabled={generating} className="mt-3 w-full py-2 bg-white/15 hover:bg-white/25 text-white text-xs font-medium rounded-lg border border-white/20 transition-colors disabled:opacity-60">
-              {generating ? "Running engine..." : "Re-run Engine"}
+            <button onClick={generate} disabled={generating || items.length === 0} className="mt-3 w-full py-2 bg-white/15 hover:bg-white/25 text-white text-xs font-medium rounded-lg border border-white/20 transition-colors disabled:opacity-60">
+              {generating ? "Running AI..." : "Regenerate Looks"}
             </button>
           </div>
         </div>
 
         {/* Outfit grid */}
         <div className="col-span-9">
-          {generating && (
-            <div className="flex items-center gap-3 bg-pink-50 dark:bg-pink-900/20 border border-pink-200 dark:border-pink-800 rounded-xl p-4 mb-4">
-              <div className="w-7 h-7 rounded-full border-4 border-pink-200 border-t-pink-600 animate-spin flex-shrink-0" />
-              <div>
-                <p className="text-sm font-medium text-pink-800 dark:text-pink-300">Generating outfit combinations...</p>
-                <p className="text-xs text-pink-600 dark:text-pink-400 mt-0.5">Analyzing 864 combinations across all occasions</p>
+          {items.length === 0 ? (
+            <div className="bg-card border border-amber-200 dark:border-amber-800 rounded-xl py-16 px-6 text-center shadow-sm">
+              <Shirt className="w-12 h-12 text-amber-500/40 mx-auto mb-4" />
+              <h2 className="text-xl font-bold text-foreground mb-2">Your Wardrobe is Empty</h2>
+              <p className="text-sm text-muted-foreground max-w-md mx-auto mb-6">
+                The Outfit Engine needs to know what clothes you own before it can generate styling recommendations.
+              </p>
+              <a href="/wardrobe" className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground font-medium rounded-xl hover:bg-primary/90 transition-colors">
+                <Wand2 className="w-4 h-4" />Scan Wardrobe Now
+              </a>
+            </div>
+          ) : generateError ? (
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-6 text-center">
+              <AlertTriangle className="w-8 h-8 text-red-500 mx-auto mb-3" />
+              <p className="text-sm font-medium text-red-800 dark:text-red-300">Generation Failed</p>
+              <p className="text-xs text-red-600 dark:text-red-500 mt-1">{generateError}</p>
+              <button onClick={generate} className="mt-4 px-4 py-2 bg-red-100 dark:bg-red-800/50 text-red-700 dark:text-red-300 font-medium rounded-lg text-xs hover:bg-red-200 dark:hover:bg-red-800/70">
+                Try Again
+              </button>
+            </div>
+          ) : generating ? (
+            <div className="flex items-center justify-center py-20 bg-card border border-border rounded-xl shadow-sm">
+              <div className="text-center">
+                <div className="w-12 h-12 rounded-full border-4 border-pink-100 dark:border-pink-900/30 border-t-pink-500 animate-spin mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-foreground bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">Gemini is styling you...</h3>
+                <p className="text-sm text-muted-foreground mt-2 max-w-sm">Analyzing {items.length} wardrobe items across {new Set(items.map(i => i.color)).size} colors for {activeOccasion === 'all' ? 'all occasions' : activeOccasion}.</p>
               </div>
             </div>
-          )}
+          ) : (
+            <>
+              <p className="text-[11px] text-muted-foreground mb-3">Click any outfit card to view details, share, or wear it</p>
 
-          <p className="text-[11px] text-muted-foreground mb-3">Click any outfit card to view details, share, or wear it</p>
-
-          <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-4">
             {displayed.map(outfit => {
               const isSaved = savedIds.has(outfit.id);
               const occ = occasions.find(o => o.id === outfit.occasion);
@@ -348,9 +375,11 @@ export default function OutfitEngine() {
                   <div className="relative h-36 bg-gradient-to-br from-muted/40 to-muted/70 flex items-center justify-center">
                     <div className="flex gap-3">
                       {outfit.items.map((item, i) => (
-                        <div key={i} className="text-center">
-                          <span className="text-3xl">{item.emoji}</span>
-                          <p className="text-[9px] text-muted-foreground mt-0.5 max-w-[48px] leading-tight line-clamp-1">{item.name.split(" ").slice(0, 2).join(" ")}</p>
+                        <div key={i} className="flex flex-col items-center">
+                          <div className="w-12 h-12 rounded-full overflow-hidden shadow-md border-2 border-white/60 dark:border-white/10 mb-1 hover:scale-105 transition-transform duration-300">
+                            <img src={getClothingImage(item.type)} className="w-full h-full object-cover" alt={item.type} />
+                          </div>
+                          <p className="text-[9px] font-medium text-foreground max-w-[50px] leading-tight text-center truncate">{item.name.split(" ").slice(0, 2).join(" ")}</p>
                         </div>
                       ))}
                     </div>
@@ -399,7 +428,8 @@ export default function OutfitEngine() {
             {/* Generate more */}
             <button
               onClick={generate}
-              className="border-2 border-dashed border-border rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-primary/40 transition-colors group active:scale-[0.98]"
+              disabled={generating}
+              className="border-2 border-dashed border-border rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-primary/40 transition-colors group active:scale-[0.98] disabled:opacity-50"
               style={{ minHeight: 240 }}
             >
               <div className="w-10 h-10 rounded-full border-2 border-dashed border-muted-foreground/30 group-hover:border-primary/40 flex items-center justify-center mb-2 transition-colors">
@@ -411,6 +441,8 @@ export default function OutfitEngine() {
               </p>
             </button>
           </div>
+          </>
+          )}
         </div>
       </div>
     </div>

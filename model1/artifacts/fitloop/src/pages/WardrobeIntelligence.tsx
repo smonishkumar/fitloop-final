@@ -6,6 +6,8 @@ import {
   Loader2, Shirt, Footprints, Sofa, AlertTriangle,
   Video, VideoOff, SwitchCamera, Aperture
 } from "lucide-react";
+import { useWardrobe } from "@/contexts/WardrobeContext";
+import { getClothingImage } from "@/lib/clothingMap";
 
 type ClothingItem = {
   id: number;
@@ -317,9 +319,13 @@ function ItemDetailPanel({ item, onClose, onDelete }: { item: ClothingItem; onCl
         </div>
 
         <div className="p-4 space-y-4">
-          {/* Hero */}
-          <div className="h-36 rounded-xl bg-gradient-to-b from-muted/40 to-muted/80 flex flex-col items-center justify-center gap-2 relative">
-            <span className="text-5xl">{getItemEmoji(item.type)}</span>
+          <div className="h-36 rounded-xl bg-gradient-to-b from-muted/40 to-muted/80 flex flex-col items-center justify-center gap-2 relative overflow-hidden">
+            <div className="absolute inset-0 z-0 opacity-40 mix-blend-overlay">
+              <img src={getClothingImage(item.type)} className="w-full h-full object-cover blur-sm" alt="bg blur" />
+            </div>
+            <div className="z-10 w-20 h-20 rounded-full border-4 border-white dark:border-card shadow-lg overflow-hidden bg-card">
+              <img src={getClothingImage(item.type)} className="w-full h-full object-cover" alt={item.type} />
+            </div>
             {item.is_duplicate && (
               <span className="absolute top-2 right-2 flex items-center gap-1 text-[9px] px-2 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full font-medium">
                 <Copy className="w-2.5 h-2.5" />Duplicate
@@ -391,9 +397,9 @@ function ItemDetailPanel({ item, onClose, onDelete }: { item: ClothingItem; onCl
 }
 
 export default function WardrobeIntelligence() {
-  const [items, setItems] = useState<ClothingItem[]>([]);
+  const { items, setItems, scannedImageUrl, setScannedImageUrl } = useWardrobe();
   const [scanning, setScanning] = useState(false);
-  const [scanned, setScanned] = useState(false);
+  const [scanned, setScanned] = useState(items.length > 0);
   const [scanStatus, setScanStatus] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [activeCategory, setActiveCategory] = useState("All");
@@ -401,7 +407,6 @@ export default function WardrobeIntelligence() {
   const [showDuplicates, setShowDuplicates] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedItem, setSelectedItem] = useState<ClothingItem | null>(null);
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [scanError, setScanError] = useState<string | null>(null);
   const [showCamera, setShowCamera] = useState(false);
   const uploadFileRef = useRef<HTMLInputElement>(null);
@@ -409,7 +414,7 @@ export default function WardrobeIntelligence() {
   // ── Shared scan logic ──
   const runScan = useCallback(async (imageBlob: Blob, previewUrl?: string) => {
     if (previewUrl) {
-      setUploadedImage(previewUrl);
+      setScannedImageUrl(previewUrl);
     }
     setScanning(true);
     setScanned(false);
@@ -458,7 +463,7 @@ export default function WardrobeIntelligence() {
     } finally {
       setScanning(false);
     }
-  }, []);
+  }, [setItems, setScannedImageUrl]);
 
   // ── File upload handler ──
   const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -581,8 +586,8 @@ export default function WardrobeIntelligence() {
           <div className="bg-card border border-border rounded-xl p-4">
             <h3 className="text-sm font-semibold text-foreground mb-3">Wardrobe Scan</h3>
             <div className="h-32 rounded-lg bg-gradient-to-b from-amber-50/50 to-muted/30 dark:from-amber-900/10 border border-border flex items-center justify-center mb-3 relative overflow-hidden">
-              {uploadedImage ? (
-                <img src={uploadedImage} alt="Uploaded clothing" className="h-full w-full object-cover rounded-lg" />
+              {scannedImageUrl ? (
+                <img src={scannedImageUrl} alt="Uploaded clothing" className="h-full w-full object-cover rounded-lg" />
               ) : (
                 <div className="text-center">
                   <span className="text-3xl">👗👔👖</span>
@@ -682,7 +687,9 @@ export default function WardrobeIntelligence() {
                     onClick={() => setSelectedItem(item)}
                     className="flex items-center gap-2 p-2 bg-red-50 dark:bg-red-900/20 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors cursor-pointer"
                   >
-                    <span className="text-lg">{getItemEmoji(item.type)}</span>
+                    <div className="w-10 h-10 rounded-md overflow-hidden flex-shrink-0 shadow-sm border border-red-200 dark:border-red-800">
+                      <img src={getClothingImage(item.type)} className="w-full h-full object-cover" alt={item.type} />
+                    </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-[11px] font-medium text-foreground truncate">{item.gemini_label || item.name}</p>
                       <p className="text-[10px] text-muted-foreground">{item.color} · {Math.round(item.confidence * 100)}%</p>
@@ -800,7 +807,9 @@ export default function WardrobeIntelligence() {
                       }`}>
                         {item.zone}
                       </span>
-                      <div className="text-2xl text-center mb-2 mt-2">{getItemEmoji(item.type)}</div>
+                      <div className="w-20 h-20 mx-auto mt-4 mb-3 rounded-full overflow-hidden border-2 border-border/50 shadow-sm group-hover:scale-105 transition-transform duration-300">
+                        <img src={getClothingImage(item.type)} className="w-full h-full object-cover" alt={item.type} />
+                      </div>
                       <p className="text-[11px] font-medium text-foreground text-center leading-tight line-clamp-2">{item.gemini_label || item.name}</p>
                       <div className="flex flex-wrap gap-0.5 mt-2 justify-center">
                         <span className="text-[9px] px-1.5 py-0.5 bg-muted rounded-full text-muted-foreground capitalize">{item.color}</span>
@@ -824,7 +833,9 @@ export default function WardrobeIntelligence() {
                           : "border-border hover:bg-muted/40 hover:border-primary/30"
                       } ${selectedItem?.id === item.id ? "ring-2 ring-primary" : ""}`}
                     >
-                      <span className="text-xl flex-shrink-0">{getItemEmoji(item.type)}</span>
+                      <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 shadow-sm border border-border">
+                        <img src={getClothingImage(item.type)} className="w-full h-full object-cover" alt={item.type} />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="text-[12px] font-medium text-foreground">{item.gemini_label || item.name}</span>
