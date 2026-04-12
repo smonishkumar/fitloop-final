@@ -1,9 +1,10 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import {
   BookOpen, Upload, Camera, Search, Plus,
   CheckCircle2, Eye, Trash2, Grid3X3, List,
   Copy, X, Tag, Ruler, Star, ChevronRight, Edit2,
-  Loader2, Shirt, Footprints, Sofa, AlertTriangle
+  Loader2, Shirt, Footprints, Sofa, AlertTriangle,
+  Video, VideoOff, SwitchCamera, Aperture
 } from "lucide-react";
 
 type ClothingItem = {
@@ -48,6 +49,260 @@ function getCategory(type: string): string {
   if (accessories.includes(type)) return "Accessories";
   return "Other";
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Live Camera Capture Modal
+// ═══════════════════════════════════════════════════════════════════════════
+function CameraModal({ onCapture, onClose }: { onCapture: (blob: Blob) => void; onClose: () => void }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [stream, setStream] = useState<MediaStream | null>(null);
+  const [cameraReady, setCameraReady] = useState(false);
+  const [cameraError, setCameraError] = useState<string | null>(null);
+  const [facingMode, setFacingMode] = useState<"user" | "environment">("environment");
+  const [captured, setCaptured] = useState<string | null>(null);
+  const [countdown, setCountdown] = useState<number | null>(null);
+
+  const startCamera = useCallback(async (facing: "user" | "environment") => {
+    // Stop existing stream
+    if (stream) {
+      stream.getTracks().forEach(t => t.stop());
+    }
+    setCameraReady(false);
+    setCameraError(null);
+
+    try {
+      const mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: facing,
+          width: { ideal: 1920 },
+          height: { ideal: 1080 },
+        },
+        audio: false,
+      });
+      setStream(mediaStream);
+      if (videoRef.current) {
+        videoRef.current.srcObject = mediaStream;
+        videoRef.current.onloadedmetadata = () => {
+          videoRef.current?.play();
+          setCameraReady(true);
+        };
+      }
+    } catch (err: any) {
+      console.error("Camera error:", err);
+      setCameraError(
+        err.name === "NotAllowedError"
+          ? "Camera access denied. Please allow camera permissions in your browser."
+          : err.name === "NotFoundError"
+          ? "No camera found. Please connect a camera and try again."
+          : `Camera error: ${err.message}`
+      );
+    }
+  }, [stream]);
+
+  useEffect(() => {
+    startCamera(facingMode);
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach(t => t.stop());
+      }
+    };
+  }, []);
+
+  const switchCamera = () => {
+    const newFacing = facingMode === "user" ? "environment" : "user";
+    setFacingMode(newFacing);
+    startCamera(newFacing);
+  };
+
+  const capturePhoto = () => {
+    if (!videoRef.current || !canvasRef.current) return;
+
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.drawImage(video, 0, 0);
+    const dataUrl = canvas.toDataURL("image/jpeg", 0.92);
+    setCaptured(dataUrl);
+  };
+
+  const captureWithCountdown = () => {
+    setCountdown(3);
+    let count = 3;
+    const interval = setInterval(() => {
+      count--;
+      if (count <= 0) {
+        clearInterval(interval);
+        setCountdown(null);
+        capturePhoto();
+      } else {
+        setCountdown(count);
+      }
+    }, 1000);
+  };
+
+  const confirmCapture = () => {
+    if (!canvasRef.current) return;
+    canvasRef.current.toBlob(
+      (blob) => {
+        if (blob) onCapture(blob);
+      },
+      "image/jpeg",
+      0.92
+    );
+  };
+
+  const retake = () => {
+    setCaptured(null);
+  };
+
+  const handleClose = () => {
+    if (stream) {
+      stream.getTracks().forEach(t => t.stop());
+    }
+    onClose();
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center">
+      <div className="relative w-full max-w-2xl mx-4">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <Camera className="w-5 h-5 text-amber-400" />
+            <h2 className="text-lg font-bold text-white">Live Camera Scan</h2>
+            {cameraReady && !captured && (
+              <span className="flex items-center gap-1 text-[10px] px-2 py-0.5 bg-green-500/20 text-green-400 rounded-full border border-green-500/30">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />LIVE
+              </span>
+            )}
+          </div>
+          <button
+            onClick={handleClose}
+            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+          >
+            <X className="w-4 h-4 text-white" />
+          </button>
+        </div>
+
+        {/* Camera Preview */}
+        <div className="relative rounded-2xl overflow-hidden bg-gray-900 aspect-video">
+          {cameraError ? (
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+              <VideoOff className="w-12 h-12 text-red-400 mb-3" />
+              <p className="text-sm text-red-300 font-medium mb-1">Camera Unavailable</p>
+              <p className="text-xs text-gray-400 max-w-xs">{cameraError}</p>
+              <button
+                onClick={() => startCamera(facingMode)}
+                className="mt-4 px-4 py-1.5 bg-amber-600 text-white rounded-lg text-xs font-medium hover:bg-amber-700 transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          ) : (
+            <>
+              <video
+                ref={videoRef}
+                autoPlay
+                playsInline
+                muted
+                className={`w-full h-full object-cover ${captured ? "hidden" : ""} ${facingMode === "user" ? "scale-x-[-1]" : ""}`}
+              />
+              {captured && (
+                <img src={captured} alt="Captured" className="w-full h-full object-cover" />
+              )}
+
+              {/* Countdown overlay */}
+              {countdown !== null && (
+                <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <span className="text-7xl font-bold text-white animate-ping">{countdown}</span>
+                </div>
+              )}
+
+              {/* Corner guides */}
+              {!captured && cameraReady && (
+                <>
+                  <div className="absolute top-4 left-4 w-12 h-12 border-t-2 border-l-2 border-amber-400 rounded-tl-lg" />
+                  <div className="absolute top-4 right-4 w-12 h-12 border-t-2 border-r-2 border-amber-400 rounded-tr-lg" />
+                  <div className="absolute bottom-4 left-4 w-12 h-12 border-b-2 border-l-2 border-amber-400 rounded-bl-lg" />
+                  <div className="absolute bottom-4 right-4 w-12 h-12 border-b-2 border-r-2 border-amber-400 rounded-br-lg" />
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full">
+                    <p className="text-[11px] text-amber-300 font-medium">Point camera at your wardrobe</p>
+                  </div>
+                </>
+              )}
+
+              {/* Loading spinner while camera initializes */}
+              {!cameraReady && !cameraError && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <Loader2 className="w-8 h-8 text-amber-400 animate-spin mb-2" />
+                  <p className="text-xs text-gray-400">Initializing camera...</p>
+                </div>
+              )}
+            </>
+          )}
+          <canvas ref={canvasRef} className="hidden" />
+        </div>
+
+        {/* Controls */}
+        <div className="flex items-center justify-center gap-3 mt-4">
+          {!captured ? (
+            <>
+              <button
+                onClick={switchCamera}
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                title="Switch Camera"
+              >
+                <SwitchCamera className="w-4 h-4 text-white" />
+              </button>
+              <button
+                onClick={capturePhoto}
+                disabled={!cameraReady}
+                className="w-16 h-16 rounded-full bg-gradient-to-b from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700 shadow-lg shadow-amber-600/30 flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed active:scale-95"
+                title="Capture Photo"
+              >
+                <Aperture className="w-7 h-7 text-white" />
+              </button>
+              <button
+                onClick={captureWithCountdown}
+                disabled={!cameraReady}
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors disabled:opacity-40"
+                title="3s Timer Capture"
+              >
+                <span className="text-xs text-white font-bold">3s</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={retake}
+                className="flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm font-medium transition-colors"
+              >
+                <Camera className="w-4 h-4" />Retake
+              </button>
+              <button
+                onClick={confirmCapture}
+                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-xl text-sm font-medium shadow-lg shadow-amber-600/30 transition-all active:scale-95"
+              >
+                <CheckCircle2 className="w-4 h-4" />Scan This Image
+              </button>
+            </>
+          )}
+        </div>
+
+        <p className="text-center text-[11px] text-gray-500 mt-3">
+          {captured ? "Review your capture, then scan or retake" : "Position your wardrobe in the frame and capture"}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 
 function ItemDetailPanel({ item, onClose, onDelete }: { item: ClothingItem; onClose: () => void; onDelete: (id: number) => void }) {
   return (
@@ -148,16 +403,14 @@ export default function WardrobeIntelligence() {
   const [selectedItem, setSelectedItem] = useState<ClothingItem | null>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [scanError, setScanError] = useState<string | null>(null);
+  const [showCamera, setShowCamera] = useState(false);
   const uploadFileRef = useRef<HTMLInputElement>(null);
-  const cameraRef = useRef<HTMLInputElement>(null);
 
-  // ── Real API scan ──
-  const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const url = URL.createObjectURL(file);
-    setUploadedImage(url);
+  // ── Shared scan logic ──
+  const runScan = useCallback(async (imageBlob: Blob, previewUrl?: string) => {
+    if (previewUrl) {
+      setUploadedImage(previewUrl);
+    }
     setScanning(true);
     setScanned(false);
     setScanError(null);
@@ -165,7 +418,7 @@ export default function WardrobeIntelligence() {
 
     try {
       const formData = new FormData();
-      formData.append("image", file);
+      formData.append("image", imageBlob, "capture.jpg");
 
       setScanStatus("🔍 Running Gemini Deep Scan...");
 
@@ -182,7 +435,6 @@ export default function WardrobeIntelligence() {
       const data = await response.json();
       setScanStatus(`✅ Found ${data.total_items} items (${data.hanging_count} hanging, ${data.shelf_count} shelf)`);
 
-      // Convert API results to our ClothingItem format
       const allItems: ClothingItem[] = data.all_items.map((item: any, idx: number) => ({
         id: idx + 1,
         name: item.gemini_label || `${item.color} ${item.type}`,
@@ -205,9 +457,24 @@ export default function WardrobeIntelligence() {
       setScanStatus("");
     } finally {
       setScanning(false);
-      e.target.value = "";
     }
   }, []);
+
+  // ── File upload handler ──
+  const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    await runScan(file, url);
+    e.target.value = "";
+  }, [runScan]);
+
+  // ── Camera capture handler ──
+  const handleCameraCapture = useCallback(async (blob: Blob) => {
+    setShowCamera(false);
+    const url = URL.createObjectURL(blob);
+    await runScan(blob, url);
+  }, [runScan]);
 
   const deleteItem = (id: number) => setItems(prev => prev.filter(i => i.id !== id));
 
@@ -227,7 +494,6 @@ export default function WardrobeIntelligence() {
   const hangingItems = items.filter(i => i.zone === "hanging");
   const shelfItems = items.filter(i => i.zone === "shelf");
 
-  // Category stats from real data
   const categoryStats = allCategories.filter(c => c !== "All").map(cat => {
     const count = items.filter(i => i.category === cat).length;
     const colors: Record<string, string> = {
@@ -239,9 +505,16 @@ export default function WardrobeIntelligence() {
 
   return (
     <div className="p-5 max-w-screen-2xl">
-      {/* Hidden file inputs */}
+      {/* Hidden file input */}
       <input ref={uploadFileRef} type="file" accept="image/*" className="hidden" onChange={handleFileSelect} />
-      <input ref={cameraRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleFileSelect} />
+
+      {/* Camera Modal */}
+      {showCamera && (
+        <CameraModal
+          onCapture={handleCameraCapture}
+          onClose={() => setShowCamera(false)}
+        />
+      )}
 
       {selectedItem && (
         <ItemDetailPanel
@@ -258,17 +531,17 @@ export default function WardrobeIntelligence() {
             <BookOpen className="w-5 h-5 text-amber-600" />
             <h1 className="text-xl font-bold text-foreground tracking-tight">Wardrobe Intelligence</h1>
           </div>
-          <p className="text-xs text-muted-foreground">AI-powered clothing detection with Gemini Deep Scan</p>
+          <p className="text-xs text-muted-foreground">AI-powered clothing detection with Gemini Deep Scan · Live Camera Supported</p>
         </div>
         <div className="flex items-center gap-2">
           <button onClick={() => uploadFileRef.current?.click()} disabled={scanning} className="flex items-center gap-1.5 px-3 py-1.5 border border-border text-foreground rounded-lg text-xs font-medium hover:bg-muted transition-colors disabled:opacity-60">
             <Upload className="w-3.5 h-3.5" />Upload Image
           </button>
-          <button onClick={() => cameraRef.current?.click()} disabled={scanning}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-600 text-white rounded-lg text-xs font-medium hover:bg-amber-700 transition-colors disabled:opacity-60"
+          <button onClick={() => setShowCamera(true)} disabled={scanning}
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg text-xs font-medium hover:from-amber-600 hover:to-amber-700 transition-all shadow-md shadow-amber-600/20 disabled:opacity-60"
           >
             {scanning ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Camera className="w-3.5 h-3.5" />}
-            {scanning ? "Scanning..." : "Scan Wardrobe"}
+            {scanning ? "Scanning..." : "📷 Live Camera Scan"}
           </button>
         </div>
       </div>
@@ -323,8 +596,8 @@ export default function WardrobeIntelligence() {
               )}
             </div>
             <div className="space-y-1.5">
-              <button onClick={() => cameraRef.current?.click()} disabled={scanning} className="w-full flex items-center justify-center gap-1.5 py-2 bg-amber-600 text-white rounded-lg text-xs font-medium hover:bg-amber-700 disabled:opacity-60 transition-colors">
-                <Camera className="w-3.5 h-3.5" />Scan via Camera
+              <button onClick={() => setShowCamera(true)} disabled={scanning} className="w-full flex items-center justify-center gap-1.5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg text-xs font-medium hover:from-amber-600 hover:to-amber-700 disabled:opacity-60 transition-all shadow-md shadow-amber-600/20">
+                <Camera className="w-3.5 h-3.5" />📷 Scan via Camera
               </button>
               <button onClick={() => uploadFileRef.current?.click()} disabled={scanning} className="w-full flex items-center justify-center gap-1.5 py-2 border border-border text-muted-foreground rounded-lg text-xs font-medium hover:bg-muted transition-colors disabled:opacity-60">
                 <Upload className="w-3.5 h-3.5" />Upload Clothing Image
@@ -483,15 +756,23 @@ export default function WardrobeIntelligence() {
               {/* Empty state */}
               {items.length === 0 && !scanning && (
                 <div className="text-center py-16 text-muted-foreground">
-                  <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-20" />
+                  <Camera className="w-12 h-12 mx-auto mb-4 opacity-20" />
                   <p className="text-base font-semibold mb-1">Your wardrobe is empty</p>
-                  <p className="text-xs text-muted-foreground mb-4">Upload or capture a wardrobe image to get started</p>
-                  <button
-                    onClick={() => uploadFileRef.current?.click()}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-amber-600 text-white rounded-lg text-sm font-medium hover:bg-amber-700 transition-colors"
-                  >
-                    <Upload className="w-4 h-4" />Upload Your First Image
-                  </button>
+                  <p className="text-xs text-muted-foreground mb-4">Use the live camera or upload an image to get started</p>
+                  <div className="flex items-center justify-center gap-3">
+                    <button
+                      onClick={() => setShowCamera(true)}
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg text-sm font-medium hover:from-amber-600 hover:to-amber-700 transition-all shadow-md shadow-amber-600/20"
+                    >
+                      <Camera className="w-4 h-4" />📷 Open Camera
+                    </button>
+                    <button
+                      onClick={() => uploadFileRef.current?.click()}
+                      className="inline-flex items-center gap-2 px-4 py-2 border border-border text-foreground rounded-lg text-sm font-medium hover:bg-muted transition-colors"
+                    >
+                      <Upload className="w-4 h-4" />Upload Image
+                    </button>
+                  </div>
                 </div>
               )}
 
