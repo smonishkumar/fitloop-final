@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FitLoop | Wardrobe Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#00adfa",
+                        "secondary-container": "#006d35",
+                        "primary": "#ba9eff",
+                        "secondary-fixed-dim": "#24f07e",
+                        "background": "#060e20",
+                        "surface-bright": "#1f2b49",
+                        "on-secondary-fixed": "#004820",
+                        "surface-container-low": "#091328",
+                        "inverse-on-surface": "#4d556b",
+                        "secondary-dim": "#24f07e",
+                        "error": "#ff6e84",
+                        "on-tertiary-fixed": "#001a2a",
+                        "on-primary": "#39008c",
+                        "on-background": "#dee5ff",
+                        "surface": "#060e20",
+                        "on-error": "#490013",
+                        "surface-tint": "#ba9eff",
+                        "inverse-surface": "#faf8ff",
+                        "surface-dim": "#060e20",
+                        "on-primary-container": "#2b006e",
+                        "tertiary-container": "#00affe",
+                        "on-tertiary": "#003652",
+                        "error-dim": "#d73357",
+                        "secondary-fixed": "#3fff8b",
+                        "on-surface-variant": "#a3aac4",
+                        "outline-variant": "#40485d",
+                        "on-tertiary-container": "#002a42",
+                        "on-secondary-container": "#e3ffe4",
+                        "tertiary-dim": "#00a7f2",
+                        "on-tertiary-fixed-variant": "#003d5c",
+                        "on-error-container": "#ffb2b9",
+                        "surface-variant": "#192540",
+                        "primary-fixed": "#ae8dff",
+                        "on-secondary-fixed-variant": "#006832",
+                        "tertiary": "#57bcff",
+                        "tertiary-fixed": "#4cb9ff",
+                        "outline": "#6d758c",
+                        "surface-container": "#0f1930",
+                        "on-primary-fixed": "#000000",
+                        "surface-container-highest": "#192540",
+                        "on-secondary": "#005d2c",
+                        "primary-dim": "#8455ef",
+                        "primary-fixed-dim": "#a27cff",
+                        "inverse-primary": "#6e3bd7",
+                        "error-container": "#a70138",
+                        "surface-container-lowest": "#000000",
+                        "secondary": "#3fff8b",
+                        "on-surface": "#dee5ff",
+                        "primary-container": "#ae8dff",
+                        "surface-container-high": "#141f38",
+                        "on-primary-fixed-variant": "#370086"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: rgba(25, 37, 64, 0.4);
+        }
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #40485d;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen overflow-hidden">
+<!-- Left Side Navigation Bar -->
+<nav class="flex flex-col py-8 px-4 h-screen w-72 fixed left-0 top-0 overflow-y-auto bg-slate-950/80 backdrop-blur-xl bg-gradient-to-r from-slate-900 to-slate-950 shadow-[20px_0_40px_-15px_rgba(0,0,0,0.5)] z-50 sidebar-scroll">
+<div class="mb-10 px-4">
+<h1 class="text-2xl font-bold tracking-tighter text-[#ba9eff] font-headline">FitLoop</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-medium mt-1">AI Fashion Analyst</p>
+</div>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50" href="{{DATA:SCREEN:SCREEN_18}}">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="font-['Space_Grotesk'] text-sm tracking-wide">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50" href="{{DATA:SCREEN:SCREEN_20}}">
+<span class="material-symbols-outlined text-lg">biotech</span>
+<span class="font-['Space_Grotesk'] text-sm tracking-wide">Body Intelligence</span>
+</a>
+<!-- ACTIVE TAB -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 bg-[#ba9eff]/10 text-[#ba9eff] font-bold border-r-2 border-[#ba9eff]" href="{{DATA:SCREEN:SCREEN_21}}">
+<span class="material-symbols-outlined text-lg">checkroom</span>
+<span class="font-['Space_Grotesk'] text-sm tracking-wide">Wardrobe</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50" href="{{DATA:SCREEN:SCREEN_15}}">
+<span class="material-symbols-outlined text-lg">auto_fix_high</span>
+<span class="font-['Space_Grotesk'] text-sm tracking-wide">Outfit Engine</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50" href="{{DATA:SCREEN:SCREEN_17}}">
+<span class="material-symbols-outlined text-lg">shopping_bag</span>
+<span class="font-['Space_Grotesk'] text-sm tracking-wide">Smart Shopping</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50" href="{{DATA:SCREEN:SCREEN_19}}">
+<span class="material-symbols-outlined text-lg">accessibility_new</span>
+<span class="font-['Space_Grotesk'] text-sm tracking-wide">Virtual Try-On</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50" href="{{DATA:SCREEN:SCREEN_22}}">
+<span class="material-symbols-outlined text-lg">inventory_2</span>
+<span class="font-['Space_Grotesk'] text-sm tracking-wide">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50" href="{{DATA:SCREEN:SCREEN_4}}">
+<span class="material-symbols-outlined text-lg">receipt_long</span>
+<span class="font-['Space_Grotesk'] text-sm tracking-wide">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 text-slate-400 hover:text-slate-100 hover:bg-slate-800/50" href="{{DATA:SCREEN:SCREEN_2}}">
+<span class="material-symbols-outlined text-lg">leaderboard</span>
+<span class="font-['Space_Grotesk'] text-sm tracking-wide">Analytics</span>
+</a>
+</div>
+<div class="mt-auto px-4 pt-6">
+<button class="w-full py-4 bg-gradient-to-br from-primary to-primary-dim rounded-xl font-bold text-on-primary flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">add_circle</span>
+                New Analysis
+            </button>
+</div>
+</nav>
+<!-- Main Content Shell -->
+<main class="ml-72 flex flex-col h-screen">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between h-20 px-8 bg-slate-950/40 backdrop-blur-md sticky top-0 z-40">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl pl-12 pr-4 py-2.5 text-on-background placeholder:text-on-surface-variant focus:ring-1 focus:ring-primary/30 transition-all font-body" placeholder="Search your digital wardrobe..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6 ml-8">
+<button class="text-slate-400 hover:text-[#3fff8b] transition-colors">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<button class="text-slate-400 hover:text-[#3fff8b] transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="flex items-center gap-3 text-slate-400 hover:text-[#3fff8b] transition-colors">
+<img class="w-8 h-8 rounded-full border border-outline/30 object-cover" data-alt="portrait of a fashionable modern woman with studio lighting and minimalist aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjjiMPmEJDm4LcMa_WRQUB86unOD96cvkDrAcNOheTAwjK9rp2NBrOUWR1igqy8JGkkm3Y35Wu1Cm1YSTbnM8U2Dib1uKi5xavURUHbZgQPWtHVM6bywA7fYHfXzzfMYasw1XYo1aFOXx6ygJxj1kQJF--Ety-E_Eq-eO8DO4zeLE5bOSQKHwrLB1tb_k9beB1Mx7r1BFIz7WwB35ibJJGTNP-uxDjZpjooJUl3LzcYi-rxTfgYJsVcIPrC5RrAlPdL-EzL0vhvOw"/>
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<section class="flex-1 p-8 overflow-y-auto bg-gradient-to-b from-surface-container-low to-background">
+<div class="flex gap-8 max-w-[1600px] mx-auto">
+<!-- Left Column: Wardrobe Scan & Stats -->
+<div class="w-80 flex-shrink-0 space-y-6">
+<!-- Wardrobe Scan Sidebar -->
+<div class="glass-panel rounded-3xl p-6 shadow-2xl">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline font-bold text-lg text-primary">Wardrobe Scan</h3>
+<span class="material-symbols-outlined text-tertiary">linked_camera</span>
+</div>
+<div class="space-y-4">
+<div class="aspect-square rounded-2xl bg-surface-container-lowest border-2 border-dashed border-outline-variant flex flex-col items-center justify-center text-center p-6 group cursor-pointer hover:border-primary/50 transition-all">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary mb-2 transition-colors">cloud_upload</span>
+<p class="text-sm font-medium">Upload Clothing Image</p>
+<p class="text-xs text-on-surface-variant mt-1">PNG, JPG up to 10MB</p>
+</div>
+<button class="w-full py-4 bg-surface-bright/50 border border-outline/10 rounded-2xl flex items-center justify-center gap-3 hover:bg-surface-bright transition-all active:scale-95 group">
+<span class="material-symbols-outlined text-secondary transition-transform group-hover:scale-110">photo_camera</span>
+<span class="font-bold text-sm">Scan via Camera</span>
+</button>
+</div>
+<div class="mt-8 p-4 bg-primary/5 rounded-2xl border border-primary/10">
+<p class="text-[10px] font-bold text-primary uppercase tracking-widest mb-2">AI System Status</p>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-xs font-medium">Vision Engine Online</span>
+</div>
+</div>
+</div>
+<!-- Clothing Detection Summary -->
+<div class="glass-panel rounded-3xl p-6">
+<h3 class="font-headline font-bold text-lg text-on-background mb-6">Inventory Data</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-highest p-4 rounded-2xl">
+<p class="text-xs text-on-surface-variant mb-1">Tops</p>
+<p class="text-2xl font-headline font-bold text-tertiary">42</p>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-2xl">
+<p class="text-xs text-on-surface-variant mb-1">Bottoms</p>
+<p class="text-2xl font-headline font-bold text-secondary">28</p>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-2xl">
+<p class="text-xs text-on-surface-variant mb-1">Outerwear</p>
+<p class="text-2xl font-headline font-bold text-primary">15</p>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-2xl">
+<p class="text-xs text-on-surface-variant mb-1">Footwear</p>
+<p class="text-2xl font-headline font-bold text-on-background">12</p>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t border-outline-variant/30">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-medium">Digital Sync Completion</span>
+<span class="text-xs font-bold text-secondary">84%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary" style="width: 84%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Filters & Wardrobe Grid -->
+<div class="flex-1 flex flex-col gap-8">
+<!-- Filters Row -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary font-bold text-sm transition-all whitespace-nowrap">All Items</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-medium text-sm hover:bg-surface-bright transition-all whitespace-nowrap">Tops</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-medium text-sm hover:bg-surface-bright transition-all whitespace-nowrap">Bottoms</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-medium text-sm hover:bg-surface-bright transition-all whitespace-nowrap">Dresses</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-medium text-sm hover:bg-surface-bright transition-all whitespace-nowrap">Shoes</button>
+<button class="px-6 py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-medium text-sm hover:bg-surface-bright transition-all whitespace-nowrap">Accessories</button>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2.5 rounded-xl bg-surface-container-highest text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<button class="p-2.5 rounded-xl bg-surface-container-highest text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+</div>
+</div>
+<!-- Wardrobe Intelligence Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Item Card 1 -->
+<div class="bg-surface-container-highest rounded-3xl overflow-hidden group hover:shadow-[0_20px_50px_-15px_rgba(186,158,255,0.2)] transition-all duration-500 border border-outline/5">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="a premium designer wool coat in deep navy blue on a clean minimalist studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC96YcqNte6GJryD06yUePP_m5oaW8IjqvasgGXiCagqigNot2MoEtDkFqMP2U4fSmtRjl2VFVsrEBMIiLdwpMuhWyZjT3bLbEN68hRk615Q_dQxpBjJiwwwUzs9aeyrJWfGz1Jph2u0NwN6T1pJF75JN4WZCSHj_57l3tYkPGgNE1jyYX8tDrWgqTGYTE81du6il9k_YL0DBiqdLl4GDD64GTg7cN4uXpXCASK27y70E6GgwpA8KdoL5L92lONrFtdb4_MK_Xw41c"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 rounded-lg bg-slate-950/60 backdrop-blur-md text-[10px] font-bold text-primary border border-primary/20 uppercase tracking-widest">Premium Fit</span>
+</div>
+<button class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-950/60 backdrop-blur-md flex items-center justify-center text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-headline font-bold text-lg">Cashmere Overcoat</h4>
+<span class="text-secondary font-bold text-xs">A+ Score</span>
+</div>
+<div class="flex items-center gap-4 mb-4">
+<span class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#0a1a3a]"></span> Navy Blue
+                                    </span>
+<span class="text-xs text-on-surface-variant font-medium">Zara Heritage</span>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-md bg-surface-bright text-[10px] font-bold uppercase tracking-tight text-tertiary">Formal</span>
+<span class="px-3 py-1 rounded-md bg-surface-bright text-[10px] font-bold uppercase tracking-tight text-on-surface-variant">Winter</span>
+</div>
+</div>
+</div>
+<!-- Item Card 2 -->
+<div class="bg-surface-container-highest rounded-3xl overflow-hidden group hover:shadow-[0_20px_50px_-15px_rgba(63,255,139,0.2)] transition-all duration-500 border border-outline/5">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="high-quality indigo selvedge denim jeans laid flat on a rustic wooden texture with soft moody lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2rFRgVF56zSEyH1CFKKhQQrxgUiXRAM3hl3hDnXMatvTrgMVMI-qMxl-ZoXAg3thPl-mI6gH0Eu1kjyNtyo2l0wr9puNEKJ_Q1D2HvpNxPBHZ-Ouf8SnZnwK1QVT_xDeTKVLMpR-XJFNCvUEMwPNGuL2wxC0SZFmV59XSR3940xZHHOk78v3NSzUQtf5zT7qnvA7dKnSgUH-COT7fjI-jxVKRzF4GO3nrSdR2vgiN1OdK0FOSlNQRRdydlcSsfLy84d46Bd0LCuA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 rounded-lg bg-slate-950/60 backdrop-blur-md text-[10px] font-bold text-secondary border border-secondary/20 uppercase tracking-widest">Eco-Conscious</span>
+</div>
+<button class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-950/60 backdrop-blur-md flex items-center justify-center text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-headline font-bold text-lg">Slim Fit Selvedge</h4>
+<span class="text-secondary font-bold text-xs">B+ Score</span>
+</div>
+<div class="flex items-center gap-4 mb-4">
+<span class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#1c2e4a]"></span> Indigo
+                                    </span>
+<span class="text-xs text-on-surface-variant font-medium">Levi's Premium</span>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-md bg-surface-bright text-[10px] font-bold uppercase tracking-tight text-tertiary">Casual</span>
+<span class="px-3 py-1 rounded-md bg-surface-bright text-[10px] font-bold uppercase tracking-tight text-on-surface-variant">All Season</span>
+</div>
+</div>
+</div>
+<!-- Item Card 3 -->
+<div class="bg-surface-container-highest rounded-3xl overflow-hidden group hover:shadow-[0_20px_50px_-15px_rgba(186,158,255,0.2)] transition-all duration-500 border border-outline/5">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="crisp white cotton t-shirt with a high-end textured finish on a soft grey background with cinematic shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUbgXu9hNQJ9yR-BO33P2a5WWuZNbtvx3o43yvCazrGF-2TZcFK0qgDPlZ20uAfmGpveqydrvU3waYuGmLcG_v2vx7P3dGG52D9B4i5zR-Gq9v-dIEo4HGuyC_Qh91BaCeOQ4ecx0jaIqvFpKlnEDYHv9RM6Bwy0jLF2xtPiklMEeq8X3bSTd7VbMFHDJrvrOLvI5KOTnE4zR2FXJS_ohrqABHa1uclg8ZWh5zY52Gzucgu_CnKRaQMMJ7K5ItfoBuzvfFADRmiOM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute top-4 left-4">
+<span class="px-3 py-1 rounded-lg bg-slate-950/60 backdrop-blur-md text-[10px] font-bold text-primary border border-primary/20 uppercase tracking-widest">Wardrobe Staple</span>
+</div>
+<button class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-950/60 backdrop-blur-md flex items-center justify-center text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-headline font-bold text-lg">Supima Cotton Tee</h4>
+<span class="text-tertiary font-bold text-xs">Essential</span>
+</div>
+<div class="flex items-center gap-4 mb-4">
+<span class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#ffffff] border border-outline/20"></span> Arctic White
+                                    </span>
+<span class="text-xs text-on-surface-variant font-medium">Uniqlo U</span>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-md bg-surface-bright text-[10px] font-bold uppercase tracking-tight text-tertiary">Basics</span>
+<span class="px-3 py-1 rounded-md bg-surface-bright text-[10px] font-bold uppercase tracking-tight text-on-surface-variant">Summer</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Analytics Teaser -->
+<div class="glass-panel rounded-3xl p-8 flex items-center justify-between mt-auto">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ba9eff] to-[#3fff8b] flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-950 text-3xl">psychology</span>
+</div>
+<div>
+<h4 class="text-xl font-headline font-bold mb-1">Wardrobe Intelligence Report</h4>
+<p class="text-on-surface-variant text-sm">AI detected 12 missing essentials for your upcoming Tokyo trip.</p>
+</div>
+</div>
+<button class="px-8 py-3 rounded-xl bg-surface-bright text-primary font-bold hover:bg-primary hover:text-on-primary transition-all border border-primary/20">
+                            View Analysis
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB (Hidden on Wardrobe subpage per rules, but shown here for UI completeness as it's the core action) -->
+<!-- Suppressed per instructions for sub-pages but kept as structural element if required for other views -->
+</body></html>
