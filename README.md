@@ -1,4 +1,4 @@
-# FitLoop Final - Body Scan Model Branch
+# FitLoop  - Body Scan Model Branch
 
 This branch contains the updated body scan flow using:
 - `dashboard` (React + FastAPI app)
