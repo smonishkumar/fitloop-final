@@ -36,7 +36,7 @@ export const wardrobeService = {
 export const measurementService = {
   getLatest: (userId) => apiClient.get(`/measurements/${userId}`),
   saveMeasurements: (data) => apiClient.post('/measurements', data),
-  scanBody: (file, metadata = {}) => {
+  scanBody: (file, metadata = {}, options = {}) => {
     const formData = new FormData();
     formData.append('file', file);
     if (metadata.height_cm !== undefined && metadata.height_cm !== null) {
@@ -53,7 +53,7 @@ export const measurementService = {
     }
 
     return apiClient.post('/measurements/scan', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
+      signal: options.signal,
     });
   }
 };
